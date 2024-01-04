@@ -7,3 +7,7 @@ abstract class AppRouteNames {
   static const String home = 'home';
   static const String addPlayers = 'add-players';
 }
+
+abstract class AppRouteList {
+  static const List<String> routes = [AppRoutes.home, AppRoutes.addPlayers];
+}

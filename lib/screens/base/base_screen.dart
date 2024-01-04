@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../core/core.dart';
 import 'base.dart';
 
 class BaseScreen extends StatelessWidget {
@@ -9,16 +11,33 @@ class BaseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => BaseCubit()..onWidgetDidInit(),
-      child: BlocBuilder<BaseCubit, BaseState>(
-        builder: (context, state) => Scaffold(
-          appBar: AppBar(
-            title: const Text('Rikiki'),
-          ),
-          body: child,
-        ),
-      ),
+    final fullPath = GoRouterState.of(context).fullPath;
+    final isHome = fullPath == AppRoutes.home;
+    return BlocBuilder<BaseCubit, BaseState>(
+      builder: (context, state) {
+        if (state is BaseLoadedState) {
+          return Scaffold(
+            //resizeToAvoidBottomInset: true,
+            appBar: AppBar(
+              title: const Text('Rikiki'),
+              leading: isHome
+                  ? null
+                  : IconButton(
+                      onPressed: () async {
+                        final prev = getPreviousRoute(fullPath ?? '/');
+                        Router.neglect(
+                            context, () => GoRouter.of(context).go(prev));
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: AppColors.white,
+                      )),
+            ),
+            body: SafeArea(child: child),
+          );
+        }
+        return const LoadingScreen();
+      },
     );
   }
 }

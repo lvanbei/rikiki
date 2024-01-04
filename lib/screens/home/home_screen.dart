@@ -15,7 +15,8 @@ class HomeScreen extends StatelessWidget {
         BigButton(
           title: 'start',
           onPressed: () {
-            context.go(AppRoutes.addPlayers);
+            Router.neglect(
+                context, () => GoRouter.of(context).go(AppRoutes.addPlayers));
           },
         ),
         const SizedBox(

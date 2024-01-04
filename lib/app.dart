@@ -1,61 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rikiki_for_real/core/constants/routes.dart';
 import 'package:rikiki_for_real/screens/screens.dart';
 
 import 'core/core.dart';
-import 'main.dart';
+
+final rootNavigatorKey = GlobalKey<NavigatorState>();
+final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          backgroundColor: AppColors.black,
-          titleTextStyle: Theme.of(context)
-              .textTheme
-              .headlineLarge!
-              .copyWith(color: AppColors.white),
+    return BlocProvider(
+      create: (_) => BaseCubit()..onWidgetDidInit(),
+      child: MaterialApp.router(
+        theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            backgroundColor: AppColors.black,
+            titleTextStyle: Theme.of(context)
+                .textTheme
+                .headlineLarge!
+                .copyWith(color: AppColors.white),
+          ),
+          scaffoldBackgroundColor: AppColors.white,
+          colorScheme:
+              Theme.of(context).colorScheme.copyWith(primary: AppColors.black),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.black,
+                  foregroundColor: AppColors.white,
+                  textStyle: const TextStyle(fontSize: 36))),
         ),
-        scaffoldBackgroundColor: AppColors.white,
-        primarySwatch: getMaterialColor(AppColors.black),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.black,
-                foregroundColor: AppColors.white,
-                textStyle: const TextStyle(fontSize: 36))),
-      ),
-      title: 'Rikiki',
-      routerConfig: GoRouter(
-        initialLocation: AppRoutes.home,
-        navigatorKey: GlobalKey<NavigatorState>(),
-        routes: [
-          ShellRoute(
-            observers: [MyObserver(context: context)],
-            builder: (context, state, child) => BaseScreen(child: child),
-            routes: [
-              GoRoute(
-                  name: AppRouteNames.home,
-                  path: AppRoutes.home,
-                  pageBuilder: (context, state) => NoTransitionPage(
-                        name: state.fullPath,
-                        key: state.pageKey,
-                        child: const HomeScreen(),
-                      )),
-              GoRoute(
+        title: 'Rikiki',
+        routerConfig: GoRouter(
+          navigatorKey: rootNavigatorKey,
+          initialLocation: AppRoutes.home,
+          routes: [
+            ShellRoute(
+              navigatorKey: _shellNavigatorKey,
+              builder: (context, state, child) => BaseScreen(child: child),
+              routes: [
+                GoRoute(
+                    parentNavigatorKey: _shellNavigatorKey,
+                    name: AppRouteNames.home,
+                    path: AppRoutes.home,
+                    pageBuilder: (context, GoRouterState state) =>
+                        NoTransitionPage(
+                          name: state.fullPath,
+                          key: state.pageKey,
+                          child: const HomeScreen(),
+                        )),
+                GoRoute(
+                  parentNavigatorKey: _shellNavigatorKey,
                   name: AppRouteNames.addPlayers,
                   path: AppRoutes.addPlayers,
                   pageBuilder: (context, state) => NoTransitionPage(
-                        name: state.fullPath,
-                        key: state.pageKey,
-                        child: const Center(child: Text("add player")),
-                      )),
-            ],
-          )
-        ],
+                      name: state.fullPath,
+                      key: state.pageKey,
+                      child: const AddPlayersScreen()),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -68,9 +77,12 @@ class MyObserver extends NavigatorObserver {
 
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    getIt
-        .get<BaseCubit>()
-        .displayBackArrow(route.settings.name == AppRoutes.home);
+    // Future.delayed(const Duration(seconds: 2), () {
+    //   context
+    //       .read<BaseCubit>()
+    //       .displayBackArrow(route.settings.name == AppRoutes.home);
+    // });
+    //BlocProvider.of<BaseCubit>().displayBackArrow(true);
   }
 
   // @override
