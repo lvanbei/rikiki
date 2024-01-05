@@ -27,6 +27,8 @@ class AddPlayersLoadedState extends AddPlayersState {
 
   bool get playersLimit => listOfPlayers.length > 10;
 
+  bool get enoughPlayer => listOfPlayers.length > 1;
+
   bool get playerAlreadyExist {
     final res = listOfPlayers.firstWhereOrNull(
             (PlayerModel element) => element.name == controller.text) !=
@@ -42,7 +44,6 @@ class AddPlayersLoadedState extends AddPlayersState {
           Validators.minLength(2),
           Validators.maxLength(24),
           Validators.delegate((control) {
-            print("check");
             if (playersLimit) {
               return <String, Object?>{
                 ValidationMessage.max: <String, Object?>{}

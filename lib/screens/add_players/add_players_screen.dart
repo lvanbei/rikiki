@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:rikiki_for_real/core/constants/button_sizes.dart';
 
 import '../../core/core.dart';
 import 'add_players.dart';
@@ -32,6 +34,7 @@ class AddPlayersScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ReactiveTextField(
+                            keyboardType: TextInputType.name,
                             formControlName: state.playerNameField,
                             autocorrect: false,
                             autofocus: true,
@@ -93,6 +96,7 @@ class AddPlayersScreen extends StatelessWidget {
                               itemCount: state.listOfPlayers.length,
                               itemBuilder: (context, index) => ListTile(
                                 title: Text(state.listOfPlayers[index].name),
+                                leading: Text('${(index + 1)}.'),
                                 trailing: IconButton(
                                     onPressed: () {
                                       if (state.playersLimit) {
@@ -107,6 +111,22 @@ class AddPlayersScreen extends StatelessWidget {
                                     icon: const Icon(Icons.delete_forever)),
                               ),
                             ))),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                    child: MyButton(
+                      title: "next",
+                      onPressed: state.enoughPlayer
+                          ? () {
+                              Router.neglect(
+                                  context,
+                                  () =>
+                                      GoRouter.of(context).go(AppRoutes.game));
+                            }
+                          : null,
+                      size: ButtonSizes.small,
+                    ),
                   )
                 ],
               ),

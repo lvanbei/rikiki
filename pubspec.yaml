@@ -43,6 +43,8 @@ dependencies:
   collection: ^1.18.0
   shared_preferences: ^2.2.2
   json_annotation: ^4.8.1
+  onscreen_num_keyboard: ^1.0.4
+  animated_text_kit: ^4.2.2
 
 dev_dependencies:
   copy_with_extension_gen: ^5.0.4

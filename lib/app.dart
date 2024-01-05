@@ -27,11 +27,20 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: AppColors.white,
           colorScheme:
               Theme.of(context).colorScheme.copyWith(primary: AppColors.black),
+          iconButtonTheme: IconButtonThemeData(
+              style: IconButton.styleFrom(
+            backgroundColor: AppColors.black,
+            foregroundColor: AppColors.white,
+            disabledForegroundColor: AppColors.grey,
+            disabledBackgroundColor: AppColors.lightGrey,
+          )),
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.black,
-                  foregroundColor: AppColors.white,
-                  textStyle: const TextStyle(fontSize: 36))),
+            backgroundColor: AppColors.black,
+            foregroundColor: AppColors.white,
+            disabledForegroundColor: AppColors.grey,
+            disabledBackgroundColor: AppColors.lightGrey,
+          )),
         ),
         title: 'Rikiki',
         routerConfig: GoRouter(
@@ -60,6 +69,15 @@ class MyApp extends StatelessWidget {
                       name: state.fullPath,
                       key: state.pageKey,
                       child: const AddPlayersScreen()),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _shellNavigatorKey,
+                  name: AppRouteNames.game,
+                  path: AppRoutes.game,
+                  pageBuilder: (context, state) => NoTransitionPage(
+                      name: state.fullPath,
+                      key: state.pageKey,
+                      child: const GameScreen()),
                 ),
               ],
             )

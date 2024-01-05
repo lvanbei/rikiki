@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rikiki_for_real/core/constants/routes.dart';
+import 'package:rikiki_for_real/core/constants/button_sizes.dart';
 import 'package:rikiki_for_real/core/core.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,8 +12,9 @@ class HomeScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        BigButton(
+        MyButton(
           title: 'start',
+          size: ButtonSizes.big,
           onPressed: () {
             Router.neglect(
                 context, () => GoRouter.of(context).go(AppRoutes.addPlayers));
@@ -22,7 +23,7 @@ class HomeScreen extends StatelessWidget {
         const SizedBox(
           height: 32,
         ),
-        const BigButton(title: 'start'),
+        const MyButton(title: 'Score', size: ButtonSizes.big),
       ],
     );
   }

@@ -17,7 +17,7 @@ class BaseScreen extends StatelessWidget {
       builder: (context, state) {
         if (state is BaseLoadedState) {
           return Scaffold(
-            //resizeToAvoidBottomInset: true,
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               title: const Text('Rikiki'),
               leading: isHome
