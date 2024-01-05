@@ -13,9 +13,11 @@ abstract class _$GameLoadedStateCWProxy {
 
   GameLoadedState round(int round);
 
-  GameLoadedState fold(int fold);
+  GameLoadedState foldTotal(int foldTotal);
 
   GameLoadedState turn(int turn);
+
+  GameLoadedState roundDirection(RoundDirection roundDirection);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `GameLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -27,8 +29,9 @@ abstract class _$GameLoadedStateCWProxy {
     List<PlayerModel>? listOfPlayers,
     SharedPreferences? prefs,
     int? round,
-    int? fold,
+    int? foldTotal,
     int? turn,
+    RoundDirection? roundDirection,
   });
 }
 
@@ -49,10 +52,14 @@ class _$GameLoadedStateCWProxyImpl implements _$GameLoadedStateCWProxy {
   GameLoadedState round(int round) => this(round: round);
 
   @override
-  GameLoadedState fold(int fold) => this(fold: fold);
+  GameLoadedState foldTotal(int foldTotal) => this(foldTotal: foldTotal);
 
   @override
   GameLoadedState turn(int turn) => this(turn: turn);
+
+  @override
+  GameLoadedState roundDirection(RoundDirection roundDirection) =>
+      this(roundDirection: roundDirection);
 
   @override
 
@@ -66,8 +73,9 @@ class _$GameLoadedStateCWProxyImpl implements _$GameLoadedStateCWProxy {
     Object? listOfPlayers = const $CopyWithPlaceholder(),
     Object? prefs = const $CopyWithPlaceholder(),
     Object? round = const $CopyWithPlaceholder(),
-    Object? fold = const $CopyWithPlaceholder(),
+    Object? foldTotal = const $CopyWithPlaceholder(),
     Object? turn = const $CopyWithPlaceholder(),
+    Object? roundDirection = const $CopyWithPlaceholder(),
   }) {
     return GameLoadedState(
       listOfPlayers:
@@ -83,14 +91,19 @@ class _$GameLoadedStateCWProxyImpl implements _$GameLoadedStateCWProxy {
           ? _value.round
           // ignore: cast_nullable_to_non_nullable
           : round as int,
-      fold: fold == const $CopyWithPlaceholder() || fold == null
-          ? _value.fold
+      foldTotal: foldTotal == const $CopyWithPlaceholder() || foldTotal == null
+          ? _value.foldTotal
           // ignore: cast_nullable_to_non_nullable
-          : fold as int,
+          : foldTotal as int,
       turn: turn == const $CopyWithPlaceholder() || turn == null
           ? _value.turn
           // ignore: cast_nullable_to_non_nullable
           : turn as int,
+      roundDirection: roundDirection == const $CopyWithPlaceholder() ||
+              roundDirection == null
+          ? _value.roundDirection
+          // ignore: cast_nullable_to_non_nullable
+          : roundDirection as RoundDirection,
     );
   }
 }

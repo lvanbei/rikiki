@@ -5,7 +5,9 @@ part 'player_model.g.dart';
 @JsonSerializable()
 class PlayerModel {
   final String name;
-  const PlayerModel({required this.name});
+  int fold;
+
+  PlayerModel({required this.name, this.fold = 0});
 
   factory PlayerModel.fromJson(Map<String, dynamic> json) =>
       _$PlayerModelFromJson(json);

@@ -33,7 +33,10 @@ class BaseScreen extends StatelessWidget {
                         color: AppColors.white,
                       )),
             ),
-            body: SafeArea(child: child),
+            body: SafeArea(
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 24),
+                    child: child)),
           );
         }
         return const LoadingScreen();

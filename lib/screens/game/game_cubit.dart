@@ -25,15 +25,75 @@ class GameCubit extends Cubit<GameState> {
 
   void updateFold(int newFold) {
     final currentState = state as GameLoadedState;
-    if (newFold <= currentState.round && newFold != currentState.fold) {
-      emit(currentState.copyWith(fold: newFold));
+    final player = currentState.listOfPlayers[currentState.turn];
+
+    if (newFold != player.fold) {
+      if (currentState.isLastPlayer) {
+        player.fold = newFold;
+        emit(currentState.copyWith(listOfPlayers: currentState.listOfPlayers));
+        return;
+      }
+      final newFoldTotal = currentState.foldTotal - player.fold + newFold;
+      player.fold = newFold;
+      print('newFold : $newFoldTotal');
+      emit(currentState.copyWith(foldTotal: newFoldTotal));
     }
   }
 
-  void updateTurn() {
+  void nextTurn() {
     final currentState = state as GameLoadedState;
-    if (currentState.turn < currentState.listOfPlayers.length - 1) {
-      emit(currentState.copyWith(turn: currentState.turn + 1));
+    final currentTurn = currentState.turn + 1;
+    // turn +1
+    if (currentTurn < currentState.listOfPlayers.length) {
+      if (currentTurn == currentState.listOfPlayers.length - 1 &&
+          currentState.lastPlayerNotAllowedFold == 0) {
+        print('update');
+        currentState.listOfPlayers[currentTurn].fold = 1;
+        emit(currentState.copyWith(turn: currentTurn));
+        return;
+      }
+      emit(currentState.copyWith(turn: currentTurn));
+    }
+
+    // round +1
+    // turn 0
+    if (currentState.isLastPlayer && currentState.isRoundUp) {
+      emit(currentState.copyWith(
+          listOfPlayers: currentState.listOfPlayers.rotatedLeft(1),
+          turn: 0,
+          foldTotal: 0,
+          round: currentState.round + 1,
+          roundDirection: RoundDirection.up));
+    }
+
+    // round -1
+    // turn 0
+    if (currentState.isLastPlayer && !currentState.isRoundUp) {
+      emit(currentState.copyWith(
+          turn: 0,
+          foldTotal: 0,
+          round: currentState.round - 1,
+          roundDirection: RoundDirection.down));
+    }
+  }
+
+  void previousTurn() {
+    final currentState = state as GameLoadedState;
+    if (currentState.turn > 0) {
+      if (currentState.isLastPlayer) {
+        emit(currentState.copyWith(
+          turn: currentState.turn - 1,
+        ));
+        currentState.listOfPlayers[currentState.turn].fold = 0;
+        return;
+      }
+      print('minus : ${currentState.listOfPlayers[currentState.turn].fold}');
+      emit(currentState.copyWith(
+        turn: currentState.turn - 1,
+        foldTotal: currentState.foldTotal -
+            currentState.listOfPlayers[currentState.turn].fold,
+      ));
+      currentState.listOfPlayers[currentState.turn].fold = 0;
     }
   }
 }

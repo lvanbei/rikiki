@@ -1,0 +1,1 @@
+enum RoundDirection { up, down }
