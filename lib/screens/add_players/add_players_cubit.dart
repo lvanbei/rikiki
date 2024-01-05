@@ -30,7 +30,10 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     if (newPlayer.isNotEmpty) {
       final currentPlayers = currentState.listOfPlayers;
       currentState.controller.text = '';
-      currentPlayers.add(PlayerModel(name: newPlayer));
+      currentPlayers.add(PlayerModel(
+        name: newPlayer,
+        folds: [FoldsModel()],
+      ));
       emit(currentState.copyWith(listOfPlayers: currentPlayers));
       currentState.prefs.setString("players",
           jsonEncode(currentPlayers.map((e) => e.toJson()).toList()));

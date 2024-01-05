@@ -25,17 +25,16 @@ class GameCubit extends Cubit<GameState> {
 
   void updateFold(int newFold) {
     final currentState = state as GameLoadedState;
-    final player = currentState.listOfPlayers[currentState.turn];
 
-    if (newFold != player.fold) {
+    if (newFold != currentState.getPlayerFold) {
       if (currentState.isLastPlayer) {
-        player.fold = newFold;
-        emit(currentState.copyWith(listOfPlayers: currentState.listOfPlayers));
+        currentState.setPlayerFold(newFold);
+        emit(currentState);
         return;
       }
-      final newFoldTotal = currentState.foldTotal - player.fold + newFold;
-      player.fold = newFold;
-      print('newFold : $newFoldTotal');
+      final newFoldTotal =
+          currentState.foldTotal - currentState.getPlayerFold + newFold;
+      currentState.setPlayerFold(newFold);
       emit(currentState.copyWith(foldTotal: newFoldTotal));
     }
   }
@@ -47,8 +46,7 @@ class GameCubit extends Cubit<GameState> {
     if (currentTurn < currentState.listOfPlayers.length) {
       if (currentTurn == currentState.listOfPlayers.length - 1 &&
           currentState.lastPlayerNotAllowedFold == 0) {
-        print('update');
-        currentState.listOfPlayers[currentTurn].fold = 1;
+        currentState.setPlayerFold(1);
         emit(currentState.copyWith(turn: currentTurn));
         return;
       }
@@ -62,6 +60,7 @@ class GameCubit extends Cubit<GameState> {
           listOfPlayers: currentState.listOfPlayers.rotatedLeft(1),
           turn: 0,
           foldTotal: 0,
+          gameStep: GameStep.play,
           round: currentState.round + 1,
           roundDirection: RoundDirection.up));
     }
@@ -72,7 +71,7 @@ class GameCubit extends Cubit<GameState> {
       emit(currentState.copyWith(
           turn: 0,
           foldTotal: 0,
-          round: currentState.round - 1,
+          round: currentState.round,
           roundDirection: RoundDirection.down));
     }
   }
@@ -84,16 +83,15 @@ class GameCubit extends Cubit<GameState> {
         emit(currentState.copyWith(
           turn: currentState.turn - 1,
         ));
-        currentState.listOfPlayers[currentState.turn].fold = 0;
+
+        currentState.setPlayerFold(0);
         return;
       }
-      print('minus : ${currentState.listOfPlayers[currentState.turn].fold}');
+      print('minus : ${currentState.getPlayerFold}');
       emit(currentState.copyWith(
-        turn: currentState.turn - 1,
-        foldTotal: currentState.foldTotal -
-            currentState.listOfPlayers[currentState.turn].fold,
-      ));
-      currentState.listOfPlayers[currentState.turn].fold = 0;
+          turn: currentState.turn - 1,
+          foldTotal: currentState.foldTotal - currentState.getPlayerFold));
+      currentState.setPlayerFold(0);
     }
   }
 }

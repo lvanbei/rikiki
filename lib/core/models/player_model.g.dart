@@ -8,11 +8,24 @@ part of 'player_model.dart';
 
 PlayerModel _$PlayerModelFromJson(Map<String, dynamic> json) => PlayerModel(
       name: json['name'] as String,
-      fold: json['fold'] as int? ?? 0,
+      folds: (json['folds'] as List<dynamic>)
+          .map((e) => FoldsModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$PlayerModelToJson(PlayerModel instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'folds': instance.folds,
+    };
+
+FoldsModel _$FoldsModelFromJson(Map<String, dynamic> json) => FoldsModel(
+      fold: json['fold'] as int? ?? 0,
+      round: json['round'] as int? ?? 0,
+    );
+
+Map<String, dynamic> _$FoldsModelToJson(FoldsModel instance) =>
+    <String, dynamic>{
+      'round': instance.round,
       'fold': instance.fold,
     };
