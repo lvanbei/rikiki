@@ -37,6 +37,8 @@ class GameLoadedState extends GameState {
   bool get longName => listOfPlayers[turn].name.length > 12;
 
   void setPlayerFold(fold) => listOfPlayers[turn].folds[round].fold = fold;
+  void setPlayerWithIndexFold(fold, index) =>
+      listOfPlayers[index].folds[round].fold = fold;
 
   int get getPlayerFold => listOfPlayers[turn].folds[round].fold;
 

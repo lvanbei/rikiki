@@ -46,7 +46,7 @@ class GameCubit extends Cubit<GameState> {
     if (currentTurn < currentState.listOfPlayers.length) {
       if (currentTurn == currentState.listOfPlayers.length - 1 &&
           currentState.lastPlayerNotAllowedFold == 0) {
-        currentState.setPlayerFold(1);
+        currentState.setPlayerWithIndexFold(1, currentTurn);
         emit(currentState.copyWith(turn: currentTurn));
         return;
       }
