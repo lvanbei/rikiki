@@ -10,6 +10,7 @@ class GameCubit extends Cubit<GameState> {
   GameCubit() : super(GameInitialState());
 
   void onWidgetDidInit() async {
+    //add fallback in case no users
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final players = prefs.getString("players");
     emit(GameLoadedState(
@@ -24,7 +25,7 @@ class GameCubit extends Cubit<GameState> {
 
   void updateFold(int newFold) {
     final currentState = state as GameLoadedState;
-    if (newFold <= currentState.round) {
+    if (newFold <= currentState.round && newFold != currentState.fold) {
       emit(currentState.copyWith(fold: newFold));
     }
   }
