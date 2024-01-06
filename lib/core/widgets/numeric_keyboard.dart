@@ -7,7 +7,7 @@ class NumericKeyboard extends StatefulWidget {
   final TextStyle textStyle;
 
   /// Display a custom right icon
-  final Widget? rightIcon;
+  final Widget rightIcon;
 
   /// Action to trigger when right button is pressed
   final Function()? rightButtonFn;
@@ -16,7 +16,7 @@ class NumericKeyboard extends StatefulWidget {
   final Function()? rightButtonLongPressFn;
 
   /// Display a custom left icon
-  final Widget? leftIcon;
+  final Widget leftIcon;
 
   /// Action to trigger when left button is pressed
   final Function()? leftButtonFn;
@@ -44,9 +44,9 @@ class NumericKeyboard extends StatefulWidget {
     this.textStyle = const TextStyle(color: Colors.black),
     this.rightButtonFn,
     this.rightButtonLongPressFn,
-    this.rightIcon,
+    required this.rightIcon,
     this.leftButtonFn,
-    this.leftIcon,
+    required this.leftIcon,
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     this.enableZero = false,
     this.enableOne = false,
@@ -70,7 +70,7 @@ class _NumericKeyboardState extends State<NumericKeyboard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 32, right: 32, top: 20),
+      // padding: const EdgeInsets.only(left: 32, right: 32, top: 20),
       alignment: Alignment.center,
       child: Column(
         children: <Widget>[
@@ -101,26 +101,36 @@ class _NumericKeyboardState extends State<NumericKeyboard> {
           ButtonBar(
             alignment: widget.mainAxisAlignment,
             children: <Widget>[
-              InkWell(
-                  borderRadius: BorderRadius.circular(45),
-                  onTap: widget.leftButtonFn,
-                  child: Container(
-                      alignment: Alignment.center,
-                      width: 50,
-                      height: 50,
-                      child: widget.leftIcon)),
+              widget.leftIcon,
               _calcButton('0', widget.enableZero),
-              InkWell(
-                  borderRadius: BorderRadius.circular(45),
-                  onTap: widget.rightButtonFn,
-                  onLongPress: widget.rightButtonLongPressFn,
-                  child: Container(
-                      alignment: Alignment.center,
-                      width: 50,
-                      height: 50,
-                      child: widget.rightIcon))
+              widget.rightIcon,
+              //_calcButton('9', widget.enableNine),
             ],
           ),
+          // ButtonBar(
+          //   alignment: widget.mainAxisAlignment,
+          //   children: <Widget>[
+          //     InkWell(
+          //         borderRadius: BorderRadius.circular(45),
+          //         onTap: widget.leftButtonFn,
+          //         child: Container(
+          //             alignment: Alignment.center,
+          //             width: 50,
+          //             height: 50,
+          //             child: widget.leftIcon)),
+          //     _calcButton('0', widget.enableZero),
+          //     widget.rightIcon,
+          //     // InkWell(
+          //     //     borderRadius: BorderRadius.circular(45),
+          //     //     onTap: widget.rightButtonFn,
+          //     //     onLongPress: widget.rightButtonLongPressFn,
+          //     //     child: Container(
+          //     //         alignment: Alignment.center,
+          //     //         width: 50,
+          //     //         height: 50,
+          //     //         child: widget.rightIcon))
+          //   ],
+          // ),
         ],
       ),
     );
@@ -133,6 +143,7 @@ class _NumericKeyboardState extends State<NumericKeyboard> {
                 widget.onKeyboardTap(value);
               }
             : null,
+        style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
         child: Container(
           alignment: Alignment.center,
           width: 50,

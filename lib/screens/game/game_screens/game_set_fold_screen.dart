@@ -65,6 +65,9 @@ class GameSetFoldScreen extends StatelessWidget {
           ],
         ),
         NumericKeyboard(
+          mainAxisAlignment: MediaQuery.of(context).size.width > 672
+              ? MainAxisAlignment.center
+              : MainAxisAlignment.spaceEvenly,
           enableZero: 0 <= state.maxFold &&
               !(state.isLastPlayer && 0 == state.lastPlayerNotAllowedFold),
           enableOne: 1 <= state.maxFold &&
@@ -74,32 +77,45 @@ class GameSetFoldScreen extends StatelessWidget {
           enableThree: 3 <= state.maxFold &&
               !(state.isLastPlayer && state.lastPlayerNotAllowedFold == 3),
           enableFor: 4 <= state.maxFold &&
-              !(state.isLastPlayer && state.lastPlayerNotAllowedFold != 4),
+              !(state.isLastPlayer && state.lastPlayerNotAllowedFold == 4),
           enableFive: 5 <= state.maxFold &&
-              !(state.isLastPlayer && state.lastPlayerNotAllowedFold != 5),
+              !(state.isLastPlayer && state.lastPlayerNotAllowedFold == 5),
           enableSix: 6 <= state.maxFold &&
-              !(state.isLastPlayer && state.lastPlayerNotAllowedFold != 6),
+              !(state.isLastPlayer && state.lastPlayerNotAllowedFold == 6),
           enableSeven: 7 <= state.maxFold &&
-              !(state.isLastPlayer && state.lastPlayerNotAllowedFold != 7),
+              !(state.isLastPlayer && state.lastPlayerNotAllowedFold == 7),
           enableEight: 8 <= state.maxFold &&
-              !(state.isLastPlayer && state.lastPlayerNotAllowedFold != 8),
+              !(state.isLastPlayer && state.lastPlayerNotAllowedFold == 8),
           enableNine: 9 <= state.maxFold &&
-              !(state.isLastPlayer && state.lastPlayerNotAllowedFold != 9),
+              !(state.isLastPlayer && state.lastPlayerNotAllowedFold == 9),
           textStyle: const TextStyle(color: AppColors.white),
           onKeyboardTap: (text) =>
               context.read<GameCubit>().updateFold(int.parse(text)),
-          rightIcon: IconButton(
+          rightIcon: ElevatedButton(
+            style: ElevatedButton.styleFrom(shape: const CircleBorder()),
             onPressed: () => context.read<GameCubit>().nextTurn(),
-            icon: const Icon(
-              Icons.check,
+            child: Container(
+              width: 50,
+              height: 50,
+              alignment: Alignment.center,
+              child: const Icon(
+                Icons.check,
+              ),
             ),
           ),
-          leftIcon: IconButton(
+          leftIcon: ElevatedButton(
+            //style: IconBut,
+            style: ElevatedButton.styleFrom(shape: const CircleBorder()),
             onPressed: state.turn > 0
                 ? () => context.read<GameCubit>().previousTurn()
                 : null,
-            icon: const Icon(
-              Icons.arrow_back_ios_new_rounded,
+            child: Container(
+              width: 50,
+              height: 50,
+              alignment: Alignment.center,
+              child: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+              ),
             ),
           ),
         ),
