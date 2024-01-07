@@ -27,17 +27,16 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
   void onSubmitPlayer() {
     final currentState = state as AddPlayersLoadedState;
     final newPlayer = currentState.controller.text;
-    if (newPlayer.isNotEmpty) {
-      final currentPlayers = currentState.listOfPlayers;
-      currentState.controller.text = '';
-      currentPlayers.add(PlayerModel(
-        name: newPlayer,
-        folds: [FoldsModel()],
-      ));
-      emit(currentState.copyWith(listOfPlayers: currentPlayers));
-      currentState.prefs.setString("players",
-          jsonEncode(currentPlayers.map((e) => e.toJson()).toList()));
-    }
+
+    final currentPlayers = currentState.listOfPlayers;
+    currentState.controller.text = '';
+    currentPlayers.add(PlayerModel(
+      name: newPlayer,
+      folds: [FoldsModel()],
+    ));
+    emit(currentState.copyWith(listOfPlayers: currentPlayers));
+    currentState.prefs.setString(
+        "players", jsonEncode(currentPlayers.map((e) => e.toJson()).toList()));
   }
 
   void onDeletePlayer(int index) {
@@ -47,5 +46,19 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     emit(currentState.copyWith(listOfPlayers: currentPlayers));
     currentState.prefs.setString(
         "players", jsonEncode(currentPlayers.map((e) => e.toJson()).toList()));
+  }
+
+  String? playerNameValidator(String? playerName) {
+    if (playerName != null) {
+      final currentState = state as AddPlayersLoadedState;
+
+      if (playerName.isNotEmpty && currentState.playersLimit) {
+        return "Max 10 players.";
+      }
+      if (currentState.playerAlreadyExist) {
+        return "Player already in list.";
+      }
+    }
+    return null;
   }
 }

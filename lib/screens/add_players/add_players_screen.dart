@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../core/core.dart';
 import 'add_players.dart';
@@ -16,123 +15,121 @@ class AddPlayersScreen extends StatelessWidget {
       child: BlocBuilder<AddPlayersCubit, AddPlayersState>(
         builder: (context, state) {
           if (state is AddPlayersLoadedState) {
-            return ReactiveFormBuilder(
-              form: () => state.form,
-              // key: UniqueKey(),
-              builder: (context, formGroup, child) => Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: ReactiveTextField(
-                            keyboardType: TextInputType.name,
-                            formControlName: state.playerNameField,
-                            autocorrect: false,
-                            autofocus: true,
-                            focusNode: state.textFieldFocusNode,
-                            controller: state.controller,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Add a player',
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child: MyTextField(state: state),
+                ),
+                Expanded(
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 16),
+                      child: SizedBox(
+                          height: MediaQuery.of(context).size.height,
+                          child: ListView.builder(
+                            itemCount: state.listOfPlayers.length,
+                            itemBuilder: (context, index) => ListTile(
+                              title: Text(state.listOfPlayers[index].name),
+                              leading: Text('${(index + 1)}.'),
+                              trailing: IconButton(
+                                  onPressed: () {
+                                    context
+                                        .read<AddPlayersCubit>()
+                                        .onDeletePlayer(index);
+                                  },
+                                  icon: const Icon(Icons.delete_forever)),
                             ),
-                            onSubmitted: (control) {
-                              if (control.valid) {
-                                context
-                                    .read<AddPlayersCubit>()
-                                    .onSubmitPlayer();
-                              } else {
-                                control.markAllAsTouched();
-                              }
-                              state.textFieldFocusNode.requestFocus();
-                            },
-                            validationMessages: {
-                              ValidationMessage.required: (_) =>
-                                  "This field cannot be empty.",
-                              ValidationMessage.maxLength: (_) =>
-                                  "Max 24 characters.",
-                              ValidationMessage.minLength: (_) =>
-                                  "Min 2 characters.",
-                              ValidationMessage.max: (_) => "Max 10 players.",
-                              ValidationMessage.equals: (_) =>
-                                  "Player already in list."
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        ReactiveFormConsumer(
-                          builder: (context, control, child) => IconButton(
-                              onPressed: control.valid
-                                  ? () {
-                                      context
-                                          .read<AddPlayersCubit>()
-                                          .onSubmitPlayer();
-                                    }
-                                  : null,
-                              icon: const Icon(
-                                Icons.add,
-                              )),
-                        )
-                      ],
-                    ),
+                          ))),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child: MyButton(
+                    title: "next",
+                    onPressed: state.enoughPlayer
+                        ? () {
+                            Router.neglect(context,
+                                () => GoRouter.of(context).go(AppRoutes.game));
+                          }
+                        : null,
+                    size: ButtonSizes.small,
                   ),
-                  Expanded(
-                    child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 16),
-                        child: SizedBox(
-                            height: MediaQuery.of(context).size.height,
-                            child: ListView.builder(
-                              itemCount: state.listOfPlayers.length,
-                              itemBuilder: (context, index) => ListTile(
-                                title: Text(state.listOfPlayers[index].name),
-                                leading: Text('${(index + 1)}.'),
-                                trailing: IconButton(
-                                    onPressed: () {
-                                      if (state.playersLimit) {
-                                        formGroup.reset(
-                                            value: state.form.value);
-                                        formGroup.focus(state.playerNameField);
-                                      }
-                                      context
-                                          .read<AddPlayersCubit>()
-                                          .onDeletePlayer(index);
-                                    },
-                                    icon: const Icon(Icons.delete_forever)),
-                              ),
-                            ))),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                    child: MyButton(
-                      title: "next",
-                      onPressed: state.enoughPlayer
-                          ? () {
-                              Router.neglect(
-                                  context,
-                                  () =>
-                                      GoRouter.of(context).go(AppRoutes.game));
-                            }
-                          : null,
-                      size: ButtonSizes.small,
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             );
           }
           return const LoadingScreen();
         },
+      ),
+    );
+  }
+}
+
+class MyTextField extends StatefulWidget {
+  final AddPlayersLoadedState state;
+
+  const MyTextField({
+    required this.state,
+    super.key,
+  });
+
+  @override
+  State<MyTextField> createState() => _MyTextFieldState();
+}
+
+class _MyTextFieldState extends State<MyTextField> {
+  final _formKey = GlobalKey<FormState>();
+  final _focusNode = FocusNode();
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: TextFormField(
+              keyboardType: TextInputType.name,
+              autocorrect: false,
+              autofocus: true,
+              focusNode: _focusNode,
+              controller: widget.state.controller,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Add a player',
+              ),
+              onChanged: (value) => setState(() {}),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onFieldSubmitted: (value) {
+                if (widget.state.controller.text.isNotEmpty &&
+                    _formKey.currentState!.validate()) {
+                  context.read<AddPlayersCubit>().onSubmitPlayer();
+                }
+                _focusNode.requestFocus();
+              },
+              validator: (value) =>
+                  context.read<AddPlayersCubit>().playerNameValidator(value),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          IconButton(
+            onPressed: _formKey.currentState != null &&
+                    _formKey.currentState!.validate()
+                ? () => context.read<AddPlayersCubit>().onSubmitPlayer()
+                : null,
+            icon: const Icon(
+              Icons.add,
+            ),
+          )
+        ],
       ),
     );
   }
