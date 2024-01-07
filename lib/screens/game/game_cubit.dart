@@ -29,7 +29,7 @@ class GameCubit extends Cubit<GameState> {
     if (newFold != currentState.getPlayerFold) {
       if (currentState.isLastPlayer) {
         currentState.setPlayerFold(newFold);
-        emit(currentState);
+        emit(currentState.copyWith());
         return;
       }
       final newFoldTotal =
@@ -84,7 +84,7 @@ class GameCubit extends Cubit<GameState> {
           turn: currentState.turn - 1,
         ));
 
-        currentState.setPlayerFold(0);
+        //currentState.setPlayerFold(0);
         return;
       }
       print('minus : ${currentState.getPlayerFold}');

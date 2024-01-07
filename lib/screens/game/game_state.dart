@@ -44,11 +44,7 @@ class GameLoadedState extends GameState {
 
   bool get isLastPlayer => turn == listOfPlayers.length - 1;
 
-  int get lastPlayerNotAllowedFold {
-    final res = maxFold - foldTotal;
-    print(res);
-    return res;
-  }
+  int get lastPlayerNotAllowedFold => maxFold - foldTotal;
 
   bool get isRoundUp =>
       round < (52 / listOfPlayers.length).floor() &&

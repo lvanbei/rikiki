@@ -104,7 +104,6 @@ class GameSetFoldScreen extends StatelessWidget {
             ),
           ),
           leftIcon: ElevatedButton(
-            //style: IconBut,
             style: ElevatedButton.styleFrom(shape: const CircleBorder()),
             onPressed: state.turn > 0
                 ? () => context.read<GameCubit>().previousTurn()
