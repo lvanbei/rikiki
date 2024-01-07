@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 typedef KeyboardTapCallback = void Function(String text);
 
-class NumericKeyboard extends StatefulWidget {
+class NumericKeyboard extends StatelessWidget {
   /// Color of the text [default = Colors.black]
   final TextStyle textStyle;
 
@@ -61,76 +61,43 @@ class NumericKeyboard extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() {
-    return _NumericKeyboardState();
-  }
-}
-
-class _NumericKeyboardState extends State<NumericKeyboard> {
-  @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: const EdgeInsets.only(left: 32, right: 32, top: 20),
       alignment: Alignment.center,
       child: Column(
         children: <Widget>[
           ButtonBar(
-            alignment: widget.mainAxisAlignment,
+            alignment: mainAxisAlignment,
             children: <Widget>[
-              _calcButton('1', widget.enableOne),
-              _calcButton('2', widget.enableTwo),
-              _calcButton('3', widget.enableThree),
+              _calcButton('1', enableOne),
+              _calcButton('2', enableTwo),
+              _calcButton('3', enableThree),
             ],
           ),
           ButtonBar(
-            alignment: widget.mainAxisAlignment,
+            alignment: mainAxisAlignment,
             children: <Widget>[
-              _calcButton('4', widget.enableFor),
-              _calcButton('5', widget.enableFive),
-              _calcButton('6', widget.enableSix),
+              _calcButton('4', enableFor),
+              _calcButton('5', enableFive),
+              _calcButton('6', enableSix),
             ],
           ),
           ButtonBar(
-            alignment: widget.mainAxisAlignment,
+            alignment: mainAxisAlignment,
             children: <Widget>[
-              _calcButton('7', widget.enableSeven),
-              _calcButton('8', widget.enableEight),
-              _calcButton('9', widget.enableNine),
+              _calcButton('7', enableSeven),
+              _calcButton('8', enableEight),
+              _calcButton('9', enableNine),
             ],
           ),
           ButtonBar(
-            alignment: widget.mainAxisAlignment,
+            alignment: mainAxisAlignment,
             children: <Widget>[
-              widget.leftIcon,
-              _calcButton('0', widget.enableZero),
-              widget.rightIcon,
-              //_calcButton('9', widget.enableNine),
+              leftIcon,
+              _calcButton('0', enableZero),
+              rightIcon,
             ],
           ),
-          // ButtonBar(
-          //   alignment: widget.mainAxisAlignment,
-          //   children: <Widget>[
-          //     InkWell(
-          //         borderRadius: BorderRadius.circular(45),
-          //         onTap: widget.leftButtonFn,
-          //         child: Container(
-          //             alignment: Alignment.center,
-          //             width: 50,
-          //             height: 50,
-          //             child: widget.leftIcon)),
-          //     _calcButton('0', widget.enableZero),
-          //     widget.rightIcon,
-          //     // InkWell(
-          //     //     borderRadius: BorderRadius.circular(45),
-          //     //     onTap: widget.rightButtonFn,
-          //     //     onLongPress: widget.rightButtonLongPressFn,
-          //     //     child: Container(
-          //     //         alignment: Alignment.center,
-          //     //         width: 50,
-          //     //         height: 50,
-          //     //         child: widget.rightIcon))
-          //   ],
-          // ),
         ],
       ),
     );
@@ -140,7 +107,7 @@ class _NumericKeyboardState extends State<NumericKeyboard> {
     return ElevatedButton(
         onPressed: isEnabled
             ? () {
-                widget.onKeyboardTap(value);
+                onKeyboardTap(value);
               }
             : null,
         style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
@@ -150,7 +117,7 @@ class _NumericKeyboardState extends State<NumericKeyboard> {
           height: 50,
           child: Text(
             value,
-            style: widget.textStyle,
+            style: textStyle,
           ),
         ));
   }
