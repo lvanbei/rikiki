@@ -91,7 +91,7 @@ class _MyTextFieldState extends State<MyTextField> {
       key: _formKey,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: TextFormField(
@@ -120,13 +120,17 @@ class _MyTextFieldState extends State<MyTextField> {
           const SizedBox(
             width: 8,
           ),
-          IconButton(
-            onPressed: _formKey.currentState != null &&
-                    _formKey.currentState!.validate()
-                ? () => context.read<AddPlayersCubit>().onSubmitPlayer()
-                : null,
-            icon: const Icon(
-              Icons.add,
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: IconButton(
+              onPressed: _formKey.currentState != null &&
+                      widget.state.controller.text.isNotEmpty &&
+                      _formKey.currentState!.validate()
+                  ? () => context.read<AddPlayersCubit>().onSubmitPlayer()
+                  : null,
+              icon: const Icon(
+                Icons.add,
+              ),
             ),
           )
         ],
