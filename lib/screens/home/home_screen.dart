@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rikiki_for_real/core/constants/button_sizes.dart';
 import 'package:rikiki_for_real/core/core.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,7 +12,7 @@ class HomeScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         MyButton(
-          title: 'start',
+          title: 'Start',
           size: ButtonSizes.big,
           onPressed: () {
             Router.neglect(
@@ -24,6 +23,10 @@ class HomeScreen extends StatelessWidget {
           height: 32,
         ),
         const MyButton(title: 'Score', size: ButtonSizes.big),
+        const SizedBox(
+          height: 200,
+        ),
+        const Text("V1"),
       ],
     );
   }

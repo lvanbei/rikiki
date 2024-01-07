@@ -46,19 +46,15 @@ class AddPlayersScreen extends StatelessWidget {
                             ),
                           ))),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                  child: MyButton(
-                    title: "next",
-                    onPressed: state.enoughPlayer
-                        ? () {
-                            Router.neglect(context,
-                                () => GoRouter.of(context).go(AppRoutes.game));
-                          }
-                        : null,
-                    size: ButtonSizes.small,
-                  ),
+                MyButton(
+                  title: "next",
+                  onPressed: state.enoughPlayer
+                      ? () {
+                          Router.neglect(context,
+                              () => GoRouter.of(context).go(AppRoutes.game));
+                        }
+                      : null,
+                  size: ButtonSizes.small,
                 )
               ],
             );
