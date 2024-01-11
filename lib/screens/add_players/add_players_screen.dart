@@ -12,10 +12,8 @@ class AddPlayersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => AddPlayersCubit()
-        ..onWidgetDidInit(
-            (context.read<BaseCubit>().state as BaseLoadedState).prefs,
-            (context.read<BaseCubit>().state as BaseLoadedState).listOfPlayers),
+      create: (_) => AddPlayersCubit(baseCubit: context.read<BaseCubit>())
+        ..onWidgetDidInit(),
       child: BlocBuilder<AddPlayersCubit, AddPlayersState>(
         builder: (context, state) {
           if (state is AddPlayersLoadedState) {
@@ -53,7 +51,11 @@ class AddPlayersScreen extends StatelessWidget {
                 MyButton(
                   title: "next",
                   onPressed: state.enoughPlayer
-                      ? () {
+                      ? () async {
+                          await context.read<BaseCubit>().updateRound(0);
+                          await context
+                              .read<AddPlayersCubit>()
+                              .updateFoldList();
                           Router.neglect(
                               context,
                               () =>

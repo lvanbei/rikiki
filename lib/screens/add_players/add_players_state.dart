@@ -16,11 +16,9 @@ class AddPlayersInitialState extends AddPlayersState {}
 class AddPlayersLoadedState extends AddPlayersState {
   List<PlayerModel> listOfPlayers;
   final TextEditingController controller;
-  final SharedPreferences prefs;
   AddPlayersLoadedState({
     required this.listOfPlayers,
     required this.controller,
-    required this.prefs,
   });
 
   bool get playersLimit => listOfPlayers.length >= 10;

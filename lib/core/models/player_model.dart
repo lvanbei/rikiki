@@ -5,9 +5,9 @@ part 'player_model.g.dart';
 @JsonSerializable()
 class PlayerModel {
   final String name;
-  final List<FoldsModel> folds;
+  List<FoldsModel> folds;
 
-  const PlayerModel({required this.name, required this.folds});
+  PlayerModel({required this.name, required this.folds});
 
   factory PlayerModel.fromJson(Map<String, dynamic> json) =>
       _$PlayerModelFromJson(json);
@@ -19,8 +19,9 @@ class PlayerModel {
 class FoldsModel {
   int round;
   int fold;
+  bool isCheck;
 
-  FoldsModel({this.fold = 0, this.round = 0});
+  FoldsModel({this.fold = 0, this.round = 0, this.isCheck = false});
 
   factory FoldsModel.fromJson(Map<String, dynamic> json) =>
       _$FoldsModelFromJson(json);

@@ -90,6 +90,15 @@ class MyApp extends StatelessWidget {
                       key: state.pageKey,
                       child: const PlayScreen()),
                 ),
+                GoRoute(
+                  parentNavigatorKey: _shellNavigatorKey,
+                  name: AppRouteNames.checkFolds,
+                  path: AppRoutes.checkFolds,
+                  pageBuilder: (context, state) => NoTransitionPage(
+                      name: state.fullPath,
+                      key: state.pageKey,
+                      child: const CheckFoldsScreen()),
+                ),
               ],
             )
           ],

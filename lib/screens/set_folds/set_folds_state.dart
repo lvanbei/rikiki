@@ -1,5 +1,4 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/core.dart';
 
@@ -14,7 +13,6 @@ class SetFoldsInitialState extends SetFoldsState {}
 @CopyWith()
 class SetFoldsLoadedState extends SetFoldsState {
   List<PlayerModel> listOfPlayers;
-  final SharedPreferences prefs;
 
   final int round;
   final int foldTotal;
@@ -23,8 +21,7 @@ class SetFoldsLoadedState extends SetFoldsState {
 
   SetFoldsLoadedState({
     required this.listOfPlayers,
-    required this.prefs,
-    this.round = 0,
+    required this.round,
     this.foldTotal = 0,
     this.turn = 0,
     this.roundDirection = RoundDirection.up,
@@ -35,6 +32,7 @@ class SetFoldsLoadedState extends SetFoldsState {
   bool get longName => listOfPlayers[turn].name.length > 12;
 
   void setPlayerFold(fold) => listOfPlayers[turn].folds[round].fold = fold;
+
   void setPlayerWithIndexFold(fold, index) =>
       listOfPlayers[index].folds[round].fold = fold;
 

@@ -11,8 +11,6 @@ abstract class _$AddPlayersLoadedStateCWProxy {
 
   AddPlayersLoadedState controller(TextEditingController controller);
 
-  AddPlayersLoadedState prefs(SharedPreferences prefs);
-
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `AddPlayersLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -22,7 +20,6 @@ abstract class _$AddPlayersLoadedStateCWProxy {
   AddPlayersLoadedState call({
     List<PlayerModel>? listOfPlayers,
     TextEditingController? controller,
-    SharedPreferences? prefs,
   });
 }
 
@@ -42,9 +39,6 @@ class _$AddPlayersLoadedStateCWProxyImpl
       this(controller: controller);
 
   @override
-  AddPlayersLoadedState prefs(SharedPreferences prefs) => this(prefs: prefs);
-
-  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `AddPlayersLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -55,7 +49,6 @@ class _$AddPlayersLoadedStateCWProxyImpl
   AddPlayersLoadedState call({
     Object? listOfPlayers = const $CopyWithPlaceholder(),
     Object? controller = const $CopyWithPlaceholder(),
-    Object? prefs = const $CopyWithPlaceholder(),
   }) {
     return AddPlayersLoadedState(
       listOfPlayers:
@@ -68,10 +61,6 @@ class _$AddPlayersLoadedStateCWProxyImpl
               ? _value.controller
               // ignore: cast_nullable_to_non_nullable
               : controller as TextEditingController,
-      prefs: prefs == const $CopyWithPlaceholder() || prefs == null
-          ? _value.prefs
-          // ignore: cast_nullable_to_non_nullable
-          : prefs as SharedPreferences,
     );
   }
 }

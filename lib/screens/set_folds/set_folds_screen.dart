@@ -2,7 +2,6 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rikiki_for_real/screens/screens.dart';
-import 'package:rikiki_for_real/screens/set_folds/set_folds.dart';
 
 import '../../core/core.dart';
 
@@ -12,10 +11,8 @@ class SetFoldsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => SetFoldsCubit()
-        ..onWidgetDidInit(
-            (context.read<BaseCubit>().state as BaseLoadedState).prefs,
-            (context.read<BaseCubit>().state as BaseLoadedState).listOfPlayers),
+      create: (_) => SetFoldsCubit(baseCubit: context.read<BaseCubit>())
+        ..onWidgetDidInit(),
       child: BlocBuilder<SetFoldsCubit, SetFoldsState>(
         builder: (context, state) {
           if (state is SetFoldsLoadedState) {
@@ -110,7 +107,8 @@ class SetFoldsScreen extends StatelessWidget {
                   rightIcon: ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(shape: const CircleBorder()),
-                    onPressed: () => context.read<SetFoldsCubit>().nextTurn(),
+                    onPressed: () =>
+                        context.read<SetFoldsCubit>().nextTurn(context),
                     child: Container(
                       width: 50,
                       height: 50,

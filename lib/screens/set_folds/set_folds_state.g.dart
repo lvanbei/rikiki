@@ -9,8 +9,6 @@ part of 'set_folds_state.dart';
 abstract class _$SetFoldsLoadedStateCWProxy {
   SetFoldsLoadedState listOfPlayers(List<PlayerModel> listOfPlayers);
 
-  SetFoldsLoadedState prefs(SharedPreferences prefs);
-
   SetFoldsLoadedState round(int round);
 
   SetFoldsLoadedState foldTotal(int foldTotal);
@@ -27,7 +25,6 @@ abstract class _$SetFoldsLoadedStateCWProxy {
   /// ````
   SetFoldsLoadedState call({
     List<PlayerModel>? listOfPlayers,
-    SharedPreferences? prefs,
     int? round,
     int? foldTotal,
     int? turn,
@@ -44,9 +41,6 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
   @override
   SetFoldsLoadedState listOfPlayers(List<PlayerModel> listOfPlayers) =>
       this(listOfPlayers: listOfPlayers);
-
-  @override
-  SetFoldsLoadedState prefs(SharedPreferences prefs) => this(prefs: prefs);
 
   @override
   SetFoldsLoadedState round(int round) => this(round: round);
@@ -71,7 +65,6 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
   /// ````
   SetFoldsLoadedState call({
     Object? listOfPlayers = const $CopyWithPlaceholder(),
-    Object? prefs = const $CopyWithPlaceholder(),
     Object? round = const $CopyWithPlaceholder(),
     Object? foldTotal = const $CopyWithPlaceholder(),
     Object? turn = const $CopyWithPlaceholder(),
@@ -83,10 +76,6 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
               ? _value.listOfPlayers
               // ignore: cast_nullable_to_non_nullable
               : listOfPlayers as List<PlayerModel>,
-      prefs: prefs == const $CopyWithPlaceholder() || prefs == null
-          ? _value.prefs
-          // ignore: cast_nullable_to_non_nullable
-          : prefs as SharedPreferences,
       round: round == const $CopyWithPlaceholder() || round == null
           ? _value.round
           // ignore: cast_nullable_to_non_nullable

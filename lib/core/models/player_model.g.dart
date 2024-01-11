@@ -22,10 +22,12 @@ Map<String, dynamic> _$PlayerModelToJson(PlayerModel instance) =>
 FoldsModel _$FoldsModelFromJson(Map<String, dynamic> json) => FoldsModel(
       fold: json['fold'] as int? ?? 0,
       round: json['round'] as int? ?? 0,
+      isCheck: json['isCheck'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$FoldsModelToJson(FoldsModel instance) =>
     <String, dynamic>{
       'round': instance.round,
       'fold': instance.fold,
+      'isCheck': instance.isCheck,
     };

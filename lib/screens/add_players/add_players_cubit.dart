@@ -1,20 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rikiki_for_real/core/core.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '../base/base.dart';
 import 'add_players.dart';
 
 class AddPlayersCubit extends Cubit<AddPlayersState> {
-  AddPlayersCubit() : super(AddPlayersInitialState());
+  final BaseCubit baseCubit;
+  AddPlayersCubit({required this.baseCubit}) : super(AddPlayersInitialState());
 
-  void onWidgetDidInit(
-      SharedPreferences prefs, List<PlayerModel> players) async {
+  void onWidgetDidInit() async {
     emit(AddPlayersLoadedState(
-      listOfPlayers: players,
-      prefs: prefs,
+      listOfPlayers: (baseCubit.state as BaseLoadedState).initialListOfPlayers,
       controller: TextEditingController(),
     ));
   }
@@ -27,11 +24,10 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     currentState.controller.text = '';
     currentPlayers.add(PlayerModel(
       name: newPlayer,
-      folds: [FoldsModel()],
+      folds: [],
     ));
     emit(currentState.copyWith(listOfPlayers: currentPlayers));
-    currentState.prefs.setString(
-        "players", jsonEncode(currentPlayers.map((e) => e.toJson()).toList()));
+    baseCubit.updatePlayers(currentPlayers);
   }
 
   void onDeletePlayer(int index) {
@@ -39,8 +35,7 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     final currentPlayers = currentState.listOfPlayers;
     currentPlayers.removeAt(index);
     emit(currentState.copyWith(listOfPlayers: currentPlayers));
-    currentState.prefs.setString(
-        "players", jsonEncode(currentPlayers.map((e) => e.toJson()).toList()));
+    baseCubit.updatePlayers(currentPlayers);
   }
 
   String? playerNameValidator(String? playerName) {
@@ -55,5 +50,15 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
       }
     }
     return null;
+  }
+
+  Future updateFoldList() async {
+    final currentState = state as AddPlayersLoadedState;
+    final currentPlayers = currentState.listOfPlayers;
+    final rounds = (52 / currentPlayers.length).floor() * 2;
+    for (var player in currentPlayers) {
+      player.folds = List.generate(rounds, (_) => FoldsModel());
+    }
+    await baseCubit.updatePlayers(currentPlayers);
   }
 }

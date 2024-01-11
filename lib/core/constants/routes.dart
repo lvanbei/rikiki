@@ -3,6 +3,7 @@ abstract class AppRoutes {
   static const String addPlayers = '/add-players';
   static const String setFolds = '/set-folds';
   static const String play = '/play';
+  static const String checkFolds = '/check-folds';
 }
 
 abstract class AppRouteNames {
@@ -10,6 +11,7 @@ abstract class AppRouteNames {
   static const String addPlayers = 'add-players';
   static const String setFolds = 'set-folds';
   static const String play = 'play';
+  static const String checkFolds = 'check-folds';
 }
 
 abstract class AppRouteList {
@@ -18,5 +20,6 @@ abstract class AppRouteList {
     AppRoutes.addPlayers,
     AppRoutes.setFolds,
     AppRoutes.play,
+    AppRoutes.checkFolds,
   ];
 }

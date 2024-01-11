@@ -1,17 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rikiki_for_real/core/core.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rikiki_for_real/screens/base/base.dart';
 
 import 'set_folds_state.dart';
 
 class SetFoldsCubit extends Cubit<SetFoldsState> {
-  SetFoldsCubit() : super(SetFoldsInitialState());
+  final BaseCubit baseCubit;
+  SetFoldsCubit({required this.baseCubit}) : super(SetFoldsInitialState());
 
-  void onWidgetDidInit(
-      SharedPreferences prefs, List<PlayerModel> players) async {
+  void onWidgetDidInit() {
     emit(SetFoldsLoadedState(
-      prefs: prefs,
-      listOfPlayers: players,
+      listOfPlayers: (baseCubit.state as BaseLoadedState).listOfPlayers,
+      round: (baseCubit.state as BaseLoadedState).round,
     ));
   }
 
@@ -31,9 +33,10 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
     }
   }
 
-  void nextTurn() {
+  void nextTurn(context) {
     final currentState = state as SetFoldsLoadedState;
     final currentTurn = currentState.turn + 1;
+
     // turn +1
     if (currentTurn < currentState.listOfPlayers.length) {
       if (currentTurn == currentState.listOfPlayers.length - 1 &&
@@ -48,23 +51,16 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
     // round +1
     // turn 0
     if (currentState.isLastPlayer && currentState.isRoundUp) {
-      emit(currentState.copyWith(
-          listOfPlayers: currentState.listOfPlayers.rotatedLeft(1),
-          turn: 0,
-          foldTotal: 0,
-          //play screen
-          round: currentState.round + 1,
-          roundDirection: RoundDirection.up));
+      //baseCubit.updatePlayers(currentState.listOfPlayers.rotatedLeft(1));
+      Router.neglect(context, () => GoRouter.of(context).go(AppRoutes.play));
+      return;
     }
 
     // round -1
     // turn 0
     if (currentState.isLastPlayer && !currentState.isRoundUp) {
       emit(currentState.copyWith(
-          turn: 0,
-          foldTotal: 0,
-          round: currentState.round,
-          roundDirection: RoundDirection.down));
+          turn: 0, foldTotal: 0, roundDirection: RoundDirection.down));
     }
   }
 
@@ -75,8 +71,7 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
         emit(currentState.copyWith(
           turn: currentState.turn - 1,
         ));
-
-        //currentState.setPlayerFold(0);
+        currentState.setPlayerFold(0);
         return;
       }
       emit(currentState.copyWith(

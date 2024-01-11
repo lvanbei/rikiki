@@ -14,7 +14,14 @@ class BaseInitialState extends BaseState {}
 @CopyWith()
 class BaseLoadedState extends BaseState {
   final SharedPreferences prefs;
+  final List<PlayerModel> initialListOfPlayers;
   final List<PlayerModel> listOfPlayers;
+  final int round;
 
-  const BaseLoadedState({required this.prefs, this.listOfPlayers = const []});
+  BaseLoadedState({
+    required this.prefs,
+    required this.initialListOfPlayers,
+    this.listOfPlayers = const [],
+    this.round = 0,
+  });
 }
