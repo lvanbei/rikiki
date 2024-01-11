@@ -54,8 +54,10 @@ class AddPlayersScreen extends StatelessWidget {
                   title: "next",
                   onPressed: state.enoughPlayer
                       ? () {
-                          Router.neglect(context,
-                              () => GoRouter.of(context).go(AppRoutes.game));
+                          Router.neglect(
+                              context,
+                              () =>
+                                  GoRouter.of(context).go(AppRoutes.setFolds));
                         }
                       : null,
                   size: ButtonSizes.small,

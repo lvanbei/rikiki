@@ -74,12 +74,12 @@ class MyApp extends StatelessWidget {
                 ),
                 GoRoute(
                   parentNavigatorKey: _shellNavigatorKey,
-                  name: AppRouteNames.game,
-                  path: AppRoutes.game,
+                  name: AppRouteNames.setFolds,
+                  path: AppRoutes.setFolds,
                   pageBuilder: (context, state) => NoTransitionPage(
                       name: state.fullPath,
                       key: state.pageKey,
-                      child: const GameScreen()),
+                      child: const SetFoldsScreen()),
                 ),
                 GoRoute(
                   parentNavigatorKey: _shellNavigatorKey,

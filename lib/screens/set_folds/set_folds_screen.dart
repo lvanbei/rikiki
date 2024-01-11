@@ -2,22 +2,23 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rikiki_for_real/screens/screens.dart';
+import 'package:rikiki_for_real/screens/set_folds/set_folds.dart';
 
 import '../../core/core.dart';
 
-class GameScreen extends StatelessWidget {
-  const GameScreen({super.key});
+class SetFoldsScreen extends StatelessWidget {
+  const SetFoldsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => GameCubit()
+      create: (_) => SetFoldsCubit()
         ..onWidgetDidInit(
             (context.read<BaseCubit>().state as BaseLoadedState).prefs,
             (context.read<BaseCubit>().state as BaseLoadedState).listOfPlayers),
-      child: BlocBuilder<GameCubit, GameState>(
+      child: BlocBuilder<SetFoldsCubit, SetFoldsState>(
         builder: (context, state) {
-          if (state is GameLoadedState) {
+          if (state is SetFoldsLoadedState) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -105,11 +106,11 @@ class GameScreen extends StatelessWidget {
                           state.lastPlayerNotAllowedFold == 9),
                   textStyle: const TextStyle(color: AppColors.white),
                   onKeyboardTap: (text) =>
-                      context.read<GameCubit>().updateFold(int.parse(text)),
+                      context.read<SetFoldsCubit>().updateFold(int.parse(text)),
                   rightIcon: ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(shape: const CircleBorder()),
-                    onPressed: () => context.read<GameCubit>().nextTurn(),
+                    onPressed: () => context.read<SetFoldsCubit>().nextTurn(),
                     child: Container(
                       width: 50,
                       height: 50,
@@ -123,7 +124,7 @@ class GameScreen extends StatelessWidget {
                     style:
                         ElevatedButton.styleFrom(shape: const CircleBorder()),
                     onPressed: state.turn > 0
-                        ? () => context.read<GameCubit>().previousTurn()
+                        ? () => context.read<SetFoldsCubit>().previousTurn()
                         : null,
                     child: Container(
                       width: 50,

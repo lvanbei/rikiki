@@ -2,21 +2,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rikiki_for_real/core/core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'game.dart';
+import 'set_folds_state.dart';
 
-class GameCubit extends Cubit<GameState> {
-  GameCubit() : super(GameInitialState());
+class SetFoldsCubit extends Cubit<SetFoldsState> {
+  SetFoldsCubit() : super(SetFoldsInitialState());
 
   void onWidgetDidInit(
       SharedPreferences prefs, List<PlayerModel> players) async {
-    emit(GameLoadedState(
+    emit(SetFoldsLoadedState(
       prefs: prefs,
       listOfPlayers: players,
     ));
   }
 
   void updateFold(int newFold) {
-    final currentState = state as GameLoadedState;
+    final currentState = state as SetFoldsLoadedState;
 
     if (newFold != currentState.getPlayerFold) {
       if (currentState.isLastPlayer) {
@@ -32,7 +32,7 @@ class GameCubit extends Cubit<GameState> {
   }
 
   void nextTurn() {
-    final currentState = state as GameLoadedState;
+    final currentState = state as SetFoldsLoadedState;
     final currentTurn = currentState.turn + 1;
     // turn +1
     if (currentTurn < currentState.listOfPlayers.length) {
@@ -69,7 +69,7 @@ class GameCubit extends Cubit<GameState> {
   }
 
   void previousTurn() {
-    final currentState = state as GameLoadedState;
+    final currentState = state as SetFoldsLoadedState;
     if (currentState.turn > 0) {
       if (currentState.isLastPlayer) {
         emit(currentState.copyWith(

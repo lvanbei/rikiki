@@ -3,16 +3,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/core.dart';
 
-part 'game_state.g.dart';
+part 'set_folds_state.g.dart';
 
-abstract class GameState {
-  const GameState();
+abstract class SetFoldsState {
+  const SetFoldsState();
 }
 
-class GameInitialState extends GameState {}
+class SetFoldsInitialState extends SetFoldsState {}
 
 @CopyWith()
-class GameLoadedState extends GameState {
+class SetFoldsLoadedState extends SetFoldsState {
   List<PlayerModel> listOfPlayers;
   final SharedPreferences prefs;
 
@@ -21,7 +21,7 @@ class GameLoadedState extends GameState {
   final int turn;
   final RoundDirection roundDirection;
 
-  GameLoadedState({
+  SetFoldsLoadedState({
     required this.listOfPlayers,
     required this.prefs,
     this.round = 0,

@@ -9,6 +9,8 @@ part of 'base_state.dart';
 abstract class _$BaseLoadedStateCWProxy {
   BaseLoadedState prefs(SharedPreferences prefs);
 
+  BaseLoadedState listOfPlayers(List<PlayerModel> listOfPlayers);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `BaseLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -17,6 +19,7 @@ abstract class _$BaseLoadedStateCWProxy {
   /// ````
   BaseLoadedState call({
     SharedPreferences? prefs,
+    List<PlayerModel>? listOfPlayers,
   });
 }
 
@@ -30,6 +33,10 @@ class _$BaseLoadedStateCWProxyImpl implements _$BaseLoadedStateCWProxy {
   BaseLoadedState prefs(SharedPreferences prefs) => this(prefs: prefs);
 
   @override
+  BaseLoadedState listOfPlayers(List<PlayerModel> listOfPlayers) =>
+      this(listOfPlayers: listOfPlayers);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `BaseLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -39,12 +46,18 @@ class _$BaseLoadedStateCWProxyImpl implements _$BaseLoadedStateCWProxy {
   /// ````
   BaseLoadedState call({
     Object? prefs = const $CopyWithPlaceholder(),
+    Object? listOfPlayers = const $CopyWithPlaceholder(),
   }) {
     return BaseLoadedState(
       prefs: prefs == const $CopyWithPlaceholder() || prefs == null
           ? _value.prefs
           // ignore: cast_nullable_to_non_nullable
           : prefs as SharedPreferences,
+      listOfPlayers:
+          listOfPlayers == const $CopyWithPlaceholder() || listOfPlayers == null
+              ? _value.listOfPlayers
+              // ignore: cast_nullable_to_non_nullable
+              : listOfPlayers as List<PlayerModel>,
     );
   }
 }
