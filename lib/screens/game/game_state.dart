@@ -20,7 +20,6 @@ class GameLoadedState extends GameState {
   final int foldTotal;
   final int turn;
   final RoundDirection roundDirection;
-  final GameStep gameStep;
 
   GameLoadedState({
     required this.listOfPlayers,
@@ -29,7 +28,6 @@ class GameLoadedState extends GameState {
     this.foldTotal = 0,
     this.turn = 0,
     this.roundDirection = RoundDirection.up,
-    this.gameStep = GameStep.setFold,
   });
 
   int get maxFold => round + 1;

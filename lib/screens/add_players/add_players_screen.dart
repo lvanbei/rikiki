@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/core.dart';
+import '../base/base.dart';
 import 'add_players.dart';
 
 class AddPlayersScreen extends StatelessWidget {
@@ -11,7 +12,10 @@ class AddPlayersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => AddPlayersCubit()..onWidgetDidInit(),
+      create: (_) => AddPlayersCubit()
+        ..onWidgetDidInit(
+            (context.read<BaseCubit>().state as BaseLoadedState).prefs,
+            (context.read<BaseCubit>().state as BaseLoadedState).listOfPlayers),
       child: BlocBuilder<AddPlayersCubit, AddPlayersState>(
         builder: (context, state) {
           if (state is AddPlayersLoadedState) {

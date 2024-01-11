@@ -17,12 +17,13 @@ class MyApp extends StatelessWidget {
       create: (_) => BaseCubit()..onWidgetDidInit(),
       child: MaterialApp.router(
         theme: ThemeData(
+          fontFamily: 'Urbanist',
           appBarTheme: AppBarTheme(
             backgroundColor: AppColors.black,
-            titleTextStyle: Theme.of(context)
-                .textTheme
-                .headlineLarge!
-                .copyWith(color: AppColors.white),
+            titleTextStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                color: AppColors.white,
+                fontFamily: 'Urbanist',
+                letterSpacing: 18),
           ),
           scaffoldBackgroundColor: AppColors.white,
           colorScheme:
@@ -36,13 +37,14 @@ class MyApp extends StatelessWidget {
           )),
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
+            textStyle: const TextStyle(fontFamily: 'Urbanist'),
             backgroundColor: AppColors.black,
             foregroundColor: AppColors.white,
             disabledForegroundColor: AppColors.grey,
             disabledBackgroundColor: AppColors.lightGrey,
           )),
         ),
-        title: 'Rikiki',
+        title: 'RIKIKI',
         routerConfig: GoRouter(
           navigatorKey: rootNavigatorKey,
           initialLocation: AppRoutes.home,
@@ -78,6 +80,15 @@ class MyApp extends StatelessWidget {
                       name: state.fullPath,
                       key: state.pageKey,
                       child: const GameScreen()),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _shellNavigatorKey,
+                  name: AppRouteNames.play,
+                  path: AppRoutes.play,
+                  pageBuilder: (context, state) => NoTransitionPage(
+                      name: state.fullPath,
+                      key: state.pageKey,
+                      child: const PlayScreen()),
                 ),
               ],
             )

@@ -19,7 +19,7 @@ class BaseScreen extends StatelessWidget {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-              title: const Text('Rikiki'),
+              title: const Text('RIKIKI'),
               leading: isHome
                   ? null
                   : IconButton(

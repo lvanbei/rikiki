@@ -7,7 +7,7 @@ part of 'base_state.dart';
 // **************************************************************************
 
 abstract class _$BaseLoadedStateCWProxy {
-  BaseLoadedState isHome(bool isHome);
+  BaseLoadedState prefs(SharedPreferences prefs);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `BaseLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -16,7 +16,7 @@ abstract class _$BaseLoadedStateCWProxy {
   /// BaseLoadedState(...).copyWith(id: 12, name: "My name")
   /// ````
   BaseLoadedState call({
-    bool? isHome,
+    SharedPreferences? prefs,
   });
 }
 
@@ -27,7 +27,7 @@ class _$BaseLoadedStateCWProxyImpl implements _$BaseLoadedStateCWProxy {
   final BaseLoadedState _value;
 
   @override
-  BaseLoadedState isHome(bool isHome) => this(isHome: isHome);
+  BaseLoadedState prefs(SharedPreferences prefs) => this(prefs: prefs);
 
   @override
 
@@ -38,13 +38,13 @@ class _$BaseLoadedStateCWProxyImpl implements _$BaseLoadedStateCWProxy {
   /// BaseLoadedState(...).copyWith(id: 12, name: "My name")
   /// ````
   BaseLoadedState call({
-    Object? isHome = const $CopyWithPlaceholder(),
+    Object? prefs = const $CopyWithPlaceholder(),
   }) {
     return BaseLoadedState(
-      isHome: isHome == const $CopyWithPlaceholder() || isHome == null
-          ? _value.isHome
+      prefs: prefs == const $CopyWithPlaceholder() || prefs == null
+          ? _value.prefs
           // ignore: cast_nullable_to_non_nullable
-          : isHome as bool,
+          : prefs as SharedPreferences,
     );
   }
 }

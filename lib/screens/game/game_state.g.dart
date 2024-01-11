@@ -19,8 +19,6 @@ abstract class _$GameLoadedStateCWProxy {
 
   GameLoadedState roundDirection(RoundDirection roundDirection);
 
-  GameLoadedState gameStep(GameStep gameStep);
-
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `GameLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -34,7 +32,6 @@ abstract class _$GameLoadedStateCWProxy {
     int? foldTotal,
     int? turn,
     RoundDirection? roundDirection,
-    GameStep? gameStep,
   });
 }
 
@@ -65,9 +62,6 @@ class _$GameLoadedStateCWProxyImpl implements _$GameLoadedStateCWProxy {
       this(roundDirection: roundDirection);
 
   @override
-  GameLoadedState gameStep(GameStep gameStep) => this(gameStep: gameStep);
-
-  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `GameLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -82,7 +76,6 @@ class _$GameLoadedStateCWProxyImpl implements _$GameLoadedStateCWProxy {
     Object? foldTotal = const $CopyWithPlaceholder(),
     Object? turn = const $CopyWithPlaceholder(),
     Object? roundDirection = const $CopyWithPlaceholder(),
-    Object? gameStep = const $CopyWithPlaceholder(),
   }) {
     return GameLoadedState(
       listOfPlayers:
@@ -111,10 +104,6 @@ class _$GameLoadedStateCWProxyImpl implements _$GameLoadedStateCWProxy {
           ? _value.roundDirection
           // ignore: cast_nullable_to_non_nullable
           : roundDirection as RoundDirection,
-      gameStep: gameStep == const $CopyWithPlaceholder() || gameStep == null
-          ? _value.gameStep
-          // ignore: cast_nullable_to_non_nullable
-          : gameStep as GameStep,
     );
   }
 }

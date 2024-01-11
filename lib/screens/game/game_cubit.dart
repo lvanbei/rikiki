@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rikiki_for_real/core/core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,17 +7,11 @@ import 'game.dart';
 class GameCubit extends Cubit<GameState> {
   GameCubit() : super(GameInitialState());
 
-  void onWidgetDidInit() async {
-    //add fallback in case no users
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final players = prefs.getString("players");
+  void onWidgetDidInit(
+      SharedPreferences prefs, List<PlayerModel> players) async {
     emit(GameLoadedState(
-      listOfPlayers: players != null
-          ? (jsonDecode(players) as List)
-              .map((e) => PlayerModel.fromJson(e))
-              .toList()
-          : [],
       prefs: prefs,
+      listOfPlayers: players,
     ));
   }
 
@@ -60,7 +52,7 @@ class GameCubit extends Cubit<GameState> {
           listOfPlayers: currentState.listOfPlayers.rotatedLeft(1),
           turn: 0,
           foldTotal: 0,
-          gameStep: GameStep.play,
+          //play screen
           round: currentState.round + 1,
           roundDirection: RoundDirection.up));
     }
@@ -87,7 +79,6 @@ class GameCubit extends Cubit<GameState> {
         //currentState.setPlayerFold(0);
         return;
       }
-      print('minus : ${currentState.getPlayerFold}');
       emit(currentState.copyWith(
           turn: currentState.turn - 1,
           foldTotal: currentState.foldTotal - currentState.getPlayerFold));

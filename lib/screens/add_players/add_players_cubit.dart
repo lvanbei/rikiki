@@ -10,17 +10,12 @@ import 'add_players.dart';
 class AddPlayersCubit extends Cubit<AddPlayersState> {
   AddPlayersCubit() : super(AddPlayersInitialState());
 
-  void onWidgetDidInit() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final players = prefs.getString("players");
+  void onWidgetDidInit(
+      SharedPreferences prefs, List<PlayerModel> players) async {
     emit(AddPlayersLoadedState(
-      listOfPlayers: players != null
-          ? (jsonDecode(players) as List)
-              .map((e) => PlayerModel.fromJson(e))
-              .toList()
-          : [],
-      controller: TextEditingController(),
+      listOfPlayers: players,
       prefs: prefs,
+      controller: TextEditingController(),
     ));
   }
 
