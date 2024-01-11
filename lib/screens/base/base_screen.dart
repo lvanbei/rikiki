@@ -35,7 +35,7 @@ class BaseScreen extends StatelessWidget {
             ),
             body: SafeArea(
                 child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 24),
+                    padding: const EdgeInsets.only(top: 24, bottom: 60),
                     child: child)),
           );
         }
