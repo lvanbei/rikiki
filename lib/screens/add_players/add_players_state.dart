@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:rikiki_for_real/core/core.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'add_players_state.g.dart';
 

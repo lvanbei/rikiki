@@ -51,11 +51,9 @@ class AddPlayersScreen extends StatelessWidget {
                 MyButton(
                   title: "next",
                   onPressed: state.enoughPlayer
-                      ? () async {
-                          await context.read<BaseCubit>().updateRound(0);
-                          await context
-                              .read<AddPlayersCubit>()
-                              .updateFoldList();
+                      ? () {
+                          context.read<BaseCubit>().updateRound(0);
+                          context.read<AddPlayersCubit>().updateFoldList();
                           Router.neglect(
                               context,
                               () =>

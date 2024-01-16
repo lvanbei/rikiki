@@ -55,8 +55,9 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
   Future updateFoldList() async {
     final currentState = state as AddPlayersLoadedState;
     final currentPlayers = currentState.listOfPlayers;
-    final rounds = (52 / currentPlayers.length).floor() * 2;
+    final rounds = ((52 / currentPlayers.length).floor() * 2) - 1;
     for (var player in currentPlayers) {
+      player.points = 0;
       player.folds = List.generate(rounds, (_) => FoldsModel());
     }
     await baseCubit.updatePlayers(currentPlayers);

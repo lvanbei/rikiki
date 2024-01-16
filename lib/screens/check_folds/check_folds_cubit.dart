@@ -17,20 +17,42 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
     ));
   }
 
-  void checkFolds(bool isCheck, BuildContext context) {
+  void updateFold(int newFold) {
     final currentState = state as CheckFoldsLoadedState;
-    final int nextTurn = currentState.turn + 1;
 
-    currentState.setPlayerCheckFold(isCheck);
+    // if (newFold != currentState.getPlayerFold) {
+    currentState.setPlayerFold(newFold);
+    emit(currentState.copyWith(listOfPlayers: currentState.listOfPlayers));
+    // }
+  }
 
+  void nextTurn(context) {
+    final currentState = state as CheckFoldsLoadedState;
+    final currentTurn = currentState.turn + 1;
+
+    // turn +1
+    currentState.setPlayerPoint();
+    if (currentTurn < currentState.listOfPlayers.length) {
+      emit(currentState.copyWith(turn: currentTurn));
+    }
+
+    // round +1
     if (currentState.isLastPlayer) {
-      baseCubit.updatePlayers(currentState.listOfPlayers);
+      baseCubit.updatePlayers(currentState.listOfPlayers.rotatedLeft(1));
       baseCubit.updateRound(currentState.round + 1);
       Router.neglect(
           context, () => GoRouter.of(context).go(AppRoutes.setFolds));
       return;
     }
+  }
 
-    emit(currentState.copyWith(turn: nextTurn));
+  void previousTurn() {
+    final currentState = state as CheckFoldsLoadedState;
+    if (currentState.turn > 0) {
+      currentState.removPlayerPoint();
+      emit(currentState.copyWith(
+        turn: currentState.turn - 1,
+      ));
+    }
   }
 }

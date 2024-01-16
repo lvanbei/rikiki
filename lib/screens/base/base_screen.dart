@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rikiki_for_real/screens/screens.dart';
 
 import '../../core/core.dart';
-import 'base.dart';
 
 class BaseScreen extends StatelessWidget {
   final Widget child;
@@ -20,6 +20,18 @@ class BaseScreen extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
               title: const Text('RIKIKI'),
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => const AlertDialog(
+                          content: ScoresScreen(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.scoreboard_sharp))
+              ],
               leading: isHome
                   ? null
                   : IconButton(

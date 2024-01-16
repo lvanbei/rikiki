@@ -22,11 +22,41 @@ class CheckFoldsLoadedState extends CheckFoldsState {
     this.turn = 0,
   });
 
-  int get playerFold => listOfPlayers[turn].folds[round].fold;
+  int get maxFold => round + 1;
+
+  int get playerFold => listOfPlayers[turn].folds[round].announcedFolds;
 
   bool get isLastPlayer => turn == listOfPlayers.length - 1;
 
-  void setPlayerCheckFold(bool check) {
-    listOfPlayers[turn].folds[round].isCheck = check;
+  int get getPlayerFold => listOfPlayers[turn].folds[round].makedFolds;
+
+  void setPlayerFold(int fold) {
+    listOfPlayers[turn].folds[round].makedFolds = fold;
+  }
+
+  void setPlayerPoint() {
+    final makedFold = listOfPlayers[turn].folds[round].makedFolds;
+    final announcedFold = listOfPlayers[turn].folds[round].announcedFolds;
+    final bool isCheck = (makedFold - announcedFold) == 0;
+    if (isCheck) {
+      print('plus : ${10 + (makedFold * 2)}');
+      listOfPlayers[turn].points += 10 + (maxFold * 2);
+    } else {
+      print('minus : ${((announcedFold - makedFold).abs()) * 2}');
+      listOfPlayers[turn].points -= ((announcedFold - makedFold).abs()) * 2;
+    }
+  }
+
+  void removPlayerPoint() {
+    final makedFold = listOfPlayers[turn].folds[round].makedFolds;
+    final announcedFold = listOfPlayers[turn].folds[round].announcedFolds;
+    final bool isCheck = (makedFold - announcedFold) == 0;
+    if (isCheck) {
+      print('plus : ${10 + (makedFold * 2)}');
+      listOfPlayers[turn].points -= 10 + (maxFold * 2);
+    } else {
+      print('minus : ${((announcedFold - makedFold).abs()) * 2}');
+      listOfPlayers[turn].points += ((announcedFold - makedFold).abs()) * 2;
+    }
   }
 }

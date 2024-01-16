@@ -11,23 +11,25 @@ PlayerModel _$PlayerModelFromJson(Map<String, dynamic> json) => PlayerModel(
       folds: (json['folds'] as List<dynamic>)
           .map((e) => FoldsModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      points: json['points'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$PlayerModelToJson(PlayerModel instance) =>
     <String, dynamic>{
       'name': instance.name,
       'folds': instance.folds,
+      'points': instance.points,
     };
 
 FoldsModel _$FoldsModelFromJson(Map<String, dynamic> json) => FoldsModel(
-      fold: json['fold'] as int? ?? 0,
+      announcedFolds: json['announcedFolds'] as int? ?? 0,
       round: json['round'] as int? ?? 0,
-      isCheck: json['isCheck'] as bool? ?? false,
+      makedFolds: json['makedFolds'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$FoldsModelToJson(FoldsModel instance) =>
     <String, dynamic>{
       'round': instance.round,
-      'fold': instance.fold,
-      'isCheck': instance.isCheck,
+      'announcedFolds': instance.announcedFolds,
+      'makedFolds': instance.makedFolds,
     };

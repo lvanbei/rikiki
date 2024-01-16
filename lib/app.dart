@@ -16,8 +16,16 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (_) => BaseCubit()..onWidgetDidInit(),
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Urbanist',
+          dialogBackgroundColor: AppColors.white,
+          dialogTheme: DialogTheme.of(context).copyWith(
+            surfaceTintColor: AppColors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
           appBarTheme: AppBarTheme(
             backgroundColor: AppColors.black,
             titleTextStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
@@ -98,6 +106,15 @@ class MyApp extends StatelessWidget {
                       name: state.fullPath,
                       key: state.pageKey,
                       child: const CheckFoldsScreen()),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _shellNavigatorKey,
+                  name: AppRouteNames.scores,
+                  path: AppRoutes.scores,
+                  pageBuilder: (context, state) => NoTransitionPage(
+                      name: state.fullPath,
+                      key: state.pageKey,
+                      child: const ScoresScreen()),
                 ),
               ],
             )

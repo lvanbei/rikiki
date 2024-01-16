@@ -6,8 +6,9 @@ part 'player_model.g.dart';
 class PlayerModel {
   final String name;
   List<FoldsModel> folds;
+  int points;
 
-  PlayerModel({required this.name, required this.folds});
+  PlayerModel({required this.name, required this.folds, this.points = 0});
 
   factory PlayerModel.fromJson(Map<String, dynamic> json) =>
       _$PlayerModelFromJson(json);
@@ -18,10 +19,14 @@ class PlayerModel {
 @JsonSerializable()
 class FoldsModel {
   int round;
-  int fold;
-  bool isCheck;
+  int announcedFolds;
+  int makedFolds;
 
-  FoldsModel({this.fold = 0, this.round = 0, this.isCheck = false});
+  FoldsModel({
+    this.announcedFolds = 0,
+    this.round = 0,
+    this.makedFolds = 0,
+  });
 
   factory FoldsModel.fromJson(Map<String, dynamic> json) =>
       _$FoldsModelFromJson(json);

@@ -48,16 +48,13 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
       emit(currentState.copyWith(turn: currentTurn));
     }
 
-    // round +1
-    // turn 0
     if (currentState.isLastPlayer && currentState.isRoundUp) {
-      //baseCubit.updatePlayers(currentState.listOfPlayers.rotatedLeft(1));
+      baseCubit.updatePlayers(currentState.listOfPlayers);
       Router.neglect(context, () => GoRouter.of(context).go(AppRoutes.play));
       return;
     }
 
     // round -1
-    // turn 0
     if (currentState.isLastPlayer && !currentState.isRoundUp) {
       emit(currentState.copyWith(
           turn: 0, foldTotal: 0, roundDirection: RoundDirection.down));

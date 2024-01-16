@@ -31,12 +31,17 @@ class SetFoldsLoadedState extends SetFoldsState {
 
   bool get longName => listOfPlayers[turn].name.length > 12;
 
-  void setPlayerFold(fold) => listOfPlayers[turn].folds[round].fold = fold;
+  void setPlayerFold(fold) {
+    listOfPlayers[turn].folds[round].announcedFolds = fold;
+    listOfPlayers[turn].folds[round].makedFolds = fold;
+  }
 
-  void setPlayerWithIndexFold(fold, index) =>
-      listOfPlayers[index].folds[round].fold = fold;
+  void setPlayerWithIndexFold(fold, index) {
+    listOfPlayers[index].folds[round].announcedFolds = fold;
+    listOfPlayers[index].folds[round].makedFolds = fold;
+  }
 
-  int get getPlayerFold => listOfPlayers[turn].folds[round].fold;
+  int get getPlayerFold => listOfPlayers[turn].folds[round].announcedFolds;
 
   bool get isLastPlayer => turn == listOfPlayers.length - 1;
 

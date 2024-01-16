@@ -19,96 +19,92 @@ class CheckFoldsScreen extends StatelessWidget {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Check folds",
-                    style:
-                        TextStyle(fontSize: 45, fontWeight: FontWeight.bold)),
-                Column(
+                Text('Round ${state.round + 1}',
+                    style: const TextStyle(
+                        fontSize: 45, fontWeight: FontWeight.bold)),
+                Center(
+                  child: SizedBox(
+                    height: 70,
+                    child: AnimatedTextKit(
+                      key: Key(state.turn.toString()),
+                      animatedTexts: [
+                        RotateAnimatedText(state.listOfPlayers[state.turn].name,
+                            alignment: Alignment.topCenter,
+                            textStyle: const TextStyle(
+                              fontSize: 32,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            rotateOut: false,
+                            duration: const Duration(
+                              milliseconds: 500,
+                            )),
+                      ],
+                      totalRepeatCount: 1,
+                      pause: const Duration(milliseconds: 0),
+                      displayFullTextOnTap: true,
+                      stopPauseOnTap: true,
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Center(
-                      child: SizedBox(
-                        height: 70,
-                        child: AnimatedTextKit(
-                          key: Key(state.turn.toString()),
-                          animatedTexts: [
-                            RotateAnimatedText(
-                                state.listOfPlayers[state.turn].name,
-                                alignment: Alignment.topCenter,
-                                textStyle: const TextStyle(
-                                  fontSize: 32,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                rotateOut: false,
-                                duration: const Duration(
-                                  milliseconds: 500,
-                                )),
-                          ],
-                          totalRepeatCount: 1,
-                          pause: const Duration(milliseconds: 0),
-                          displayFullTextOnTap: true,
-                          stopPauseOnTap: true,
-                        ),
-                      ),
-                    ),
+                    // Expanded(flex: 4, child: Container()),
                     Text(
-                      'Did ${state.playerFold} folds ?',
-                      style: const TextStyle(fontSize: 24),
+                      'did ${state.getPlayerFold.toString()} folds ?',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 32),
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    if (MediaQuery.of(context).size.width > 672)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          MyButton(
-                              title: 'Yes',
-                              size: ButtonSizes.big,
-                              onPressed: () {
-                                context
-                                    .read<CheckFoldsCubit>()
-                                    .checkFolds(true, context);
-                              }),
-                          const SizedBox(
-                            width: 16,
-                          ),
-                          MyButton(
-                              title: 'No',
-                              size: ButtonSizes.big,
-                              onPressed: () {
-                                context
-                                    .read<CheckFoldsCubit>()
-                                    .checkFolds(false, context);
-                              })
-                        ],
-                      ),
-                    if (MediaQuery.of(context).size.width <= 672)
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          MyButton(
-                              title: 'Yes',
-                              size: ButtonSizes.big,
-                              onPressed: () {
-                                context
-                                    .read<CheckFoldsCubit>()
-                                    .checkFolds(true, context);
-                              }),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          MyButton(
-                              title: 'No',
-                              size: ButtonSizes.big,
-                              onPressed: () {
-                                context
-                                    .read<CheckFoldsCubit>()
-                                    .checkFolds(false, context);
-                              })
-                        ],
-                      ),
                   ],
                 ),
-                const SizedBox()
+                NumericKeyboard(
+                  mainAxisAlignment: MediaQuery.of(context).size.width > 672
+                      ? MainAxisAlignment.center
+                      : MainAxisAlignment.spaceEvenly,
+                  enableZero: 0 <= state.maxFold,
+                  enableOne: 1 <= state.maxFold,
+                  enableTwo: 2 <= state.maxFold,
+                  enableThree: 3 <= state.maxFold,
+                  enableFor: 4 <= state.maxFold,
+                  enableFive: 5 <= state.maxFold,
+                  enableSix: 6 <= state.maxFold,
+                  enableSeven: 7 <= state.maxFold,
+                  enableEight: 8 <= state.maxFold,
+                  enableNine: 9 <= state.maxFold,
+                  textStyle: const TextStyle(color: AppColors.white),
+                  onKeyboardTap: (text) => context
+                      .read<CheckFoldsCubit>()
+                      .updateFold(int.parse(text)),
+                  rightIcon: ElevatedButton(
+                    style:
+                        ElevatedButton.styleFrom(shape: const CircleBorder()),
+                    onPressed: () =>
+                        context.read<CheckFoldsCubit>().nextTurn(context),
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      alignment: Alignment.center,
+                      child: const Icon(
+                        Icons.check,
+                      ),
+                    ),
+                  ),
+                  leftIcon: ElevatedButton(
+                    style:
+                        ElevatedButton.styleFrom(shape: const CircleBorder()),
+                    onPressed: state.turn > 0
+                        ? () => context.read<CheckFoldsCubit>().previousTurn()
+                        : null,
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      alignment: Alignment.center,
+                      child: const Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             );
           }
