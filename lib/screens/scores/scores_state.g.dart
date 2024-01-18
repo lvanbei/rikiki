@@ -9,6 +9,10 @@ part of 'scores_state.dart';
 abstract class _$ScoresLoadedStateCWProxy {
   ScoresLoadedState listOfPlayers(List<PlayerModel> listOfPlayers);
 
+  ScoresLoadedState round(int round);
+
+  ScoresLoadedState selectedUser(int selectedUser);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ScoresLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -17,6 +21,8 @@ abstract class _$ScoresLoadedStateCWProxy {
   /// ````
   ScoresLoadedState call({
     List<PlayerModel>? listOfPlayers,
+    int? round,
+    int? selectedUser,
   });
 }
 
@@ -31,6 +37,13 @@ class _$ScoresLoadedStateCWProxyImpl implements _$ScoresLoadedStateCWProxy {
       this(listOfPlayers: listOfPlayers);
 
   @override
+  ScoresLoadedState round(int round) => this(round: round);
+
+  @override
+  ScoresLoadedState selectedUser(int selectedUser) =>
+      this(selectedUser: selectedUser);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ScoresLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -40,6 +53,8 @@ class _$ScoresLoadedStateCWProxyImpl implements _$ScoresLoadedStateCWProxy {
   /// ````
   ScoresLoadedState call({
     Object? listOfPlayers = const $CopyWithPlaceholder(),
+    Object? round = const $CopyWithPlaceholder(),
+    Object? selectedUser = const $CopyWithPlaceholder(),
   }) {
     return ScoresLoadedState(
       listOfPlayers:
@@ -47,6 +62,15 @@ class _$ScoresLoadedStateCWProxyImpl implements _$ScoresLoadedStateCWProxy {
               ? _value.listOfPlayers
               // ignore: cast_nullable_to_non_nullable
               : listOfPlayers as List<PlayerModel>,
+      round: round == const $CopyWithPlaceholder() || round == null
+          ? _value.round
+          // ignore: cast_nullable_to_non_nullable
+          : round as int,
+      selectedUser:
+          selectedUser == const $CopyWithPlaceholder() || selectedUser == null
+              ? _value.selectedUser
+              // ignore: cast_nullable_to_non_nullable
+              : selectedUser as int,
     );
   }
 }

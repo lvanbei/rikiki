@@ -13,5 +13,11 @@ class ScoresInitialState extends ScoresState {}
 @CopyWith()
 class ScoresLoadedState extends ScoresState {
   final List<PlayerModel> listOfPlayers;
-  const ScoresLoadedState({required this.listOfPlayers});
+  final int round;
+  final int selectedUser;
+  const ScoresLoadedState({
+    required this.listOfPlayers,
+    required this.round,
+    this.selectedUser = 0,
+  });
 }

@@ -13,6 +13,7 @@ class BaseScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final fullPath = GoRouterState.of(context).fullPath;
     final isHome = fullPath == AppRoutes.home;
+    final isAddPlayer = fullPath == AppRoutes.addPlayers;
     return BlocBuilder<BaseCubit, BaseState>(
       builder: (context, state) {
         if (state is BaseLoadedState) {
@@ -20,18 +21,20 @@ class BaseScreen extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
               title: const Text('RIKIKI'),
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => const AlertDialog(
-                          content: ScoresScreen(),
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.scoreboard_sharp))
-              ],
+              actions: !isHome && !isAddPlayer
+                  ? [
+                      IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => const AlertDialog(
+                                content: ScoresScreen(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.scoreboard_sharp))
+                    ]
+                  : null,
               leading: isHome
                   ? null
                   : IconButton(
@@ -47,7 +50,11 @@ class BaseScreen extends StatelessWidget {
             ),
             body: SafeArea(
                 child: Padding(
-                    padding: const EdgeInsets.only(top: 24, bottom: 60),
+                    padding: EdgeInsets.only(
+                        top: 24,
+                        bottom: MediaQuery.of(context).size.height > 1334
+                            ? 60
+                            : 24),
                     child: child)),
           );
         }

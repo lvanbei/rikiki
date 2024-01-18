@@ -47,7 +47,7 @@ class CheckFoldsLoadedState extends CheckFoldsState {
     }
   }
 
-  void removPlayerPoint() {
+  void removePlayerPoint() {
     final makedFold = listOfPlayers[turn].folds[round].makedFolds;
     final announcedFold = listOfPlayers[turn].folds[round].announcedFolds;
     final bool isCheck = (makedFold - announcedFold) == 0;

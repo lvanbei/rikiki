@@ -49,7 +49,7 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
   void previousTurn() {
     final currentState = state as CheckFoldsLoadedState;
     if (currentState.turn > 0) {
-      currentState.removPlayerPoint();
+      currentState.removePlayerPoint();
       emit(currentState.copyWith(
         turn: currentState.turn - 1,
       ));
