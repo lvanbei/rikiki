@@ -14,6 +14,7 @@ class BaseScreen extends StatelessWidget {
     final fullPath = GoRouterState.of(context).fullPath;
     final isHome = fullPath == AppRoutes.home;
     final isAddPlayer = fullPath == AppRoutes.addPlayers;
+
     return BlocBuilder<BaseCubit, BaseState>(
       builder: (context, state) {
         if (state is BaseLoadedState) {
@@ -52,9 +53,8 @@ class BaseScreen extends StatelessWidget {
                 child: Padding(
                     padding: EdgeInsets.only(
                         top: 24,
-                        bottom: MediaQuery.of(context).size.height > 1334
-                            ? 60
-                            : 24),
+                        bottom:
+                            MediaQuery.of(context).size.height > 548 ? 60 : 24),
                     child: child)),
           );
         }

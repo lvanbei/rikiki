@@ -20,7 +20,7 @@ class ScoresScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is ScoresLoadedState) {
             return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
@@ -109,6 +109,9 @@ class ScoresScreen extends StatelessWidget {
                       ],
                     )
                   ],
+                ),
+                const SizedBox(
+                  height: 64,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
