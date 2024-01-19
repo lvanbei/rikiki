@@ -66,40 +66,63 @@ class NumericKeyboard extends StatelessWidget {
       alignment: Alignment.center,
       child: Column(
         children: <Widget>[
-          ButtonBar(
-            alignment: mainAxisAlignment,
+          Row(
+            mainAxisAlignment: mainAxisAlignment,
             children: <Widget>[
               _calcButton('1', enableOne),
+              horizontalSpacing(),
               _calcButton('2', enableTwo),
+              horizontalSpacing(),
               _calcButton('3', enableThree),
             ],
           ),
-          ButtonBar(
-            alignment: mainAxisAlignment,
+          verticalSpacing(),
+          Row(
+            mainAxisAlignment: mainAxisAlignment,
             children: <Widget>[
               _calcButton('4', enableFor),
+              horizontalSpacing(),
               _calcButton('5', enableFive),
+              horizontalSpacing(),
               _calcButton('6', enableSix),
             ],
           ),
-          ButtonBar(
-            alignment: mainAxisAlignment,
+          verticalSpacing(),
+          Row(
+            mainAxisAlignment: mainAxisAlignment,
             children: <Widget>[
               _calcButton('7', enableSeven),
+              horizontalSpacing(),
               _calcButton('8', enableEight),
+              horizontalSpacing(),
               _calcButton('9', enableNine),
             ],
           ),
-          ButtonBar(
-            alignment: mainAxisAlignment,
+          verticalSpacing(),
+          Row(
+            mainAxisAlignment: mainAxisAlignment,
             children: <Widget>[
               leftIcon,
+              horizontalSpacing(),
               _calcButton('0', enableZero),
+              horizontalSpacing(),
               rightIcon,
             ],
           ),
         ],
       ),
+    );
+  }
+
+  SizedBox horizontalSpacing() {
+    return const SizedBox(
+      width: 8,
+    );
+  }
+
+  SizedBox verticalSpacing() {
+    return const SizedBox(
+      height: 8,
     );
   }
 

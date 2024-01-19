@@ -8,3 +8,5 @@ void main() {
 
 
 // https://pub.dev/packages/pwa_install
+
+// https://progressier.com/pwa-icons-and-ios-splash-screen-generator

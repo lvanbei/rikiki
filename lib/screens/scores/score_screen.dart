@@ -32,7 +32,7 @@ class ScoresScreen extends StatelessWidget {
                         SizedBox(
                           width: 75,
                           child: Text(
-                            '${state.listOfPlayers[1].name} : ${state.listOfPlayers[0].points}',
+                            '${state.listOfPlayers[1].name} : ${state.listOfPlayers[1].points}',
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -58,7 +58,7 @@ class ScoresScreen extends StatelessWidget {
                         SizedBox(
                           width: 75,
                           child: Text(
-                            '${state.listOfPlayers[0].name} : ${state.listOfPlayers[1].points}',
+                            '${state.listOfPlayers[0].name} : ${state.listOfPlayers[0].points}',
                             textAlign: TextAlign.center,
                           ),
                         ),
