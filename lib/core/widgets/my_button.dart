@@ -13,12 +13,14 @@ class MyButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-          textStyle: Theme.of(context)
-              .textTheme
-              .bodyLarge!
-              .copyWith(fontSize: size.fontSize),
-          padding: EdgeInsets.all(size.padding),
-          minimumSize: size.minimumSize),
+        textStyle: Theme.of(context)
+            .textTheme
+            .bodyLarge!
+            .copyWith(fontSize: size.fontSize),
+        padding: EdgeInsets.all(size.padding),
+        minimumSize: size.fixedSize,
+        alignment: Alignment.center,
+      ),
       child: Text(title),
     );
   }

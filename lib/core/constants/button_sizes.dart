@@ -3,7 +3,7 @@ import 'dart:ui';
 enum ButtonSizes { small, medium, big }
 
 extension ButtonSizeEx on ButtonSizes {
-  Size get minimumSize {
+  Size get fixedSize {
     switch (this) {
       case ButtonSizes.small:
         return const Size(150, 20);
@@ -19,11 +19,11 @@ extension ButtonSizeEx on ButtonSizes {
   double get padding {
     switch (this) {
       case ButtonSizes.small:
-        return 16;
+        return 12;
       case ButtonSizes.medium:
-        return 24;
+        return 16;
       case ButtonSizes.big:
-        return 32;
+        return 24;
       default:
         return 8;
     }
@@ -34,9 +34,9 @@ extension ButtonSizeEx on ButtonSizes {
       case ButtonSizes.small:
         return 24;
       case ButtonSizes.medium:
-        return 30;
+        return 26;
       case ButtonSizes.big:
-        return 36;
+        return 32;
       default:
         return 12;
     }
