@@ -53,6 +53,9 @@ class AddPlayersScreen extends StatelessWidget {
                   onPressed: () {},
                   size: ButtonSizes.small,
                 ),
+                const SizedBox(
+                  height: 150,
+                ),
                 MyButton(
                   title: "next",
                   onPressed: state.enoughPlayer
