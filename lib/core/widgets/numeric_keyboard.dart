@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rikiki_for_real/core/core.dart';
 
 typedef KeyboardTapCallback = void Function(String text);
 
@@ -128,44 +127,21 @@ class NumericKeyboard extends StatelessWidget {
   }
 
   Widget _calcButton(String value, bool isEnabled) {
-    return InkWell(
-      onTap: isEnabled ? () => onKeyboardTap(value) : null,
-      child: Ink(
-        padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: isEnabled ? AppColors.black : AppColors.lightGrey,
-          //shape: BoxShape.rectangle,
-          //borderRadius: BorderRadius.circular(8.0),
-        ),
+    return ElevatedButton(
+        onPressed: isEnabled
+            ? () {
+                onKeyboardTap(value);
+              }
+            : null,
+        style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
         child: Container(
           alignment: Alignment.center,
           width: 50,
           height: 50,
           child: Text(
             value,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18.0,
-            ),
+            style: textStyle,
           ),
-        ),
-      ),
-    );
-    // return ElevatedButton(
-    //     onPressed: isEnabled
-    //         ? () {
-    //             onKeyboardTap(value);
-    //           }
-    //         : null,
-    //     style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
-    //     child: Container(
-    //       alignment: Alignment.center,
-    //       width: 50,
-    //       height: 50,
-    //       child: Text(
-    //         value,
-    //         style: textStyle,
-    //       ),
-    //     ));
+        ));
   }
 }
