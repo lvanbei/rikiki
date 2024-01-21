@@ -13,4 +13,4 @@
   publish = "build/web"
 
   # Default build command.
-  command = "if cd flutter; then cd ..; else git clone https://github.com/flutter/flutter.git; fi && flutter/bin/flutter build web --web-renderer html"
+  command = "if cd flutter; then cd ..; else git clone https://github.com/flutter/flutter.git; fi && flutter/bin/flutter build web --web-renderer html --release"

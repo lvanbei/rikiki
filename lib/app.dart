@@ -13,112 +13,118 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => BaseCubit()..onWidgetDidInit(),
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: 'Urbanist',
-          dialogBackgroundColor: AppColors.white,
-          dialogTheme: DialogTheme.of(context).copyWith(
-            surfaceTintColor: AppColors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
+    return SelectionContainer.disabled(
+      child: BlocProvider(
+        create: (_) => BaseCubit()..onWidgetDidInit(),
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'Urbanist',
+            dialogBackgroundColor: AppColors.white,
+            dialogTheme: DialogTheme.of(context).copyWith(
+              surfaceTintColor: AppColors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+              ),
             ),
+            appBarTheme: AppBarTheme(
+              backgroundColor: AppColors.black,
+              titleTextStyle: Theme.of(context)
+                  .textTheme
+                  .headlineLarge!
+                  .copyWith(
+                      color: AppColors.white,
+                      fontFamily: 'Urbanist',
+                      letterSpacing: 18),
+            ),
+            scaffoldBackgroundColor: AppColors.white,
+            colorScheme: Theme.of(context)
+                .colorScheme
+                .copyWith(primary: AppColors.black),
+            iconButtonTheme: IconButtonThemeData(
+                style: IconButton.styleFrom(
+              backgroundColor: AppColors.black,
+              foregroundColor: AppColors.white,
+              disabledForegroundColor: AppColors.grey,
+              disabledBackgroundColor: AppColors.lightGrey,
+            )),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+              textStyle: const TextStyle(fontFamily: 'Urbanist'),
+              backgroundColor: AppColors.black,
+              foregroundColor: AppColors.white,
+              disabledForegroundColor: AppColors.grey,
+              disabledBackgroundColor: AppColors.lightGrey,
+            )),
           ),
-          appBarTheme: AppBarTheme(
-            backgroundColor: AppColors.black,
-            titleTextStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                color: AppColors.white,
-                fontFamily: 'Urbanist',
-                letterSpacing: 18),
-          ),
-          scaffoldBackgroundColor: AppColors.white,
-          colorScheme:
-              Theme.of(context).colorScheme.copyWith(primary: AppColors.black),
-          iconButtonTheme: IconButtonThemeData(
-              style: IconButton.styleFrom(
-            backgroundColor: AppColors.black,
-            foregroundColor: AppColors.white,
-            disabledForegroundColor: AppColors.grey,
-            disabledBackgroundColor: AppColors.lightGrey,
-          )),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-            textStyle: const TextStyle(fontFamily: 'Urbanist'),
-            backgroundColor: AppColors.black,
-            foregroundColor: AppColors.white,
-            disabledForegroundColor: AppColors.grey,
-            disabledBackgroundColor: AppColors.lightGrey,
-          )),
-        ),
-        title: 'RIKIKI',
-        routerConfig: GoRouter(
-          navigatorKey: rootNavigatorKey,
-          initialLocation: AppRoutes.home,
-          routes: [
-            ShellRoute(
-              navigatorKey: _shellNavigatorKey,
-              builder: (context, state, child) => BaseScreen(child: child),
-              routes: [
-                GoRoute(
+          title: 'RIKIKI',
+          routerConfig: GoRouter(
+            navigatorKey: rootNavigatorKey,
+            initialLocation: AppRoutes.home,
+            routes: [
+              ShellRoute(
+                navigatorKey: _shellNavigatorKey,
+                builder: (context, state, child) => BaseScreen(child: child),
+                routes: [
+                  GoRoute(
+                      parentNavigatorKey: _shellNavigatorKey,
+                      name: AppRouteNames.home,
+                      path: AppRoutes.home,
+                      pageBuilder: (context, GoRouterState state) =>
+                          NoTransitionPage(
+                            name: state.fullPath,
+                            key: state.pageKey,
+                            child: const HomeScreen(),
+                          )),
+                  GoRoute(
                     parentNavigatorKey: _shellNavigatorKey,
-                    name: AppRouteNames.home,
-                    path: AppRoutes.home,
-                    pageBuilder: (context, GoRouterState state) =>
-                        NoTransitionPage(
-                          name: state.fullPath,
-                          key: state.pageKey,
-                          child: const HomeScreen(),
-                        )),
-                GoRoute(
-                  parentNavigatorKey: _shellNavigatorKey,
-                  name: AppRouteNames.addPlayers,
-                  path: AppRoutes.addPlayers,
-                  pageBuilder: (context, state) => NoTransitionPage(
-                      name: state.fullPath,
-                      key: state.pageKey,
-                      child: const AddPlayersScreen()),
-                ),
-                GoRoute(
-                  parentNavigatorKey: _shellNavigatorKey,
-                  name: AppRouteNames.setFolds,
-                  path: AppRoutes.setFolds,
-                  pageBuilder: (context, state) => NoTransitionPage(
-                      name: state.fullPath,
-                      key: state.pageKey,
-                      child: const SetFoldsScreen()),
-                ),
-                GoRoute(
-                  parentNavigatorKey: _shellNavigatorKey,
-                  name: AppRouteNames.play,
-                  path: AppRoutes.play,
-                  pageBuilder: (context, state) => NoTransitionPage(
-                      name: state.fullPath,
-                      key: state.pageKey,
-                      child: const PlayScreen()),
-                ),
-                GoRoute(
-                  parentNavigatorKey: _shellNavigatorKey,
-                  name: AppRouteNames.checkFolds,
-                  path: AppRoutes.checkFolds,
-                  pageBuilder: (context, state) => NoTransitionPage(
-                      name: state.fullPath,
-                      key: state.pageKey,
-                      child: const CheckFoldsScreen()),
-                ),
-                GoRoute(
-                  parentNavigatorKey: _shellNavigatorKey,
-                  name: AppRouteNames.scores,
-                  path: AppRoutes.scores,
-                  pageBuilder: (context, state) => NoTransitionPage(
-                      name: state.fullPath,
-                      key: state.pageKey,
-                      child: const ScoresScreen()),
-                ),
-              ],
-            )
-          ],
+                    name: AppRouteNames.addPlayers,
+                    path: AppRoutes.addPlayers,
+                    pageBuilder: (context, state) => NoTransitionPage(
+                        name: state.fullPath,
+                        key: state.pageKey,
+                        child: const AddPlayersScreen()),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: _shellNavigatorKey,
+                    name: AppRouteNames.setFolds,
+                    path: AppRoutes.setFolds,
+                    pageBuilder: (context, state) => NoTransitionPage(
+                        name: state.fullPath,
+                        key: state.pageKey,
+                        child: const SetFoldsScreen()),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: _shellNavigatorKey,
+                    name: AppRouteNames.play,
+                    path: AppRoutes.play,
+                    pageBuilder: (context, state) => NoTransitionPage(
+                        name: state.fullPath,
+                        key: state.pageKey,
+                        child: const PlayScreen()),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: _shellNavigatorKey,
+                    name: AppRouteNames.checkFolds,
+                    path: AppRoutes.checkFolds,
+                    pageBuilder: (context, state) => NoTransitionPage(
+                        name: state.fullPath,
+                        key: state.pageKey,
+                        child: const CheckFoldsScreen()),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: _shellNavigatorKey,
+                    name: AppRouteNames.scores,
+                    path: AppRoutes.scores,
+                    pageBuilder: (context, state) => NoTransitionPage(
+                        name: state.fullPath,
+                        key: state.pageKey,
+                        child: const ScoresScreen()),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
