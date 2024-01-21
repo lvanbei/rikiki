@@ -20,4 +20,9 @@ class ScoresLoadedState extends ScoresState {
     required this.round,
     this.selectedUser = 0,
   });
+
+  int get points =>
+      listOfPlayers[selectedUser].points + listOfPlayers[selectedUser].point;
+  int pointsWithIndex(int index) =>
+      listOfPlayers[index].points + listOfPlayers[index].point;
 }

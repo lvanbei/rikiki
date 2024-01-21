@@ -31,14 +31,16 @@ class SetFoldsLoadedState extends SetFoldsState {
 
   bool get longName => listOfPlayers[turn].name.length > 12;
 
-  void setPlayerFold(fold) {
+  void setPlayerFold(int fold) {
     listOfPlayers[turn].folds[round].announcedFolds = fold;
     listOfPlayers[turn].folds[round].makedFolds = fold;
+    listOfPlayers[turn].point = 10 + (fold * 2);
   }
 
-  void setPlayerWithIndexFold(fold, index) {
+  void setPlayerWithIndexFold(int fold, int index) {
     listOfPlayers[index].folds[round].announcedFolds = fold;
     listOfPlayers[index].folds[round].makedFolds = fold;
+    listOfPlayers[index].point = 10 + (fold * 2);
   }
 
   int get getPlayerFold => listOfPlayers[turn].folds[round].announcedFolds;

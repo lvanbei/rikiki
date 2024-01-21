@@ -51,7 +51,7 @@ class CheckFoldsScreen extends StatelessWidget {
                   children: [
                     // Expanded(flex: 4, child: Container()),
                     Text(
-                      'did ${state.getPlayerFold.toString()} folds ?',
+                      'did ${state.playerMakedFold.toString()} folds ?',
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontSize: 32),
                     ),

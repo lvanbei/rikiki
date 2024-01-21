@@ -11,9 +11,11 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
   CheckFoldsCubit({required this.baseCubit}) : super(CheckFoldsInitialState());
 
   void onWidgetDidInit() {
+    final listOfPlayers = (baseCubit.state as BaseLoadedState).listOfPlayers;
+    final round = (baseCubit.state as BaseLoadedState).round;
     emit(CheckFoldsLoadedState(
-      listOfPlayers: (baseCubit.state as BaseLoadedState).listOfPlayers,
-      round: (baseCubit.state as BaseLoadedState).round,
+      listOfPlayers: listOfPlayers,
+      round: round,
     ));
   }
 
@@ -31,13 +33,16 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
     final currentTurn = currentState.turn + 1;
 
     // turn +1
-    currentState.setPlayerPoint();
     if (currentTurn < currentState.listOfPlayers.length) {
-      emit(currentState.copyWith(turn: currentTurn));
+      //currentState.setNextPlayerPoint();
+      emit(currentState.copyWith(
+        turn: currentTurn,
+      ));
     }
 
     // round +1
     if (currentState.isLastPlayer) {
+      baseCubit.updatePoints();
       baseCubit.updatePlayers(currentState.listOfPlayers.rotatedLeft(1));
       baseCubit.updateRound(currentState.round + 1);
       Router.neglect(
@@ -49,7 +54,7 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
   void previousTurn() {
     final currentState = state as CheckFoldsLoadedState;
     if (currentState.turn > 0) {
-      currentState.removePlayerPoint();
+      //currentState.removePlayerPoint();
       emit(currentState.copyWith(
         turn: currentState.turn - 1,
       ));

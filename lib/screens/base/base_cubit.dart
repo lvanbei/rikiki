@@ -60,4 +60,12 @@ class BaseCubit extends Cubit<BaseState> {
     await currentState.prefs
         .setString("game", jsonEncode(GameModel(round: round).toJson()));
   }
+
+  void updatePoints() {
+    final currentState = state as BaseLoadedState;
+    for (var player in currentState.listOfPlayers) {
+      player.points += player.point;
+      player.point = 0;
+    }
+  }
 }

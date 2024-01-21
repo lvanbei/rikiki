@@ -24,39 +24,41 @@ class CheckFoldsLoadedState extends CheckFoldsState {
 
   int get maxFold => round + 1;
 
-  int get playerFold => listOfPlayers[turn].folds[round].announcedFolds;
+  int get playerAnnouncedFold =>
+      listOfPlayers[turn].folds[round].announcedFolds;
 
   bool get isLastPlayer => turn == listOfPlayers.length - 1;
 
-  int get getPlayerFold => listOfPlayers[turn].folds[round].makedFolds;
+  int get playerMakedFold => listOfPlayers[turn].folds[round].makedFolds;
 
   void setPlayerFold(int fold) {
     listOfPlayers[turn].folds[round].makedFolds = fold;
+    setPlayerPoint();
   }
 
   void setPlayerPoint() {
-    final makedFold = listOfPlayers[turn].folds[round].makedFolds;
-    final announcedFold = listOfPlayers[turn].folds[round].announcedFolds;
-    final bool isCheck = (makedFold - announcedFold) == 0;
+    final bool isCheck = (playerMakedFold - playerAnnouncedFold) == 0;
     if (isCheck) {
-      print('plus : ${10 + (makedFold * 2)}');
-      listOfPlayers[turn].points += 10 + (maxFold * 2);
+      print('plus : ${10 + (playerMakedFold * 2)}');
+      listOfPlayers[turn].point = 10 + (playerMakedFold * 2);
     } else {
-      print('minus : ${((announcedFold - makedFold).abs()) * 2}');
-      listOfPlayers[turn].points -= ((announcedFold - makedFold).abs()) * 2;
+      print('minus : ${((playerAnnouncedFold - playerMakedFold).abs()) * 2}');
+      listOfPlayers[turn].point =
+          ((playerAnnouncedFold - playerMakedFold).abs()) * -2;
     }
+
+    print('${listOfPlayers[turn].name} did ${listOfPlayers[turn].point} folds');
   }
 
-  void removePlayerPoint() {
-    final makedFold = listOfPlayers[turn].folds[round].makedFolds;
-    final announcedFold = listOfPlayers[turn].folds[round].announcedFolds;
-    final bool isCheck = (makedFold - announcedFold) == 0;
-    if (isCheck) {
-      print('plus : ${10 + (makedFold * 2)}');
-      listOfPlayers[turn].points -= 10 + (maxFold * 2);
-    } else {
-      print('minus : ${((announcedFold - makedFold).abs()) * 2}');
-      listOfPlayers[turn].points += ((announcedFold - makedFold).abs()) * 2;
-    }
-  }
+  // void removePlayerPoint() {
+  //   final bool isCheck = (playerMakedFold - playerAnnouncedFold) == 0;
+  //   if (isCheck) {
+  //     print('plus : ${10 + (playerMakedFold * 2)}');
+  //     listOfPlayers[turn].points -= 10 + (maxFold * 2);
+  //   } else {
+  //     print('minus : ${((playerAnnouncedFold - playerMakedFold).abs()) * 2}');
+  //     listOfPlayers[turn].points +=
+  //         ((playerAnnouncedFold - playerMakedFold).abs()) * 2;
+  //   }
+  // }
 }

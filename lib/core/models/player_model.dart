@@ -7,8 +7,14 @@ class PlayerModel {
   final String name;
   List<FoldsModel> folds;
   int points;
+  int point;
 
-  PlayerModel({required this.name, required this.folds, this.points = 0});
+  PlayerModel({
+    required this.name,
+    required this.folds,
+    this.points = 0,
+    this.point = 0,
+  });
 
   factory PlayerModel.fromJson(Map<String, dynamic> json) =>
       _$PlayerModelFromJson(json);

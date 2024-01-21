@@ -58,6 +58,7 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     final rounds = ((52 / currentPlayers.length).floor() * 2) - 1;
     for (var player in currentPlayers) {
       player.points = 0;
+      player.point = 0;
       player.folds = List.generate(rounds, (_) => FoldsModel());
     }
     await baseCubit.updatePlayers(currentPlayers);

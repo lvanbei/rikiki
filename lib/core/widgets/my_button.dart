@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rikiki_for_real/core/constants/button_sizes.dart';
 
 class MyButton extends StatelessWidget {
-  final VoidCallback? onPressed;
+  final Function? onPressed;
   final String title;
   final ButtonSizes size;
   const MyButton(
@@ -11,7 +11,11 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: onPressed == null
+          ? null
+          : () {
+              onPressed!();
+            },
       style: ElevatedButton.styleFrom(
           textStyle: Theme.of(context)
               .textTheme
