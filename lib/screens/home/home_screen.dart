@@ -22,7 +22,11 @@ class HomeScreen extends StatelessWidget {
         const SizedBox(
           height: 32,
         ),
-        const MyButton(title: 'Scores', size: ButtonSizes.big),
+        MyButton(
+          title: 'Scores',
+          size: ButtonSizes.big,
+          onPressed: () {},
+        ),
       ],
     );
   }
