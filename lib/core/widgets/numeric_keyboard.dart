@@ -41,7 +41,9 @@ class NumericKeyboard extends StatelessWidget {
   const NumericKeyboard({
     super.key,
     required this.onKeyboardTap,
-    this.textStyle = const TextStyle(color: Colors.black),
+    this.textStyle = const TextStyle(
+      color: Colors.black,
+    ),
     this.rightButtonFn,
     this.rightButtonLongPressFn,
     required this.rightIcon,
@@ -127,21 +129,24 @@ class NumericKeyboard extends StatelessWidget {
   }
 
   Widget _calcButton(String value, bool isEnabled) {
-    return ElevatedButton(
-        onPressed: isEnabled
-            ? () {
-                onKeyboardTap(value);
-              }
-            : null,
-        style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
-        child: Container(
-          alignment: Alignment.center,
-          width: 50,
-          height: 50,
-          child: Text(
-            value,
-            style: textStyle,
-          ),
-        ));
+    return Theme(
+      data: ThemeData(useMaterial3: false),
+      child: ElevatedButton(
+          onPressed: isEnabled
+              ? () {
+                  onKeyboardTap(value);
+                }
+              : null,
+          style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
+          child: Container(
+            alignment: Alignment.center,
+            width: 50,
+            height: 50,
+            child: Text(
+              value,
+              style: textStyle,
+            ),
+          )),
+    );
   }
 }
