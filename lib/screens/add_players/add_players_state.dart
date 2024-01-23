@@ -15,14 +15,19 @@ class AddPlayersInitialState extends AddPlayersState {}
 class AddPlayersLoadedState extends AddPlayersState {
   List<PlayerModel> listOfPlayers;
   final TextEditingController controller;
+  final int round;
+
   AddPlayersLoadedState({
     required this.listOfPlayers,
     required this.controller,
+    required this.round,
   });
 
   bool get playersLimit => listOfPlayers.length >= 10;
 
-  bool get enoughPlayer => listOfPlayers.length > 1;
+  bool get enoughPlayer => listOfPlayers.length > 2;
+
+  bool get continueGame => round > 0;
 
   bool get playerAlreadyExist {
     final res = listOfPlayers.firstWhereOrNull(

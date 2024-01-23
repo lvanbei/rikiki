@@ -11,8 +11,13 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
   CheckFoldsCubit({required this.baseCubit}) : super(CheckFoldsInitialState());
 
   void onWidgetDidInit() {
-    final listOfPlayers = (baseCubit.state as BaseLoadedState).listOfPlayers;
-    final round = (baseCubit.state as BaseLoadedState).round;
+    final int selectedGameIndex =
+        (baseCubit.state as BaseLoadedState).selectedGameIndex;
+    final List<PlayerModel> listOfPlayers =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].players;
+    final int round =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
+
     emit(CheckFoldsLoadedState(
       listOfPlayers: listOfPlayers,
       round: round,
@@ -28,7 +33,7 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
     // }
   }
 
-  void nextTurn(context) {
+  void nextTurn(context) async {
     final currentState = state as CheckFoldsLoadedState;
     final currentTurn = currentState.turn + 1;
 
@@ -42,7 +47,10 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
 
     // round +1
     if (currentState.isLastPlayer) {
-      baseCubit.updatePoints();
+      for (var player in currentState.listOfPlayers) {
+        player.points += player.point;
+        player.point = 0;
+      }
       baseCubit.updatePlayers(currentState.listOfPlayers.rotatedLeft(1));
       baseCubit.updateRound(currentState.round + 1);
       Router.neglect(
@@ -54,7 +62,6 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
   void previousTurn() {
     final currentState = state as CheckFoldsLoadedState;
     if (currentState.turn > 0) {
-      //currentState.removePlayerPoint();
       emit(currentState.copyWith(
         turn: currentState.turn - 1,
       ));

@@ -12,7 +12,8 @@ PlayerModel _$PlayerModelFromJson(Map<String, dynamic> json) => PlayerModel(
           .map((e) => FoldsModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       points: json['points'] as int? ?? 0,
-      point: json['point'] as int,
+      point: json['point'] as int? ?? 0,
+      position: json['position'] as int,
     );
 
 Map<String, dynamic> _$PlayerModelToJson(PlayerModel instance) =>
@@ -21,6 +22,7 @@ Map<String, dynamic> _$PlayerModelToJson(PlayerModel instance) =>
       'folds': instance.folds,
       'points': instance.points,
       'point': instance.point,
+      'position': instance.position,
     };
 
 FoldsModel _$FoldsModelFromJson(Map<String, dynamic> json) => FoldsModel(

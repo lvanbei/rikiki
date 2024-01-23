@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rikiki_for_real/screens/base/base.dart';
 
+import '../../core/core.dart';
 import 'scores.dart';
 
 class ScoresCubit extends Cubit<ScoresState> {
@@ -9,8 +10,15 @@ class ScoresCubit extends Cubit<ScoresState> {
 
   void onWidgetDidInit() {
     //sort list by point !
-    final listOfPlayers = (baseCubit.state as BaseLoadedState).listOfPlayers;
-    final int round = (baseCubit.state as BaseLoadedState).round;
+    late final List<PlayerModel> listOfPlayers;
+    late final int round;
+
+    final int selectedGameIndex =
+        (baseCubit.state as BaseLoadedState).selectedGameIndex;
+    listOfPlayers =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].players;
+    round = (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
+
     listOfPlayers
         .sort((a, b) => (b.points + b.point).compareTo(a.points + a.point));
     emit(ScoresLoadedState(

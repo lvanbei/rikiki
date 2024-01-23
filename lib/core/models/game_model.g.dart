@@ -8,8 +8,14 @@ part of 'game_model.dart';
 
 GameModel _$GameModelFromJson(Map<String, dynamic> json) => GameModel(
       round: json['round'] as int? ?? 0,
+      creationDate: DateTime.parse(json['creationDate'] as String),
+      players: (json['players'] as List<dynamic>)
+          .map((e) => PlayerModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$GameModelToJson(GameModel instance) => <String, dynamic>{
       'round': instance.round,
+      'creationDate': instance.creationDate.toIso8601String(),
+      'players': instance.players,
     };

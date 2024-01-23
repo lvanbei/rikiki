@@ -22,11 +22,12 @@ class AddPlayersScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                  child: MyTextField(state: state),
-                ),
+                if (!state.continueGame)
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                    child: MyTextField(state: state),
+                  ),
                 Expanded(
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -38,22 +39,26 @@ class AddPlayersScreen extends StatelessWidget {
                             itemBuilder: (context, index) => ListTile(
                               title: Text(state.listOfPlayers[index].name),
                               leading: Text('${(index + 1)}.'),
-                              trailing: IconButton(
-                                  onPressed: () {
-                                    context
-                                        .read<AddPlayersCubit>()
-                                        .onDeletePlayer(index);
-                                  },
-                                  icon: const Icon(Icons.delete_forever)),
+                              trailing: state.continueGame
+                                  ? null
+                                  : IconButton(
+                                      onPressed: () {
+                                        context
+                                            .read<AddPlayersCubit>()
+                                            .onDeletePlayer(index);
+                                      },
+                                      icon: const Icon(Icons.delete_forever)),
                             ),
                           ))),
                 ),
                 MyButton(
-                  title: "next",
+                  title: state.continueGame ? 'continue' : 'next',
                   onPressed: state.enoughPlayer
                       ? () {
-                          context.read<BaseCubit>().updateRound(0);
-                          context.read<AddPlayersCubit>().updateFoldList();
+                          if (!state.continueGame) {
+                            context.read<BaseCubit>().updateRound(0);
+                            context.read<AddPlayersCubit>().updateFoldList();
+                          }
                           Router.neglect(
                               context,
                               () =>

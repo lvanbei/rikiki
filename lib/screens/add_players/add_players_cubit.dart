@@ -9,10 +9,23 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
   final BaseCubit baseCubit;
   AddPlayersCubit({required this.baseCubit}) : super(AddPlayersInitialState());
 
-  void onWidgetDidInit() async {
+  void onWidgetDidInit() {
+    if ((baseCubit.state as BaseLoadedState).games.isEmpty) {
+      return;
+    }
+    final int selectedGameIndex =
+        (baseCubit.state as BaseLoadedState).selectedGameIndex;
+    final List<PlayerModel> listOfPlayers = [
+      ...(baseCubit.state as BaseLoadedState).games[selectedGameIndex].players
+    ];
+    final int round =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
+
+    listOfPlayers.sort((a, b) => a.position.compareTo(b.position));
     emit(AddPlayersLoadedState(
-      listOfPlayers: (baseCubit.state as BaseLoadedState).initialListOfPlayers,
+      listOfPlayers: listOfPlayers,
       controller: TextEditingController(),
+      round: round,
     ));
   }
 
@@ -23,6 +36,7 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     final currentPlayers = currentState.listOfPlayers;
     currentState.controller.text = '';
     currentPlayers.add(PlayerModel(
+      position: currentPlayers.length,
       name: newPlayer,
       folds: [],
     ));
@@ -58,7 +72,7 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     final rounds = ((52 / currentPlayers.length).floor() * 2) - 1;
     for (var player in currentPlayers) {
       player.points = 0;
-      player.point = 0;
+      player.point = 10;
       player.folds = List.generate(rounds, (_) => FoldsModel());
     }
     await baseCubit.updatePlayers(currentPlayers);

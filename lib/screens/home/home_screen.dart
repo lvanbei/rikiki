@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
           size: ButtonSizes.big,
           onPressed: () {
             Router.neglect(
-                context, () => GoRouter.of(context).go(AppRoutes.addPlayers));
+                context, () => GoRouter.of(context).go(AppRoutes.selectGame));
           },
         ),
         const SizedBox(

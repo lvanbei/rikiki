@@ -11,9 +11,16 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
   SetFoldsCubit({required this.baseCubit}) : super(SetFoldsInitialState());
 
   void onWidgetDidInit() {
+    final int selectedGameIndex =
+        (baseCubit.state as BaseLoadedState).selectedGameIndex;
+    final List<PlayerModel> listOfPlayers =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].players;
+    final round =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
+
     emit(SetFoldsLoadedState(
-      listOfPlayers: (baseCubit.state as BaseLoadedState).listOfPlayers,
-      round: (baseCubit.state as BaseLoadedState).round,
+      listOfPlayers: listOfPlayers,
+      round: round,
     ));
   }
 

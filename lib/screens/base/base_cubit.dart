@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rikiki_for_real/core/models/game_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/core.dart';
@@ -12,60 +11,84 @@ class BaseCubit extends Cubit<BaseState> {
 
   void onWidgetDidInit() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final players = prefs.getString("players");
-    final List<PlayerModel> parsedPlayers =
-        players != null ? _parsePlayers(players, prefs) : [];
-    final game = prefs.getString("game");
-    final GameModel parsedGame =
-        game != null ? _parseGame(game, prefs) : const GameModel();
+
+    final game = prefs.getString("games");
+    final GameStatesModel parsedGame = _parseGame(game, prefs);
 
     emit(BaseLoadedState(
       prefs: prefs,
-      initialListOfPlayers: parsedPlayers,
-      listOfPlayers: parsedPlayers,
-      round: parsedGame.round,
+      games: parsedGame.games,
+      selectedGameIndex:
+          parsedGame.selectedGameIndex ?? parsedGame.games.length - 1,
     ));
+    _removeEmptyGame();
   }
 
-  List<PlayerModel> _parsePlayers(players, SharedPreferences prefs) {
+  GameStatesModel _parseGame(String? game, SharedPreferences prefs) {
     try {
-      return (jsonDecode(players) as List)
-          .map((e) => PlayerModel.fromJson(e))
-          .toList();
+      if (game == null) {
+        throw ("game is null");
+      }
+      return GameStatesModel.fromJson(jsonDecode(game));
     } catch (e) {
-      prefs.setString('players', '');
-      return [];
+      prefs.setString('games', '');
+      return GameStatesModel(games: []);
     }
   }
 
-  GameModel _parseGame(game, SharedPreferences prefs) {
-    try {
-      return (GameModel.fromJson(jsonDecode(game)));
-    } catch (e) {
-      prefs.setString('game', '');
-      return const GameModel();
-    }
+  Future updateGames() async {
+    final currentState = state as BaseLoadedState;
+    await currentState.prefs.setString(
+        "games",
+        jsonEncode(GameStatesModel(
+            games: currentState.games,
+            selectedGameIndex: currentState.selectedGameIndex)));
+  }
+
+  Future updateSelectedIndex(int index) async {
+    final currentState = state as BaseLoadedState;
+    currentState.copyWith(selectedGameIndex: index);
+    updateGames();
   }
 
   Future updatePlayers(List<PlayerModel> players) async {
     final currentState = state as BaseLoadedState;
-    emit(currentState.copyWith(listOfPlayers: players));
-    await currentState.prefs.setString(
-        "players", jsonEncode(players.map((e) => e.toJson()).toList()));
+    currentState.games[currentState.selectedGameIndex].players = players;
+    await updateGames();
   }
 
   Future updateRound(int round) async {
     final currentState = state as BaseLoadedState;
-    emit(currentState.copyWith(round: round));
-    await currentState.prefs
-        .setString("game", jsonEncode(GameModel(round: round).toJson()));
+    currentState.games[currentState.selectedGameIndex].round = round;
+    await updateGames();
   }
 
-  void updatePoints() {
+  void createNewGame() {
     final currentState = state as BaseLoadedState;
-    for (var player in currentState.listOfPlayers) {
-      player.points += player.point;
-      player.point = 0;
-    }
+    final newGame = GameModel(creationDate: DateTime.now(), players: []);
+    currentState.games.add(newGame);
+    emit(currentState.copyWith(
+        selectedGameIndex: currentState.games.length - 1));
+    updateGames();
+  }
+
+  void selectExistingGame(int index) {
+    final currentState = state as BaseLoadedState;
+    currentState.copyWith(selectedGameIndex: index);
+    updateGames();
+  }
+
+  void removeGameByIndex(int index) {
+    final currentState = state as BaseLoadedState;
+    currentState.games.removeAt(index);
+    currentState.copyWith(selectedGameIndex: 0);
+    updateGames();
+  }
+
+  void _removeEmptyGame() {
+    final currentState = state as BaseLoadedState;
+    currentState.games.removeWhere((element) => element.players.isEmpty);
+    currentState.copyWith(selectedGameIndex: 0);
+    updateGames();
   }
 }

@@ -8,12 +8,14 @@ class PlayerModel {
   List<FoldsModel> folds;
   int points;
   int point;
+  final int position;
 
   PlayerModel({
     required this.name,
     required this.folds,
     this.points = 0,
     this.point = 0,
+    required this.position,
   });
 
   factory PlayerModel.fromJson(Map<String, dynamic> json) =>

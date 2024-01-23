@@ -14,6 +14,7 @@ class BaseScreen extends StatelessWidget {
     final fullPath = GoRouterState.of(context).fullPath;
     final isHome = fullPath == AppRoutes.home;
     final isAddPlayer = fullPath == AppRoutes.addPlayers;
+    final isSelectGame = fullPath == AppRoutes.selectGame;
 
     return BlocBuilder<BaseCubit, BaseState>(
       builder: (context, state) {
@@ -22,7 +23,12 @@ class BaseScreen extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
               title: const Text('RIKIKI'),
-              actions: !isHome && !isAddPlayer
+              actions: !isHome &&
+                      (!isAddPlayer ||
+                          (state.games.isNotEmpty &&
+                              state.games[state.selectedGameIndex].round !=
+                                  0)) &&
+                      !isSelectGame
                   ? [
                       IconButton(
                           onPressed: () {
