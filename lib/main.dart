@@ -12,3 +12,5 @@ void main() {
 // https://progressier.com/pwa-icons-and-ios-splash-screen-generator
 
 // https://pub.dev/packages/dart_pre_commit#installation
+
+// add more than 9 !

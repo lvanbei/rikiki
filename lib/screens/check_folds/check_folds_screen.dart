@@ -10,16 +10,20 @@ class CheckFoldsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final currentRound =
+    //     (context.read<BaseCubit>().state as BaseLoadedState).getRound();
     return BlocProvider(
       create: (_) => CheckFoldsCubit(baseCubit: context.read<BaseCubit>())
         ..onWidgetDidInit(),
       child: BlocBuilder<CheckFoldsCubit, CheckFoldsState>(
         builder: (context, state) {
           if (state is CheckFoldsLoadedState) {
+            final currentRound = getRound(
+                playersLen: state.listOfPlayers.length, round: state.round);
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Round ${state.round + 1}',
+                Text('Round $currentRound',
                     style: const TextStyle(
                         fontSize: 45, fontWeight: FontWeight.bold)),
                 Center(
@@ -61,16 +65,16 @@ class CheckFoldsScreen extends StatelessWidget {
                   mainAxisAlignment: MediaQuery.of(context).size.width > 672
                       ? MainAxisAlignment.center
                       : MainAxisAlignment.spaceEvenly,
-                  enableZero: 0 <= state.maxFold,
-                  enableOne: 1 <= state.maxFold,
-                  enableTwo: 2 <= state.maxFold,
-                  enableThree: 3 <= state.maxFold,
-                  enableFor: 4 <= state.maxFold,
-                  enableFive: 5 <= state.maxFold,
-                  enableSix: 6 <= state.maxFold,
-                  enableSeven: 7 <= state.maxFold,
-                  enableEight: 8 <= state.maxFold,
-                  enableNine: 9 <= state.maxFold,
+                  enableZero: 0 <= currentRound,
+                  enableOne: 1 <= currentRound,
+                  enableTwo: 2 <= currentRound,
+                  enableThree: 3 <= currentRound,
+                  enableFor: 4 <= currentRound,
+                  enableFive: 5 <= currentRound,
+                  enableSix: 6 <= currentRound,
+                  enableSeven: 7 <= currentRound,
+                  enableEight: 8 <= currentRound,
+                  enableNine: 9 <= currentRound,
                   textStyle: const TextStyle(color: AppColors.white),
                   onKeyboardTap: (text) => context
                       .read<CheckFoldsCubit>()

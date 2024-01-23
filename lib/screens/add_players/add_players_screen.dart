@@ -33,23 +33,22 @@ class AddPlayersScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 16),
                       child: SizedBox(
-                          height: MediaQuery.of(context).size.height,
                           child: ListView.builder(
-                            itemCount: state.listOfPlayers.length,
-                            itemBuilder: (context, index) => ListTile(
-                              title: Text(state.listOfPlayers[index].name),
-                              leading: Text('${(index + 1)}.'),
-                              trailing: state.continueGame
-                                  ? null
-                                  : IconButton(
-                                      onPressed: () {
-                                        context
-                                            .read<AddPlayersCubit>()
-                                            .onDeletePlayer(index);
-                                      },
-                                      icon: const Icon(Icons.delete_forever)),
-                            ),
-                          ))),
+                        itemCount: state.listOfPlayers.length,
+                        itemBuilder: (context, index) => ListTile(
+                          title: Text(state.listOfPlayers[index].name),
+                          leading: Text('${(index + 1)}.'),
+                          trailing: state.continueGame
+                              ? null
+                              : IconButton(
+                                  onPressed: () {
+                                    context
+                                        .read<AddPlayersCubit>()
+                                        .onDeletePlayer(index);
+                                  },
+                                  icon: const Icon(Icons.delete_forever)),
+                        ),
+                      ))),
                 ),
                 MyButton(
                   title: state.continueGame ? 'continue' : 'next',

@@ -11,12 +11,11 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
   SetFoldsCubit({required this.baseCubit}) : super(SetFoldsInitialState());
 
   void onWidgetDidInit() {
-    final int selectedGameIndex =
-        (baseCubit.state as BaseLoadedState).selectedGameIndex;
+    final baseState = (baseCubit.state as BaseLoadedState);
+    final int selectedGameIndex = baseState.selectedGameIndex;
     final List<PlayerModel> listOfPlayers =
-        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].players;
-    final round =
-        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
+        baseState.games[selectedGameIndex].players;
+    final round = baseState.games[selectedGameIndex].round;
 
     emit(SetFoldsLoadedState(
       listOfPlayers: listOfPlayers,
@@ -55,16 +54,10 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
       emit(currentState.copyWith(turn: currentTurn));
     }
 
-    if (currentState.isLastPlayer && currentState.isRoundUp) {
+    if (currentState.isLastPlayer) {
       baseCubit.updatePlayers(currentState.listOfPlayers);
       Router.neglect(context, () => GoRouter.of(context).go(AppRoutes.play));
       return;
-    }
-
-    // round -1
-    if (currentState.isLastPlayer && !currentState.isRoundUp) {
-      emit(currentState.copyWith(
-          turn: 0, foldTotal: 0, roundDirection: RoundDirection.down));
     }
   }
 

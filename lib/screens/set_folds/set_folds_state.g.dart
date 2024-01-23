@@ -15,8 +15,6 @@ abstract class _$SetFoldsLoadedStateCWProxy {
 
   SetFoldsLoadedState turn(int turn);
 
-  SetFoldsLoadedState roundDirection(RoundDirection roundDirection);
-
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SetFoldsLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -28,7 +26,6 @@ abstract class _$SetFoldsLoadedStateCWProxy {
     int? round,
     int? foldTotal,
     int? turn,
-    RoundDirection? roundDirection,
   });
 }
 
@@ -52,10 +49,6 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
   SetFoldsLoadedState turn(int turn) => this(turn: turn);
 
   @override
-  SetFoldsLoadedState roundDirection(RoundDirection roundDirection) =>
-      this(roundDirection: roundDirection);
-
-  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SetFoldsLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -68,7 +61,6 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
     Object? round = const $CopyWithPlaceholder(),
     Object? foldTotal = const $CopyWithPlaceholder(),
     Object? turn = const $CopyWithPlaceholder(),
-    Object? roundDirection = const $CopyWithPlaceholder(),
   }) {
     return SetFoldsLoadedState(
       listOfPlayers:
@@ -88,11 +80,6 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
           ? _value.turn
           // ignore: cast_nullable_to_non_nullable
           : turn as int,
-      roundDirection: roundDirection == const $CopyWithPlaceholder() ||
-              roundDirection == null
-          ? _value.roundDirection
-          // ignore: cast_nullable_to_non_nullable
-          : roundDirection as RoundDirection,
     );
   }
 }

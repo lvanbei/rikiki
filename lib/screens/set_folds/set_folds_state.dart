@@ -17,17 +17,15 @@ class SetFoldsLoadedState extends SetFoldsState {
   final int round;
   final int foldTotal;
   final int turn;
-  final RoundDirection roundDirection;
 
   SetFoldsLoadedState({
     required this.listOfPlayers,
     required this.round,
     this.foldTotal = 0,
     this.turn = 0,
-    this.roundDirection = RoundDirection.up,
   });
 
-  int get maxFold => round + 1;
+  int get maxFold => getRound(playersLen: listOfPlayers.length, round: round);
 
   bool get longName => listOfPlayers[turn].name.length > 12;
 
@@ -48,18 +46,4 @@ class SetFoldsLoadedState extends SetFoldsState {
   bool get isLastPlayer => turn == listOfPlayers.length - 1;
 
   int get lastPlayerNotAllowedFold => maxFold - foldTotal;
-
-  bool get isRoundUp =>
-      round < (52 / listOfPlayers.length).floor() &&
-      roundDirection == RoundDirection.up;
-
-  bool get test {
-    if (0 <= maxFold) {
-      if (isLastPlayer && 0 == lastPlayerNotAllowedFold) {
-        return false;
-      }
-      return true;
-    }
-    return false;
-  }
 }

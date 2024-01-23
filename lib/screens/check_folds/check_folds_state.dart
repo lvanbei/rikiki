@@ -49,16 +49,4 @@ class CheckFoldsLoadedState extends CheckFoldsState {
 
     print('${listOfPlayers[turn].name} did ${listOfPlayers[turn].point} folds');
   }
-
-  // void removePlayerPoint() {
-  //   final bool isCheck = (playerMakedFold - playerAnnouncedFold) == 0;
-  //   if (isCheck) {
-  //     print('plus : ${10 + (playerMakedFold * 2)}');
-  //     listOfPlayers[turn].points -= 10 + (maxFold * 2);
-  //   } else {
-  //     print('minus : ${((playerAnnouncedFold - playerMakedFold).abs()) * 2}');
-  //     listOfPlayers[turn].points +=
-  //         ((playerAnnouncedFold - playerMakedFold).abs()) * 2;
-  //   }
-  // }
 }

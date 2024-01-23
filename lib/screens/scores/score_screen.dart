@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/core.dart';
 import '../base/base_cubit.dart';
 import 'scores.dart';
 
 class ScoresScreen extends StatelessWidget {
-  const ScoresScreen({super.key});
+  final bool popupMode;
+  const ScoresScreen({super.key, this.popupMode = false});
 
   static const double _width = 150;
   static const double _widthHeader = 20;
@@ -19,6 +21,11 @@ class ScoresScreen extends StatelessWidget {
       child: BlocBuilder<ScoresCubit, ScoresState>(
         builder: (context, state) {
           if (state is ScoresLoadedState) {
+            final bool isFinish = getRound(
+                    isMinus: true,
+                    playersLen: state.listOfPlayers.length,
+                    round: state.round) ==
+                0;
             return Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -208,7 +215,29 @@ class ScoresScreen extends StatelessWidget {
                       ),
                     )
                   ],
-                )
+                ),
+                if (!popupMode) ...[
+                  const Expanded(child: SizedBox()),
+                  verticalSpacing(),
+                  MyButton(
+                    title: !isFinish
+                        ? 'Round ${getRound(playersLen: state.listOfPlayers.length, round: state.round)}'
+                        : 'Home',
+                    size: ButtonSizes.small,
+                    onPressed: () {
+                      if (!isFinish) {
+                        context.read<BaseCubit>().updateRound(state.round);
+                        Router.neglect(context,
+                            () => GoRouter.of(context).go(AppRoutes.setFolds));
+                      } else {
+                        Router.neglect(
+                            context,
+                            () =>
+                                GoRouter.of(context).go(AppRoutes.selectGame));
+                      }
+                    },
+                  )
+                ]
               ],
             );
           }
@@ -228,7 +257,7 @@ class ScoresScreen extends StatelessWidget {
     List<Widget> result = [];
     int index = 0;
     for (FoldsModel fold in state.listOfPlayers[state.selectedUser].folds) {
-      if (index == state.round + 2) break;
+      if (index == state.round) break;
       result.add(Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,

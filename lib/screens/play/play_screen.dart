@@ -17,11 +17,18 @@ class PlayScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is PlayLoadedState) {
             return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                  "Play !",
-                  style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+                const Expanded(
+                  child: Center(
+                    child: Text(
+                      "Play !",
+                      textAlign: TextAlign.left,
+                      style:
+                          TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
                 MyButton(
                   title: 'Finished',

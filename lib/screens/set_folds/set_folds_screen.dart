@@ -16,10 +16,12 @@ class SetFoldsScreen extends StatelessWidget {
       child: BlocBuilder<SetFoldsCubit, SetFoldsState>(
         builder: (context, state) {
           if (state is SetFoldsLoadedState) {
+            final currentRound = getRound(
+                playersLen: state.listOfPlayers.length, round: state.round);
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Round ${state.round + 1}',
+                Text('Round $currentRound',
                     style: const TextStyle(
                         fontSize: 45, fontWeight: FontWeight.bold)),
                 Center(
@@ -71,34 +73,34 @@ class SetFoldsScreen extends StatelessWidget {
                   mainAxisAlignment: MediaQuery.of(context).size.width > 672
                       ? MainAxisAlignment.center
                       : MainAxisAlignment.spaceEvenly,
-                  enableZero: 0 <= state.maxFold &&
+                  enableZero: 0 <= currentRound &&
                       !(state.isLastPlayer &&
                           0 == state.lastPlayerNotAllowedFold),
-                  enableOne: 1 <= state.maxFold &&
+                  enableOne: 1 <= currentRound &&
                       !(state.isLastPlayer &&
                           1 == state.lastPlayerNotAllowedFold),
-                  enableTwo: 2 <= state.maxFold &&
+                  enableTwo: 2 <= currentRound &&
                       !(state.isLastPlayer &&
                           2 == state.lastPlayerNotAllowedFold),
-                  enableThree: 3 <= state.maxFold &&
+                  enableThree: 3 <= currentRound &&
                       !(state.isLastPlayer &&
                           state.lastPlayerNotAllowedFold == 3),
-                  enableFor: 4 <= state.maxFold &&
+                  enableFor: 4 <= currentRound &&
                       !(state.isLastPlayer &&
                           state.lastPlayerNotAllowedFold == 4),
-                  enableFive: 5 <= state.maxFold &&
+                  enableFive: 5 <= currentRound &&
                       !(state.isLastPlayer &&
                           state.lastPlayerNotAllowedFold == 5),
-                  enableSix: 6 <= state.maxFold &&
+                  enableSix: 6 <= currentRound &&
                       !(state.isLastPlayer &&
                           state.lastPlayerNotAllowedFold == 6),
-                  enableSeven: 7 <= state.maxFold &&
+                  enableSeven: 7 <= currentRound &&
                       !(state.isLastPlayer &&
                           state.lastPlayerNotAllowedFold == 7),
-                  enableEight: 8 <= state.maxFold &&
+                  enableEight: 8 <= currentRound &&
                       !(state.isLastPlayer &&
                           state.lastPlayerNotAllowedFold == 8),
-                  enableNine: 9 <= state.maxFold &&
+                  enableNine: 9 <= currentRound &&
                       !(state.isLastPlayer &&
                           state.lastPlayerNotAllowedFold == 9),
                   textStyle: const TextStyle(color: AppColors.white),

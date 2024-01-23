@@ -15,6 +15,7 @@ class BaseScreen extends StatelessWidget {
     final isHome = fullPath == AppRoutes.home;
     final isAddPlayer = fullPath == AppRoutes.addPlayers;
     final isSelectGame = fullPath == AppRoutes.selectGame;
+    final isScores = fullPath == AppRoutes.scores;
 
     return BlocBuilder<BaseCubit, BaseState>(
       builder: (context, state) {
@@ -35,7 +36,7 @@ class BaseScreen extends StatelessWidget {
                             showDialog(
                               context: context,
                               builder: (context) => const AlertDialog(
-                                content: ScoresScreen(),
+                                content: ScoresScreen(popupMode: true),
                               ),
                             );
                           },
@@ -46,6 +47,21 @@ class BaseScreen extends StatelessWidget {
                   ? null
                   : IconButton(
                       onPressed: () async {
+                        if (isScores &&
+                            getRound(
+                                    isMinus: true,
+                                    playersLen: state
+                                        .games[state.selectedGameIndex]
+                                        .players
+                                        .length,
+                                    round: state.games[state.selectedGameIndex]
+                                        .round) ==
+                                -1) {
+                          return Router.neglect(
+                              context,
+                              () => GoRouter.of(context)
+                                  .go(AppRoutes.selectGame));
+                        }
                         final prev = getPreviousRoute(fullPath ?? '/');
                         Router.neglect(
                             context, () => GoRouter.of(context).go(prev));

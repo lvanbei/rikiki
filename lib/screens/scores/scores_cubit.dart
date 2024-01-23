@@ -23,7 +23,7 @@ class ScoresCubit extends Cubit<ScoresState> {
         .sort((a, b) => (b.points + b.point).compareTo(a.points + a.point));
     emit(ScoresLoadedState(
       listOfPlayers: listOfPlayers,
-      round: round,
+      round: round + 1,
     ));
   }
 

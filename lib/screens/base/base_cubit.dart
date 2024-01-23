@@ -21,7 +21,6 @@ class BaseCubit extends Cubit<BaseState> {
       selectedGameIndex:
           parsedGame.selectedGameIndex ?? parsedGame.games.length - 1,
     ));
-    _removeEmptyGame();
   }
 
   GameStatesModel _parseGame(String? game, SharedPreferences prefs) {
@@ -74,21 +73,14 @@ class BaseCubit extends Cubit<BaseState> {
 
   void selectExistingGame(int index) {
     final currentState = state as BaseLoadedState;
-    currentState.copyWith(selectedGameIndex: index);
+    emit(currentState.copyWith(selectedGameIndex: index));
     updateGames();
   }
 
   void removeGameByIndex(int index) {
     final currentState = state as BaseLoadedState;
     currentState.games.removeAt(index);
-    currentState.copyWith(selectedGameIndex: 0);
-    updateGames();
-  }
-
-  void _removeEmptyGame() {
-    final currentState = state as BaseLoadedState;
-    currentState.games.removeWhere((element) => element.players.isEmpty);
-    currentState.copyWith(selectedGameIndex: 0);
+    emit(currentState.copyWith(selectedGameIndex: 0));
     updateGames();
   }
 }
