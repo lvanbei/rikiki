@@ -19,8 +19,7 @@ class ScoresCubit extends Cubit<ScoresState> {
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].players;
     round = (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
 
-    listOfPlayers
-        .sort((a, b) => (b.points + b.point).compareTo(a.points + a.point));
+    listOfPlayers.sort((a, b) => (b.points).compareTo(a.points));
     emit(ScoresLoadedState(
       listOfPlayers: listOfPlayers,
       round: round + 1,

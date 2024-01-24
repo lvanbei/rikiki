@@ -60,22 +60,12 @@ class MyApp extends StatelessWidget {
           title: 'RIKIKI',
           routerConfig: GoRouter(
             navigatorKey: rootNavigatorKey,
-            initialLocation: AppRoutes.home,
+            initialLocation: AppRoutes.selectGame,
             routes: [
               ShellRoute(
                 navigatorKey: _shellNavigatorKey,
                 builder: (context, state, child) => BaseScreen(child: child),
                 routes: [
-                  GoRoute(
-                      parentNavigatorKey: _shellNavigatorKey,
-                      name: AppRouteNames.home,
-                      path: AppRoutes.home,
-                      pageBuilder: (context, GoRouterState state) =>
-                          NoTransitionPage(
-                            name: state.fullPath,
-                            key: state.pageKey,
-                            child: const HomeScreen(),
-                          )),
                   GoRoute(
                     parentNavigatorKey: _shellNavigatorKey,
                     name: AppRouteNames.selectGame,

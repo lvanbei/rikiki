@@ -12,7 +12,6 @@ class BaseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fullPath = GoRouterState.of(context).fullPath;
-    final isHome = fullPath == AppRoutes.home;
     final isAddPlayer = fullPath == AppRoutes.addPlayers;
     final isSelectGame = fullPath == AppRoutes.selectGame;
     final isScores = fullPath == AppRoutes.scores;
@@ -24,8 +23,7 @@ class BaseScreen extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
               title: const Text('RIKIKI'),
-              actions: !isHome &&
-                      (!isAddPlayer ||
+              actions: (!isAddPlayer ||
                           (state.games.isNotEmpty &&
                               state.games[state.selectedGameIndex].round !=
                                   0)) &&
@@ -43,7 +41,7 @@ class BaseScreen extends StatelessWidget {
                           icon: const Icon(Icons.scoreboard_sharp))
                     ]
                   : null,
-              leading: isHome
+              leading: isSelectGame
                   ? null
                   : IconButton(
                       onPressed: () async {

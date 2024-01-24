@@ -1,6 +1,5 @@
 abstract class AppRoutes {
-  static const String home = '/';
-  static const String selectGame = '/select-game';
+  static const String selectGame = '/';
   static const String addPlayers = '/add-players';
   static const String setFolds = '/set-folds';
   static const String play = '/play';
@@ -20,7 +19,7 @@ abstract class AppRouteNames {
 
 abstract class AppRouteList {
   static const List<String> routes = [
-    AppRoutes.home,
+    
     AppRoutes.selectGame,
     AppRoutes.addPlayers,
     AppRoutes.setFolds,

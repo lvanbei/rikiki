@@ -26,11 +26,18 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
 
   void updateFold(int newFold) {
     final currentState = state as CheckFoldsLoadedState;
+    final listOfPlayers = currentState.listOfPlayers;
 
-    // if (newFold != currentState.getPlayerFold) {
-    currentState.setPlayerFold(newFold);
-    emit(currentState.copyWith(listOfPlayers: currentState.listOfPlayers));
-    // }
+    final isRoundGreaterThanNine =
+        getRound(playersLen: listOfPlayers.length, round: currentState.round) >
+            9;
+    final isPlayerFoldOne = currentState.playerMakedFold == 1;
+
+    int foldValue =
+        isRoundGreaterThanNine && isPlayerFoldOne ? 10 + newFold : newFold;
+
+    currentState.setPlayerFold(foldValue);
+    emit(currentState.copyWith(listOfPlayers: listOfPlayers));
   }
 
   void nextTurn(context) async {
@@ -39,7 +46,6 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
 
     // turn +1
     if (currentTurn < currentState.listOfPlayers.length) {
-      //currentState.setNextPlayerPoint();
       emit(currentState.copyWith(
         turn: currentTurn,
       ));

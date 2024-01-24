@@ -25,17 +25,27 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
 
   void updateFold(int newFold) {
     final currentState = state as SetFoldsLoadedState;
+    final currentPlayerFold = currentState.getPlayerFold;
 
-    if (newFold != currentState.getPlayerFold) {
+    if (newFold != currentPlayerFold) {
+      final isRoundGreaterThanNine = getRound(
+              playersLen: currentState.listOfPlayers.length,
+              round: currentState.round) >
+          9;
+
+      final isPlayerFoldOne = currentPlayerFold == 1;
+      int foldValue =
+          isRoundGreaterThanNine && isPlayerFoldOne ? 10 + newFold : newFold;
+
       if (currentState.isLastPlayer) {
-        currentState.setPlayerFold(newFold);
-        emit(currentState.copyWith());
-        return;
+        currentState.setPlayerFold(foldValue);
+        emit(currentState.copyWith(listOfPlayers: currentState.listOfPlayers));
+      } else {
+        final newFoldTotal =
+            currentState.foldTotal - currentPlayerFold + foldValue;
+        currentState.setPlayerFold(foldValue);
+        emit(currentState.copyWith(foldTotal: newFoldTotal));
       }
-      final newFoldTotal =
-          currentState.foldTotal - currentState.getPlayerFold + newFold;
-      currentState.setPlayerFold(newFold);
-      emit(currentState.copyWith(foldTotal: newFoldTotal));
     }
   }
 
