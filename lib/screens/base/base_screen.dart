@@ -24,6 +24,7 @@ class BaseScreen extends StatelessWidget {
             appBar: AppBar(
               title: InkWell(
                   onDoubleTap: () {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         backgroundColor: AppColors.black,
