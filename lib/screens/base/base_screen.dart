@@ -22,7 +22,13 @@ class BaseScreen extends StatelessWidget {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-              title: const Text('RIKIKI'),
+              title: InkWell(
+                  onDoubleTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content:
+                            Center(child: Text('version : ${state.version}'))));
+                  },
+                  child: const Text('RIKIKI')),
               actions: (!isAddPlayer ||
                           (state.games.isNotEmpty &&
                               state.games[state.selectedGameIndex].round !=
