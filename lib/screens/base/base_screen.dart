@@ -26,10 +26,16 @@ class BaseScreen extends StatelessWidget {
                   onDoubleTap: () {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
+                        backgroundColor: AppColors.black,
                         content: SafeArea(
-                          child: Center(
-                            child: Text('version : ${state.version}'),
-                          ),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('Version : ${state.meta.version}'),
+                                Text(displayFormat.format(
+                                    state.meta.updateDateTime ??
+                                        DateTime.now()))
+                              ]),
                         ),
                       ),
                     );

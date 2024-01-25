@@ -16,10 +16,10 @@ class BaseLoadedState extends BaseState {
   final SharedPreferences prefs;
   final List<GameModel> games;
   final int selectedGameIndex;
-  final int version;
+  final MetaModel meta;
 
   BaseLoadedState({
-    this.version = -1,
+    required this.meta,
     required this.prefs,
     required this.games,
     required this.selectedGameIndex,

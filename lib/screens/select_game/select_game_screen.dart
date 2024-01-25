@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 
 import '../../core/core.dart';
 import '../base/base.dart';
@@ -9,8 +8,6 @@ import 'select_game.dart';
 
 class SelectGameScreen extends StatelessWidget {
   const SelectGameScreen({super.key});
-
-  static final f = DateFormat('dd/MM/yyyy hh:mm');
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +30,8 @@ class SelectGameScreen extends StatelessWidget {
                             round: state.games[index].round);
                         return ListTile(
                             minVerticalPadding: 16,
-                            title:
-                                Text(f.format(state.games[index].creationDate)),
+                            title: Text(displayFormat
+                                .format(state.games[index].creationDate)),
                             trailing:
                                 Row(mainAxisSize: MainAxisSize.min, children: [
                               Text(

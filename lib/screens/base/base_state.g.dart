@@ -7,6 +7,8 @@ part of 'base_state.dart';
 // **************************************************************************
 
 abstract class _$BaseLoadedStateCWProxy {
+  BaseLoadedState meta(MetaModel meta);
+
   BaseLoadedState prefs(SharedPreferences prefs);
 
   BaseLoadedState games(List<GameModel> games);
@@ -20,6 +22,7 @@ abstract class _$BaseLoadedStateCWProxy {
   /// BaseLoadedState(...).copyWith(id: 12, name: "My name")
   /// ````
   BaseLoadedState call({
+    MetaModel? meta,
     SharedPreferences? prefs,
     List<GameModel>? games,
     int? selectedGameIndex,
@@ -31,6 +34,9 @@ class _$BaseLoadedStateCWProxyImpl implements _$BaseLoadedStateCWProxy {
   const _$BaseLoadedStateCWProxyImpl(this._value);
 
   final BaseLoadedState _value;
+
+  @override
+  BaseLoadedState meta(MetaModel meta) => this(meta: meta);
 
   @override
   BaseLoadedState prefs(SharedPreferences prefs) => this(prefs: prefs);
@@ -51,11 +57,16 @@ class _$BaseLoadedStateCWProxyImpl implements _$BaseLoadedStateCWProxy {
   /// BaseLoadedState(...).copyWith(id: 12, name: "My name")
   /// ````
   BaseLoadedState call({
+    Object? meta = const $CopyWithPlaceholder(),
     Object? prefs = const $CopyWithPlaceholder(),
     Object? games = const $CopyWithPlaceholder(),
     Object? selectedGameIndex = const $CopyWithPlaceholder(),
   }) {
     return BaseLoadedState(
+      meta: meta == const $CopyWithPlaceholder() || meta == null
+          ? _value.meta
+          // ignore: cast_nullable_to_non_nullable
+          : meta as MetaModel,
       prefs: prefs == const $CopyWithPlaceholder() || prefs == null
           ? _value.prefs
           // ignore: cast_nullable_to_non_nullable
