@@ -15,7 +15,7 @@ class BaseCubit extends Cubit<BaseState> {
 
     final game = prefs.getString("games");
     final GameStatesModel parsedGame = _parseGame(game, prefs);
-    final version = await rootBundle.loadString('version.txt');
+    final version = await rootBundle.loadString('assets/version.txt');
     emit(BaseLoadedState(
       version: int.parse(version),
       prefs: prefs,
