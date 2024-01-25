@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,7 +14,7 @@ class BaseCubit extends Cubit<BaseState> {
 
     final game = prefs.getString("games");
     final GameStatesModel parsedGame = _parseGame(game, prefs);
-    final version = await rootBundle.loadString('assets/meta.json');
+    //final version = await rootBundle.loadString('assets/meta.json');
 
     emit(BaseLoadedState(
       version: 0,
