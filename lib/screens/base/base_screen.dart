@@ -24,9 +24,15 @@ class BaseScreen extends StatelessWidget {
             appBar: AppBar(
               title: InkWell(
                   onDoubleTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content:
-                            Center(child: Text('version : ${state.version}'))));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: SafeArea(
+                          child: Center(
+                            child: Text('version : ${state.version}'),
+                          ),
+                        ),
+                      ),
+                    );
                   },
                   child: const Text('RIKIKI')),
               actions: (!isAddPlayer ||
