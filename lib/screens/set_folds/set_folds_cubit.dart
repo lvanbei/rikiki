@@ -20,12 +20,13 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
     emit(SetFoldsLoadedState(
       listOfPlayers: listOfPlayers,
       round: round,
+      displayedFold: listOfPlayers[0].folds[round].announcedFolds,
     ));
   }
 
   void updateFold(int newFold) {
     final currentState = state as SetFoldsLoadedState;
-    final currentPlayerFold = currentState.getPlayerFold;
+    final currentPlayerFold = currentState.displayedFold;
 
     if (newFold != currentPlayerFold) {
       final isRoundGreaterThanNine = getRound(
@@ -37,31 +38,32 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
       int foldValue =
           isRoundGreaterThanNine && isPlayerFoldOne ? 10 + newFold : newFold;
 
-      if (currentState.isLastPlayer) {
-        currentState.setPlayerFold(foldValue);
-        emit(currentState.copyWith(listOfPlayers: currentState.listOfPlayers));
-      } else {
-        final newFoldTotal =
-            currentState.foldTotal - currentPlayerFold + foldValue;
-        currentState.setPlayerFold(foldValue);
-        emit(currentState.copyWith(foldTotal: newFoldTotal));
-      }
+      emit(currentState.copyWith(displayedFold: foldValue));
     }
   }
 
   void nextTurn(context) {
     final currentState = state as SetFoldsLoadedState;
-    final currentTurn = currentState.turn + 1;
+    final nextTurn = currentState.turn + 1;
 
     // turn +1
-    if (currentTurn < currentState.listOfPlayers.length) {
-      if (currentTurn == currentState.listOfPlayers.length - 1 &&
-          currentState.lastPlayerNotAllowedFold == 0) {
-        currentState.setPlayerWithIndexFold(1, currentTurn);
-        emit(currentState.copyWith(turn: currentTurn));
+    currentState.setPlayerFold(currentState.displayedFold);
+    if (nextTurn < currentState.listOfPlayers.length) {
+      if (nextTurn == currentState.listOfPlayers.length - 1 &&
+          currentState.isFoldAllowed(0)) {
+        currentState.setPlayerWithIndexFold(0, nextTurn);
+        emit(
+          currentState.copyWith(
+            turn: nextTurn,
+            displayedFold: 1,
+          ),
+        );
         return;
       }
-      emit(currentState.copyWith(turn: currentTurn));
+      emit(currentState.copyWith(
+        turn: nextTurn,
+        displayedFold: currentState.getPlayerFoldWithIndex(nextTurn),
+      ));
     }
 
     if (currentState.isLastPlayer) {
@@ -74,17 +76,13 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
   void previousTurn() {
     final currentState = state as SetFoldsLoadedState;
     if (currentState.turn > 0) {
-      if (currentState.isLastPlayer) {
-        emit(currentState.copyWith(
-          turn: currentState.turn - 1,
-        ));
-        currentState.setPlayerFold(0);
-        return;
-      }
-      emit(currentState.copyWith(
-          turn: currentState.turn - 1,
-          foldTotal: currentState.foldTotal - currentState.getPlayerFold));
+      //reset player fold
       currentState.setPlayerFold(0);
+      emit(currentState.copyWith(
+        turn: currentState.turn - 1,
+        displayedFold:
+            currentState.getPlayerFoldWithIndex(currentState.turn - 1),
+      ));
     }
   }
 }

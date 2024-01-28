@@ -11,7 +11,7 @@ abstract class _$SetFoldsLoadedStateCWProxy {
 
   SetFoldsLoadedState round(int round);
 
-  SetFoldsLoadedState foldTotal(int foldTotal);
+  SetFoldsLoadedState displayedFold(int displayedFold);
 
   SetFoldsLoadedState turn(int turn);
 
@@ -24,7 +24,7 @@ abstract class _$SetFoldsLoadedStateCWProxy {
   SetFoldsLoadedState call({
     List<PlayerModel>? listOfPlayers,
     int? round,
-    int? foldTotal,
+    int? displayedFold,
     int? turn,
   });
 }
@@ -43,7 +43,8 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
   SetFoldsLoadedState round(int round) => this(round: round);
 
   @override
-  SetFoldsLoadedState foldTotal(int foldTotal) => this(foldTotal: foldTotal);
+  SetFoldsLoadedState displayedFold(int displayedFold) =>
+      this(displayedFold: displayedFold);
 
   @override
   SetFoldsLoadedState turn(int turn) => this(turn: turn);
@@ -59,7 +60,7 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
   SetFoldsLoadedState call({
     Object? listOfPlayers = const $CopyWithPlaceholder(),
     Object? round = const $CopyWithPlaceholder(),
-    Object? foldTotal = const $CopyWithPlaceholder(),
+    Object? displayedFold = const $CopyWithPlaceholder(),
     Object? turn = const $CopyWithPlaceholder(),
   }) {
     return SetFoldsLoadedState(
@@ -72,10 +73,11 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
           ? _value.round
           // ignore: cast_nullable_to_non_nullable
           : round as int,
-      foldTotal: foldTotal == const $CopyWithPlaceholder() || foldTotal == null
-          ? _value.foldTotal
-          // ignore: cast_nullable_to_non_nullable
-          : foldTotal as int,
+      displayedFold:
+          displayedFold == const $CopyWithPlaceholder() || displayedFold == null
+              ? _value.displayedFold
+              // ignore: cast_nullable_to_non_nullable
+              : displayedFold as int,
       turn: turn == const $CopyWithPlaceholder() || turn == null
           ? _value.turn
           // ignore: cast_nullable_to_non_nullable

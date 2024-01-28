@@ -55,7 +55,7 @@ class CheckFoldsScreen extends StatelessWidget {
                   children: [
                     // Expanded(flex: 4, child: Container()),
                     Text(
-                      'did ${state.playerMakedFold.toString()} folds ?',
+                      'did ${state.displayedFold} folds ?',
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontSize: 32),
                     ),
@@ -65,16 +65,16 @@ class CheckFoldsScreen extends StatelessWidget {
                   mainAxisAlignment: MediaQuery.of(context).size.width > 672
                       ? MainAxisAlignment.center
                       : MainAxisAlignment.spaceEvenly,
-                  enableZero: 0 <= currentRound,
-                  enableOne: 1 <= currentRound,
-                  enableTwo: 2 <= currentRound,
-                  enableThree: 3 <= currentRound,
-                  enableFor: 4 <= currentRound,
-                  enableFive: 5 <= currentRound,
-                  enableSix: 6 <= currentRound,
-                  enableSeven: 7 <= currentRound,
-                  enableEight: 8 <= currentRound,
-                  enableNine: 9 <= currentRound,
+                  enableZero: 0 <= currentRound && state.isFoldAllowed(0),
+                  enableOne: 1 <= currentRound && state.isFoldAllowed(1),
+                  enableTwo: 2 <= currentRound && state.isFoldAllowed(2),
+                  enableThree: 3 <= currentRound && state.isFoldAllowed(3),
+                  enableFor: 4 <= currentRound && state.isFoldAllowed(4),
+                  enableFive: 5 <= currentRound && state.isFoldAllowed(5),
+                  enableSix: 6 <= currentRound && state.isFoldAllowed(6),
+                  enableSeven: 7 <= currentRound && state.isFoldAllowed(7),
+                  enableEight: 8 <= currentRound && state.isFoldAllowed(8),
+                  enableNine: 9 <= currentRound && state.isFoldAllowed(9),
                   textStyle: const TextStyle(color: AppColors.white),
                   onKeyboardTap: (text) => context
                       .read<CheckFoldsCubit>()
@@ -82,8 +82,10 @@ class CheckFoldsScreen extends StatelessWidget {
                   rightIcon: ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(shape: const CircleBorder()),
-                    onPressed: () =>
-                        context.read<CheckFoldsCubit>().nextTurn(context),
+                    onPressed: state.isFoldAllowed(state.displayedFold)
+                        ? () =>
+                            context.read<CheckFoldsCubit>().nextTurn(context)
+                        : null,
                     child: Container(
                       width: 50,
                       height: 50,

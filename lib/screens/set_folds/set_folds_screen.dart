@@ -55,7 +55,7 @@ class SetFoldsScreen extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: Text(
-                        state.getPlayerFold.toString(),
+                        state.displayedFold.toString(),
                         textAlign: TextAlign.center,
                         style: const TextStyle(fontSize: 32),
                       ),
@@ -73,36 +73,16 @@ class SetFoldsScreen extends StatelessWidget {
                   mainAxisAlignment: MediaQuery.of(context).size.width > 672
                       ? MainAxisAlignment.center
                       : MainAxisAlignment.spaceEvenly,
-                  enableZero: 0 <= currentRound &&
-                      !(state.isLastPlayer &&
-                          0 == state.lastPlayerNotAllowedFold),
-                  enableOne: 1 <= currentRound &&
-                      !(state.isLastPlayer &&
-                          1 == state.lastPlayerNotAllowedFold),
-                  enableTwo: 2 <= currentRound &&
-                      !(state.isLastPlayer &&
-                          2 == state.lastPlayerNotAllowedFold),
-                  enableThree: 3 <= currentRound &&
-                      !(state.isLastPlayer &&
-                          state.lastPlayerNotAllowedFold == 3),
-                  enableFor: 4 <= currentRound &&
-                      !(state.isLastPlayer &&
-                          state.lastPlayerNotAllowedFold == 4),
-                  enableFive: 5 <= currentRound &&
-                      !(state.isLastPlayer &&
-                          state.lastPlayerNotAllowedFold == 5),
-                  enableSix: 6 <= currentRound &&
-                      !(state.isLastPlayer &&
-                          state.lastPlayerNotAllowedFold == 6),
-                  enableSeven: 7 <= currentRound &&
-                      !(state.isLastPlayer &&
-                          state.lastPlayerNotAllowedFold == 7),
-                  enableEight: 8 <= currentRound &&
-                      !(state.isLastPlayer &&
-                          state.lastPlayerNotAllowedFold == 8),
-                  enableNine: 9 <= currentRound &&
-                      !(state.isLastPlayer &&
-                          state.lastPlayerNotAllowedFold == 9),
+                  enableZero: 0 <= currentRound && state.isFoldAllowed(0),
+                  enableOne: 1 <= currentRound && state.isFoldAllowed(1),
+                  enableTwo: 2 <= currentRound && state.isFoldAllowed(2),
+                  enableThree: 3 <= currentRound && state.isFoldAllowed(3),
+                  enableFor: 4 <= currentRound && state.isFoldAllowed(4),
+                  enableFive: 5 <= currentRound && state.isFoldAllowed(5),
+                  enableSix: 6 <= currentRound && state.isFoldAllowed(6),
+                  enableSeven: 7 <= currentRound && state.isFoldAllowed(7),
+                  enableEight: 8 <= currentRound && state.isFoldAllowed(8),
+                  enableNine: 9 <= currentRound && state.isFoldAllowed(9),
                   textStyle: const TextStyle(color: AppColors.white),
                   onKeyboardTap: (text) =>
                       context.read<SetFoldsCubit>().updateFold(int.parse(text)),

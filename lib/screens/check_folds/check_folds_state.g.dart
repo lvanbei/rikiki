@@ -13,6 +13,8 @@ abstract class _$CheckFoldsLoadedStateCWProxy {
 
   CheckFoldsLoadedState turn(int turn);
 
+  CheckFoldsLoadedState displayedFold(int displayedFold);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `CheckFoldsLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -23,6 +25,7 @@ abstract class _$CheckFoldsLoadedStateCWProxy {
     List<PlayerModel>? listOfPlayers,
     int? round,
     int? turn,
+    int? displayedFold,
   });
 }
 
@@ -44,6 +47,10 @@ class _$CheckFoldsLoadedStateCWProxyImpl
   CheckFoldsLoadedState turn(int turn) => this(turn: turn);
 
   @override
+  CheckFoldsLoadedState displayedFold(int displayedFold) =>
+      this(displayedFold: displayedFold);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `CheckFoldsLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -55,6 +62,7 @@ class _$CheckFoldsLoadedStateCWProxyImpl
     Object? listOfPlayers = const $CopyWithPlaceholder(),
     Object? round = const $CopyWithPlaceholder(),
     Object? turn = const $CopyWithPlaceholder(),
+    Object? displayedFold = const $CopyWithPlaceholder(),
   }) {
     return CheckFoldsLoadedState(
       listOfPlayers:
@@ -70,6 +78,11 @@ class _$CheckFoldsLoadedStateCWProxyImpl
           ? _value.turn
           // ignore: cast_nullable_to_non_nullable
           : turn as int,
+      displayedFold:
+          displayedFold == const $CopyWithPlaceholder() || displayedFold == null
+              ? _value.displayedFold
+              // ignore: cast_nullable_to_non_nullable
+              : displayedFold as int,
     );
   }
 }

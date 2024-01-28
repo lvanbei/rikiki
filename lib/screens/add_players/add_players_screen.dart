@@ -18,8 +18,6 @@ class AddPlayersScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is AddPlayersLoadedState) {
             return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (!state.continueGame)
@@ -33,6 +31,16 @@ class AddPlayersScreen extends StatelessWidget {
                           context.read<AddPlayersCubit>().playerNameValidator,
                     ),
                   ),
+                if (!state.enoughPlayer)
+                  const Row(children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        "Add at least 3 players.",
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                    )
+                  ]),
                 Expanded(
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
