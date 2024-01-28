@@ -9,15 +9,13 @@ class ScoresCubit extends Cubit<ScoresState> {
   ScoresCubit({required this.baseCubit}) : super(ScoresInitialState());
 
   void onWidgetDidInit() {
-    //sort list by point !
-    late final List<PlayerModel> listOfPlayers;
-    late final int round;
-
     final int selectedGameIndex =
         (baseCubit.state as BaseLoadedState).selectedGameIndex;
-    listOfPlayers =
-        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].players;
-    round = (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
+    final List<PlayerModel> listOfPlayers = [
+      ...(baseCubit.state as BaseLoadedState).games[selectedGameIndex].players
+    ];
+    final int round =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
 
     listOfPlayers.sort((a, b) => (b.points).compareTo(a.points));
     emit(ScoresLoadedState(

@@ -129,34 +129,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-class MyObserver extends NavigatorObserver {
-  final BuildContext context;
-
-  MyObserver({required this.context});
-
-  @override
-  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    // Future.delayed(const Duration(seconds: 2), () {
-    //   context
-    //       .read<BaseCubit>()
-    //       .displayBackArrow(route.settings.name == AppRoutes.home);
-    // });
-    //BlocProvider.of<BaseCubit>().displayBackArrow(true);
-  }
-
-  // @override
-  // void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
-  //   print('MyTest didReplace: $newRoute');
-  // }
-
-  // @override
-  // void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-  //   print('MyTest didPop: $route');
-  // }
-
-  // @override
-  // void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) {
-  //   print('MyTest didRemove: $route');
-  // }
-}

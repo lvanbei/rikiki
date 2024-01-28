@@ -59,12 +59,5 @@ class CheckFoldsLoadedState extends CheckFoldsState {
     }
   }
 
-  bool isFoldAllowed(int fold) {
-    print(round + 1 - totalCheckedFolds);
-    return true;
-    if (fold <= (round + 1 - totalCheckedFolds)) {
-      return true;
-    }
-    return false;
-  }
+  bool isFoldAllowed(int fold) => fold <= (round + 1 - totalCheckedFolds);
 }

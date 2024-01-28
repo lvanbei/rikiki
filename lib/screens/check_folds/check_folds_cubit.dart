@@ -18,7 +18,6 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
     final int round =
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
 
-    print(listOfPlayers[0].folds[round].announcedFolds);
     emit(CheckFoldsLoadedState(
       listOfPlayers: listOfPlayers,
       round: round,
@@ -69,7 +68,7 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
   void previousTurn() {
     final currentState = state as CheckFoldsLoadedState;
     if (currentState.turn > 0) {
-      currentState.setPlayerFold(currentState.getPlayerAnnouncedFold);
+      currentState.setPlayerFold(0);
       emit(currentState.copyWith(
         turn: currentState.turn - 1,
         displayedFold:
