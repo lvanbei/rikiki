@@ -206,10 +206,8 @@ class ScoresScreen extends StatelessWidget {
                       ],
                     ),
                     verticalSpacing(),
-                    Container(
-                      constraints: BoxConstraints(
-                          maxHeight:
-                              (MediaQuery.of(context).size.height - 100) / 2),
+                    SizedBox(
+                      height: 150,
                       child: SingleChildScrollView(
                         child: Column(children: folds(state)),
                       ),
