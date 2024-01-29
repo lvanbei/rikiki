@@ -178,11 +178,11 @@ class ScoresScreen extends StatelessWidget {
                       ],
                     ),
                     verticalSpacing(),
-                    const Row(
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: _widthHeader,
                         ),
                         SizedBox(
@@ -190,15 +190,45 @@ class ScoresScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: Text(
-                                    "Announced",
-                                    textAlign: TextAlign.center,
+                                  child: InkWell(
+                                    onDoubleTap: () {
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        backgroundColor: AppColors.black,
+                                        content: SafeArea(
+                                            child: Center(
+                                          child: Text(
+                                              'Total : ${state.announcedFoldTotal} folds'),
+                                        )),
+                                      ));
+                                    },
+                                    child: const Text(
+                                      "Announced",
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
                                 ),
                                 Expanded(
-                                  child: Text(
-                                    "Maked",
-                                    textAlign: TextAlign.center,
+                                  child: InkWell(
+                                    onDoubleTap: () {
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        backgroundColor: AppColors.black,
+                                        content: SafeArea(
+                                            child: Center(
+                                          child: Text(
+                                              'Total : ${state.makedFoldTotal} folds'),
+                                        )),
+                                      ));
+                                    },
+                                    child: const Text(
+                                      "Maked",
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
                                 )
                               ],
@@ -207,7 +237,8 @@ class ScoresScreen extends StatelessWidget {
                     ),
                     verticalSpacing(),
                     SizedBox(
-                      height: 150,
+                      //to adapt hide button below !
+                      height: 130,
                       child: SingleChildScrollView(
                         child: Column(children: folds(state)),
                       ),
