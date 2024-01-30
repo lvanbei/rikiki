@@ -52,4 +52,8 @@ class SetFoldsLoadedState extends SetFoldsState {
   bool isFoldAllowed(int fold) {
     return !(isLastPlayer && fold == maxFold - foldTotal);
   }
+
+  bool isLastPlayerFoldAllowed(int fold) {
+    return !(fold == maxFold - foldTotal);
+  }
 }
