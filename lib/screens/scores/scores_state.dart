@@ -21,8 +21,10 @@ class ScoresLoadedState extends ScoresState {
     this.selectedUser = 0,
   });
 
-  int get points => listOfPlayers[selectedUser].points;
-  int pointsWithIndex(int index) => listOfPlayers[index].points;
+  int get points =>
+      listOfPlayers[selectedUser].points + listOfPlayers[selectedUser].point;
+  int pointsWithIndex(int index) =>
+      listOfPlayers[index].points + listOfPlayers[index].point;
 
   int get announcedFoldTotal => listOfPlayers[selectedUser].folds.fold(
       0, (previousValue, element) => previousValue + element.announcedFolds);

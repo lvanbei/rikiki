@@ -46,10 +46,10 @@ class CheckFoldsLoadedState extends CheckFoldsState {
 
   void setPlayerFold(int fold) {
     listOfPlayers[turn].folds[round].makedFolds = fold;
-    setPlayerPoint();
+    _setPlayerPoint();
   }
 
-  void setPlayerPoint() {
+  void _setPlayerPoint() {
     final bool isCheck = (playerMakedFold - playerAnnouncedFold) == 0;
     if (isCheck) {
       listOfPlayers[turn].point = 10 + (playerMakedFold * 2);

@@ -55,11 +55,6 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
 
     // round +1
     if (currentState.isLastPlayer) {
-      for (var player in currentState.listOfPlayers) {
-        player.points += player.point;
-        player.point = 10;
-      }
-      baseCubit.updatePlayers(currentState.listOfPlayers.rotatedLeft(1));
       Router.neglect(context, () => GoRouter.of(context).go(AppRoutes.scores));
       return;
     }

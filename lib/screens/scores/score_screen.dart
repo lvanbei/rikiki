@@ -255,7 +255,7 @@ class ScoresScreen extends StatelessWidget {
                       size: ButtonSizes.small,
                       onPressed: () {
                         if (!isFinish) {
-                          context.read<BaseCubit>().updateRound(state.round);
+                          context.read<ScoresCubit>().nextRound();
                           Router.neglect(
                               context,
                               () =>
