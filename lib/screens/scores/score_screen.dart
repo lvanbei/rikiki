@@ -15,6 +15,7 @@ class ScoresScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(MediaQuery.of(context).size.height);
     return BlocProvider(
       create: (_) =>
           ScoresCubit(baseCubit: context.read<BaseCubit>())..onWidgetDidInit(),
@@ -238,7 +239,8 @@ class ScoresScreen extends StatelessWidget {
                     verticalSpacing(),
                     SizedBox(
                       //to adapt hide button below !
-                      height: 130,
+                      height:
+                          MediaQuery.of(context).size.height > 1000 ? 500 : 150,
                       child: SingleChildScrollView(
                         child: Column(children: folds(state)),
                       ),
@@ -247,7 +249,6 @@ class ScoresScreen extends StatelessWidget {
                 ),
                 if (!popupMode) ...[
                   const Expanded(child: SizedBox()),
-                  verticalSpacing(),
                   MyButton(
                     title: !isFinish
                         ? 'Round ${getRound(playersLen: state.listOfPlayers.length, round: state.round)}'
