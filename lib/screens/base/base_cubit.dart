@@ -58,6 +58,14 @@ class BaseCubit extends Cubit<BaseState> {
     await updateGames();
   }
 
+  Future shiftPlayers() async {
+    final currentState = state as BaseLoadedState;
+    currentState.games[currentState.selectedGameIndex].players = currentState
+        .games[currentState.selectedGameIndex].players
+        .rotatedLeft(1);
+    await updateGames();
+  }
+
   Future updateRound(int round) async {
     final currentState = state as BaseLoadedState;
     currentState.games[currentState.selectedGameIndex].round = round;
