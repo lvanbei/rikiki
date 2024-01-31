@@ -33,11 +33,11 @@ class ScoresCubit extends Cubit<ScoresState> {
     }
   }
 
-  void nextRound() {
+  void nextRound() async {
     sumPoint();
     final currentState = state as ScoresLoadedState;
-    baseCubit.updatePlayers(currentState.listOfPlayers.rotatedLeft(1));
-    baseCubit.updateRound(currentState.round);
+    await baseCubit.updatePlayers(currentState.listOfPlayers.rotatedLeft(1));
+    await baseCubit.updateRound(currentState.round);
   }
 
   void updatePlayer({bool isLeft = true}) {

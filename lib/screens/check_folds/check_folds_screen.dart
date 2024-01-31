@@ -82,7 +82,8 @@ class CheckFoldsScreen extends StatelessWidget {
                   rightIcon: ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(shape: const CircleBorder()),
-                    onPressed: state.isFoldAllowed(state.displayedFold)
+                    onPressed: state
+                            .isFoldAllowedLastPerson(state.displayedFold)
                         ? () =>
                             context.read<CheckFoldsCubit>().nextTurn(context)
                         : null,
