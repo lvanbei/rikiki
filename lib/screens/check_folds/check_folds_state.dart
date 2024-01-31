@@ -62,7 +62,12 @@ class CheckFoldsLoadedState extends CheckFoldsState {
   bool isFoldAllowed(int fold) => fold <= (round + 1 - totalCheckedFolds);
 
   bool isFoldAllowedLastPerson(int fold) {
-    if (isLastPlayer && fold - (round + 1 - totalCheckedFolds) != 0) {
+    if (isLastPlayer &&
+        fold -
+                (getRound(playersLen: listOfPlayers.length, round: round) +
+                    1 -
+                    totalCheckedFolds) !=
+            0) {
       return false;
     }
     return fold <= (round + 1 - totalCheckedFolds);
