@@ -24,8 +24,6 @@ class CheckFoldsLoadedState extends CheckFoldsState {
     required this.displayedFold,
   });
 
-  int get maxFold => round + 1;
-
   int get playerAnnouncedFold =>
       listOfPlayers[turn].folds[round].announcedFolds;
 
@@ -38,38 +36,31 @@ class CheckFoldsLoadedState extends CheckFoldsState {
       (previousValue, element) =>
           previousValue + element.folds[round].makedFolds);
 
-  int get getPlayerAnnouncedFold =>
-      listOfPlayers[turn].folds[round].announcedFolds;
-
   int getPlayerFoldWithIndex(int index) =>
       listOfPlayers[index].folds[round].announcedFolds;
 
-  void setPlayerFold(int fold) {
-    listOfPlayers[turn].folds[round].makedFolds = fold;
-    _setPlayerPoint();
+  void setPlayerFold(int fold, [int? index]) {
+    listOfPlayers[index ?? turn].folds[round].makedFolds = fold;
+    _setPlayerPoint(index);
   }
 
-  void _setPlayerPoint() {
+  void _setPlayerPoint([int? index]) {
     final bool isCheck = (playerMakedFold - playerAnnouncedFold) == 0;
     if (isCheck) {
-      listOfPlayers[turn].point = 10 + (playerMakedFold * 2);
+      listOfPlayers[index ?? turn].point = 10 + (playerMakedFold * 2);
     } else {
-      listOfPlayers[turn].point =
+      listOfPlayers[index ?? turn].point =
           ((playerAnnouncedFold - playerMakedFold).abs()) * -2;
     }
   }
 
-  bool isFoldAllowed(int fold) => fold <= (round + 1 - totalCheckedFolds);
-
-  bool isFoldAllowedLastPerson(int fold) {
-    if (isLastPlayer &&
-        fold -
-                (getRound(playersLen: listOfPlayers.length, round: round) +
-                    1 -
-                    totalCheckedFolds) !=
-            0) {
+  bool isFoldAllowed(int fold) {
+    final currentRound =
+        getRound(playersLen: listOfPlayers.length, round: round);
+    if (isLastPlayer && (fold - (currentRound - totalCheckedFolds)) != 0) {
       return false;
     }
-    return fold <= (round + 1 - totalCheckedFolds);
+
+    return fold <= (currentRound - totalCheckedFolds);
   }
 }

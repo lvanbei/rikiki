@@ -29,7 +29,7 @@ class ScoresCubit extends Cubit<ScoresState> {
     final currentState = state as ScoresLoadedState;
     for (var player in currentState.listOfPlayers) {
       player.points += player.point;
-      player.point = 10;
+      player.point = 0;
     }
   }
 
