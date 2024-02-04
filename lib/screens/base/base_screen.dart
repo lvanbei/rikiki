@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rikiki_for_real/screens/screens.dart';
+import 'package:universal_html/html.dart';
 
 import '../../core/core.dart';
 
@@ -92,8 +93,11 @@ class BaseScreen extends StatelessWidget {
                 child: Padding(
                     padding: EdgeInsets.only(
                         top: 24,
-                        bottom:
-                            MediaQuery.of(context).size.height > 548 ? 60 : 24),
+                        bottom: window
+                                .matchMedia('(display-mode: standalone)')
+                                .matches
+                            ? 60
+                            : 24),
                     child: child)),
           );
         }
