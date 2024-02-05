@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
               disabledBackgroundColor: AppColors.lightGrey,
             )),
           ),
-          title: 'RIKIKI',
+          title: 'R I K I K I',
           routerConfig: GoRouter(
             navigatorKey: rootNavigatorKey,
             initialLocation: AppRoutes.selectGame,
