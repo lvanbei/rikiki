@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rikiki_for_real/screens/screens.dart';
+import 'package:rikiki/screens/screens.dart';
 
 import '../../core/core.dart';
 

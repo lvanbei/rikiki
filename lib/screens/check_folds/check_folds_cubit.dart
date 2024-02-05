@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rikiki_for_real/screens/base/base.dart';
+import 'package:rikiki/screens/base/base.dart';
 
 import '../../core/core.dart';
 import 'check_folds_state.dart';

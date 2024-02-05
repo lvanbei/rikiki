@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rikiki_for_real/screens/base/base.dart';
+import 'package:rikiki/screens/base/base.dart';
 
 import '../../core/core.dart';
 import 'scores.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rikiki_for_real/core/core.dart';
+import 'package:rikiki/core/core.dart';
 
 import '../base/base.dart';
 import 'add_players.dart';

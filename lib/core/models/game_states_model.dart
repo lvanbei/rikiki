@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:rikiki_for_real/core/core.dart';
+import 'package:rikiki/core/core.dart';
 
 part 'game_states_model.g.dart';
 

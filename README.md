@@ -1,4 +1,4 @@
-# rikiki_for_real
+# rikiki
 
 A new Flutter project.
 

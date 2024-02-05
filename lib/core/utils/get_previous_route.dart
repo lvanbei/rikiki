@@ -1,4 +1,4 @@
-import 'package:rikiki_for_real/core/constants/routes.dart';
+import 'package:rikiki/core/constants/routes.dart';
 
 String getPreviousRoute(String route) {
   final int foundedRoute =

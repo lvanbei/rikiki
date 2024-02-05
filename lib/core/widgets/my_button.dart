@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rikiki_for_real/core/constants/button_sizes.dart';
+import 'package:rikiki/core/constants/button_sizes.dart';
 
 class MyButton extends StatelessWidget {
   final VoidCallback? onPressed;
