@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/core.dart';
@@ -23,6 +24,7 @@ class BaseCubit extends Cubit<BaseState> {
       selectedGameIndex:
           parsedGame.selectedGameIndex ?? parsedGame.games.length - 1,
     ));
+    FlutterNativeSplash.remove();
   }
 
   GameStatesModel _parseGame(String? game, SharedPreferences prefs) {
