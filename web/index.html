@@ -40,11 +40,6 @@
     <!-- This script adds the flutter initialization JS code -->
     <script src="flutter.js" defer=""></script>
 
-    <meta
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-      name="viewport"
-    />
-
     <style id="splash-screen-style">
       html {
         height: 100%
@@ -103,6 +98,20 @@
         right: 0;
       }
     </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-TYGTPTPYYF"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-TYGTPTPYYF');
+    </script>
+
     <script id="splash-screen-script">
       function removeSplashFromWeb() {
         document.getElementById("splash")?.remove();
