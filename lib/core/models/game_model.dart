@@ -6,11 +6,13 @@ part 'game_model.g.dart';
 @JsonSerializable()
 class GameModel {
   int round;
+  int rounds;
   final DateTime creationDate;
   List<PlayerModel> players;
 
   GameModel({
     this.round = 0,
+    this.rounds = 0,
     required this.creationDate,
     required this.players,
   });

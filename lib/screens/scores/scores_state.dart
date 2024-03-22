@@ -14,10 +14,12 @@ class ScoresInitialState extends ScoresState {}
 class ScoresLoadedState extends ScoresState {
   final List<PlayerModel> listOfPlayers;
   final int round;
+  final int rounds;
   final int selectedUser;
   const ScoresLoadedState({
     required this.listOfPlayers,
     required this.round,
+    required this.rounds,
     this.selectedUser = 0,
   });
 

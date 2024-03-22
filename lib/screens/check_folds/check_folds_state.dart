@@ -14,12 +14,14 @@ class CheckFoldsInitialState extends CheckFoldsState {}
 class CheckFoldsLoadedState extends CheckFoldsState {
   List<PlayerModel> listOfPlayers;
   final int round;
+  final int rounds;
   final int turn;
   final int displayedFold;
 
   CheckFoldsLoadedState({
     required this.listOfPlayers,
     required this.round,
+    required this.rounds,
     this.turn = 0,
     required this.displayedFold,
   });
@@ -55,8 +57,7 @@ class CheckFoldsLoadedState extends CheckFoldsState {
   }
 
   bool isFoldAllowed(int fold) {
-    final currentRound =
-        getRound(playersLen: listOfPlayers.length, round: round);
+    final currentRound = getRound(rounds: rounds, round: round);
     if (isLastPlayer && (fold - (currentRound - totalCheckedFolds)) != 0) {
       return false;
     }

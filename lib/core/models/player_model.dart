@@ -26,13 +26,11 @@ class PlayerModel {
 
 @JsonSerializable()
 class FoldsModel {
-  int round;
   int announcedFolds;
   int makedFolds;
 
   FoldsModel({
     this.announcedFolds = 0,
-    this.round = 0,
     this.makedFolds = 0,
   });
 

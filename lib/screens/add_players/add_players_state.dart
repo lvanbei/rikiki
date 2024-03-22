@@ -14,13 +14,17 @@ class AddPlayersInitialState extends AddPlayersState {}
 @CopyWith()
 class AddPlayersLoadedState extends AddPlayersState {
   List<PlayerModel> listOfPlayers;
+  final List<PlayerModel> displayedListOfPlayers;
   final TextEditingController controller;
   final int round;
+  final int rounds;
 
   AddPlayersLoadedState({
     required this.listOfPlayers,
+    required this.displayedListOfPlayers,
     required this.controller,
     required this.round,
+    required this.rounds,
   });
 
   bool get playersLimit => listOfPlayers.length >= 10;

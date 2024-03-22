@@ -69,10 +69,8 @@ class BaseScreen extends StatelessWidget {
                         if (isScores &&
                             getRound(
                                     isMinus: true,
-                                    playersLen: state
-                                        .games[state.selectedGameIndex]
-                                        .players
-                                        .length,
+                                    rounds: state
+                                        .games[state.selectedGameIndex].rounds,
                                     round: state.games[state.selectedGameIndex]
                                         .round) ==
                                 -1) {

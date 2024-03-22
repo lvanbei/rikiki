@@ -15,17 +15,19 @@ class SetFoldsLoadedState extends SetFoldsState {
   List<PlayerModel> listOfPlayers;
 
   final int round;
+  final int rounds;
   final int displayedFold;
   final int turn;
 
   SetFoldsLoadedState({
     required this.listOfPlayers,
     required this.round,
+    required this.rounds,
     required this.displayedFold,
     this.turn = 0,
   });
 
-  int get maxFold => getRound(playersLen: listOfPlayers.length, round: round);
+  int get maxFold => getRound(rounds: rounds, round: round);
 
   bool get longName => listOfPlayers[turn].name.length > 12;
 

@@ -17,6 +17,8 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].players;
     final int round =
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
+    final int rounds =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].rounds;
 
     //reset maked folds
     for (var player in listOfPlayers) {
@@ -26,17 +28,17 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
     emit(CheckFoldsLoadedState(
       listOfPlayers: listOfPlayers,
       round: round,
+      rounds: rounds,
       displayedFold: listOfPlayers[0].folds[round].announcedFolds,
     ));
   }
 
   void updateFold(int newFold) {
     final currentState = state as CheckFoldsLoadedState;
-    final listOfPlayers = currentState.listOfPlayers;
+    final rounds = currentState.rounds;
 
     final isRoundGreaterThanNine =
-        getRound(playersLen: listOfPlayers.length, round: currentState.round) >
-            9;
+        getRound(rounds: rounds, round: currentState.round) > 9;
     final isPlayerFoldOne = currentState.playerMakedFold == 1;
 
     int foldValue =

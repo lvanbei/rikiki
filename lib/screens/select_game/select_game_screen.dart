@@ -26,7 +26,7 @@ class SelectGameScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         int currentRound = getRound(
                             isMinus: true,
-                            playersLen: state.games[index].players.length,
+                            rounds: state.games[index].rounds,
                             round: state.games[index].round);
                         return ListTile(
                             minVerticalPadding: 16,

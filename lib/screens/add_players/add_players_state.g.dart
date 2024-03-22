@@ -9,9 +9,14 @@ part of 'add_players_state.dart';
 abstract class _$AddPlayersLoadedStateCWProxy {
   AddPlayersLoadedState listOfPlayers(List<PlayerModel> listOfPlayers);
 
+  AddPlayersLoadedState displayedListOfPlayers(
+      List<PlayerModel> displayedListOfPlayers);
+
   AddPlayersLoadedState controller(TextEditingController controller);
 
   AddPlayersLoadedState round(int round);
+
+  AddPlayersLoadedState rounds(int rounds);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `AddPlayersLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -21,8 +26,10 @@ abstract class _$AddPlayersLoadedStateCWProxy {
   /// ````
   AddPlayersLoadedState call({
     List<PlayerModel>? listOfPlayers,
+    List<PlayerModel>? displayedListOfPlayers,
     TextEditingController? controller,
     int? round,
+    int? rounds,
   });
 }
 
@@ -38,11 +45,19 @@ class _$AddPlayersLoadedStateCWProxyImpl
       this(listOfPlayers: listOfPlayers);
 
   @override
+  AddPlayersLoadedState displayedListOfPlayers(
+          List<PlayerModel> displayedListOfPlayers) =>
+      this(displayedListOfPlayers: displayedListOfPlayers);
+
+  @override
   AddPlayersLoadedState controller(TextEditingController controller) =>
       this(controller: controller);
 
   @override
   AddPlayersLoadedState round(int round) => this(round: round);
+
+  @override
+  AddPlayersLoadedState rounds(int rounds) => this(rounds: rounds);
 
   @override
 
@@ -54,8 +69,10 @@ class _$AddPlayersLoadedStateCWProxyImpl
   /// ````
   AddPlayersLoadedState call({
     Object? listOfPlayers = const $CopyWithPlaceholder(),
+    Object? displayedListOfPlayers = const $CopyWithPlaceholder(),
     Object? controller = const $CopyWithPlaceholder(),
     Object? round = const $CopyWithPlaceholder(),
+    Object? rounds = const $CopyWithPlaceholder(),
   }) {
     return AddPlayersLoadedState(
       listOfPlayers:
@@ -63,6 +80,12 @@ class _$AddPlayersLoadedStateCWProxyImpl
               ? _value.listOfPlayers
               // ignore: cast_nullable_to_non_nullable
               : listOfPlayers as List<PlayerModel>,
+      displayedListOfPlayers:
+          displayedListOfPlayers == const $CopyWithPlaceholder() ||
+                  displayedListOfPlayers == null
+              ? _value.displayedListOfPlayers
+              // ignore: cast_nullable_to_non_nullable
+              : displayedListOfPlayers as List<PlayerModel>,
       controller:
           controller == const $CopyWithPlaceholder() || controller == null
               ? _value.controller
@@ -72,6 +95,10 @@ class _$AddPlayersLoadedStateCWProxyImpl
           ? _value.round
           // ignore: cast_nullable_to_non_nullable
           : round as int,
+      rounds: rounds == const $CopyWithPlaceholder() || rounds == null
+          ? _value.rounds
+          // ignore: cast_nullable_to_non_nullable
+          : rounds as int,
     );
   }
 }

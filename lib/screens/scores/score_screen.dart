@@ -22,7 +22,7 @@ class ScoresScreen extends StatelessWidget {
             if (state is ScoresLoadedState) {
               final bool isFinish = getRound(
                       isMinus: true,
-                      playersLen: state.listOfPlayers.length,
+                      rounds: state.rounds,
                       round: state.round) ==
                   0;
               return Column(
@@ -250,7 +250,7 @@ class ScoresScreen extends StatelessWidget {
                     const Expanded(child: SizedBox()),
                     MyButton(
                       title: !isFinish
-                          ? 'Round ${getRound(playersLen: state.listOfPlayers.length, round: state.round)}'
+                          ? 'Round ${getRound(rounds: state.rounds, round: state.round)}'
                           : 'Home',
                       size: ButtonSizes.small,
                       onPressed: () {

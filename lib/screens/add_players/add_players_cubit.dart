@@ -15,40 +15,58 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     }
     final int selectedGameIndex =
         (baseCubit.state as BaseLoadedState).selectedGameIndex;
-    final List<PlayerModel> listOfPlayers = [
+    final List<PlayerModel> displayedListOfPlayers = [
       ...(baseCubit.state as BaseLoadedState).games[selectedGameIndex].players
     ];
+
+    final listOfPlayers =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].players;
     final int round =
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
+    final int rounds =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].rounds;
 
-    listOfPlayers.sort((a, b) => a.position.compareTo(b.position));
+    displayedListOfPlayers.sort((a, b) => a.position.compareTo(b.position));
     emit(AddPlayersLoadedState(
       listOfPlayers: listOfPlayers,
+      displayedListOfPlayers: displayedListOfPlayers,
       controller: TextEditingController(),
       round: round,
+      rounds: rounds,
     ));
   }
 
   void onSubmitPlayer() {
     final currentState = state as AddPlayersLoadedState;
     final newPlayer = currentState.controller.text;
+    currentState.controller.text = '';
 
     final currentPlayers = currentState.listOfPlayers;
-    currentState.controller.text = '';
-    currentPlayers.add(PlayerModel(
-      position: currentPlayers.length,
+    final currentDisplayedPlayers = currentState.displayedListOfPlayers;
+
+    currentDisplayedPlayers.add(PlayerModel(
+      position: currentDisplayedPlayers.length,
       name: newPlayer,
       folds: [],
     ));
-    emit(currentState.copyWith(listOfPlayers: currentPlayers));
+    currentPlayers.add(currentDisplayedPlayers.last);
+
+    emit(
+        currentState.copyWith(displayedListOfPlayers: currentDisplayedPlayers));
+
     baseCubit.updatePlayers(currentPlayers);
   }
 
-  void onDeletePlayer(int index) {
+  void onDeletePlayer(int index, String name) {
     final currentState = state as AddPlayersLoadedState;
     final currentPlayers = currentState.listOfPlayers;
-    currentPlayers.removeAt(index);
-    emit(currentState.copyWith(listOfPlayers: currentPlayers));
+    final currentDisplayedPlayers = currentState.displayedListOfPlayers;
+
+    currentDisplayedPlayers.removeAt(index);
+    currentPlayers.removeWhere((element) => element.name == name);
+
+    emit(
+        currentState.copyWith(displayedListOfPlayers: currentDisplayedPlayers));
     baseCubit.updatePlayers(currentPlayers);
   }
 
@@ -66,15 +84,55 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     return null;
   }
 
-  Future updateFoldList() async {
+  void updateFoldList() {
     final currentState = state as AddPlayersLoadedState;
     final currentPlayers = currentState.listOfPlayers;
-    final rounds = ((52 / currentPlayers.length).floor() * 2) - 1;
-    for (var player in currentPlayers) {
-      player.points = 0;
-      player.point = 0;
-      player.folds = List.generate(rounds, (_) => FoldsModel());
+    final int newRounds = ((52 / currentPlayers.length).floor() * 2) - 1;
+    final int oldRounds = currentState.rounds;
+    final int currentRound = currentState.round;
+    int setRounds = newRounds;
+
+    if (oldRounds != 0) {
+      // added a player during the game
+      if (newRounds < oldRounds) {
+        // current round is above existing new rounds
+        if (currentRound > (newRounds / 2).floor()) {
+          int newRound = ((currentRound / oldRounds) * newRounds).floor();
+          baseCubit.updateRound(newRound);
+          setRounds = newRounds;
+        }
+      }
+
+      // removed a player during the game
+      else if (newRounds > oldRounds &&
+          // update rounds if currentRound is below newRounds / 2
+          currentRound > (oldRounds / 2).floor()) {
+        setRounds = oldRounds;
+      } else {
+        setRounds = newRounds;
+      }
+    } else {
+      setRounds = newRounds;
     }
-    await baseCubit.updatePlayers(currentPlayers);
+
+    baseCubit.updateRounds(setRounds);
+
+    for (var player in currentPlayers) {
+      player.point = 0;
+      player.folds = List.generate(setRounds, (int index) {
+        if (player.folds.isNotEmpty &&
+            index < player.folds.length &&
+            player.folds[index].announcedFolds != 0 &&
+            player.folds[index].makedFolds != 0) {
+          return FoldsModel(
+            announcedFolds: player.folds[index].announcedFolds,
+            makedFolds: player.folds[index].makedFolds,
+          );
+        }
+        return FoldsModel();
+      });
+    }
+
+    baseCubit.updatePlayers(currentPlayers);
   }
 }

@@ -1,9 +1,9 @@
 int getRound({
   bool isMinus = false,
-  required int playersLen,
+  required int rounds,
   required int round,
 }) {
-  int maxRound = (52 / playersLen).floor();
+  int maxRound = (rounds / 2).round();
   int currentRound = round + 1;
   if (currentRound < maxRound) {
     return currentRound;

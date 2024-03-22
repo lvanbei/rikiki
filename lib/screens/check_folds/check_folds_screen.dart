@@ -10,16 +10,14 @@ class CheckFoldsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final currentRound =
-    //     (context.read<BaseCubit>().state as BaseLoadedState).getRound();
     return BlocProvider(
       create: (_) => CheckFoldsCubit(baseCubit: context.read<BaseCubit>())
         ..onWidgetDidInit(),
       child: BlocBuilder<CheckFoldsCubit, CheckFoldsState>(
         builder: (context, state) {
           if (state is CheckFoldsLoadedState) {
-            final currentRound = getRound(
-                playersLen: state.listOfPlayers.length, round: state.round);
+            final currentRound =
+                getRound(rounds: state.rounds, round: state.round);
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

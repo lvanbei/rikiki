@@ -20,17 +20,16 @@ class AddPlayersScreen extends StatelessWidget {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (!state.continueGame)
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                    child: MyTextField(
-                      state: state,
-                      onSubmit: context.read<AddPlayersCubit>().onSubmitPlayer,
-                      validator:
-                          context.read<AddPlayersCubit>().playerNameValidator,
-                    ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child: MyTextField(
+                    state: state,
+                    onSubmit: context.read<AddPlayersCubit>().onSubmitPlayer,
+                    validator:
+                        context.read<AddPlayersCubit>().playerNameValidator,
                   ),
+                ),
                 if (!state.enoughPlayer)
                   const Row(children: [
                     Padding(
@@ -47,30 +46,29 @@ class AddPlayersScreen extends StatelessWidget {
                           horizontal: 8, vertical: 16),
                       child: SizedBox(
                           child: ListView.builder(
-                        itemCount: state.listOfPlayers.length,
+                        itemCount: state.displayedListOfPlayers.length,
                         itemBuilder: (context, index) => ListTile(
-                          title: Text(state.listOfPlayers[index].name),
+                          title: Text(state.displayedListOfPlayers[index].name),
                           leading: Text('${(index + 1)}.'),
-                          trailing: state.continueGame
-                              ? null
-                              : IconButton(
-                                  onPressed: () {
-                                    context
-                                        .read<AddPlayersCubit>()
-                                        .onDeletePlayer(index);
-                                  },
-                                  icon: const Icon(Icons.delete_forever)),
+                          trailing: IconButton(
+                              onPressed: () {
+                                context.read<AddPlayersCubit>().onDeletePlayer(
+                                    index,
+                                    state.displayedListOfPlayers[index].name);
+                              },
+                              icon: const Icon(Icons.delete_forever)),
                         ),
                       ))),
                 ),
                 MyButton(
-                  title: state.continueGame ? 'continue' : 'next',
+                  title: state.continueGame ? 'Continue' : 'Next',
                   onPressed: state.enoughPlayer
                       ? () {
-                          if (!state.continueGame) {
-                            context.read<BaseCubit>().updateRound(0);
-                            context.read<AddPlayersCubit>().updateFoldList();
-                          }
+                          // if (!state.continueGame) {
+                          //   context.read<BaseCubit>().updateRound(0);
+                          //   context.read<AddPlayersCubit>().updateFoldList();
+                          // }
+                          context.read<AddPlayersCubit>().updateFoldList();
                           Router.neglect(
                               context,
                               () =>
