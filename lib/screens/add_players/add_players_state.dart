@@ -18,6 +18,8 @@ class AddPlayersLoadedState extends AddPlayersState {
   final TextEditingController controller;
   final int round;
   final int rounds;
+  final int pointsPerFold;
+  final bool increasePointPerFold;
 
   AddPlayersLoadedState({
     required this.listOfPlayers,
@@ -25,6 +27,8 @@ class AddPlayersLoadedState extends AddPlayersState {
     required this.controller,
     required this.round,
     required this.rounds,
+    required this.pointsPerFold,
+    this.increasePointPerFold = false,
   });
 
   bool get playersLimit => listOfPlayers.length >= 10;

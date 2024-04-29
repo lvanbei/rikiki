@@ -26,6 +26,10 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     final int rounds =
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].rounds;
 
+    final int? pointPerFold = (baseCubit.state as BaseLoadedState)
+        .games[selectedGameIndex]
+        .pointsPerFold;
+
     displayedListOfPlayers.sort((a, b) => a.position.compareTo(b.position));
     emit(AddPlayersLoadedState(
       listOfPlayers: listOfPlayers,
@@ -33,7 +37,20 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
       controller: TextEditingController(),
       round: round,
       rounds: rounds,
+      pointsPerFold: pointPerFold ?? 2,
+      increasePointPerFold: pointPerFold == null,
     ));
+  }
+
+  void updatePointsPerFold({bool isPlus = false, bool longPress = false}) {
+    final currentState = state as AddPlayersLoadedState;
+    final currentPointPerFold = currentState.pointsPerFold;
+    int newPoint = currentPointPerFold;
+    if (isPlus) {
+      newPoint += 1;
+      return emit(currentState.copyWith(pointsPerFold: newPoint));
+    }
+    emit(currentState.copyWith(pointsPerFold: currentPointPerFold - 1));
   }
 
   void onSubmitPlayer() {
@@ -134,5 +151,12 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     }
 
     baseCubit.updatePlayers(currentPlayers);
+    baseCubit.updatePointPerFold(
+        currentState.increasePointPerFold ? null : currentState.pointsPerFold);
+  }
+
+  void updateIncreasePointPerFold(bool status) {
+    final currentState = state as AddPlayersLoadedState;
+    emit(currentState.copyWith(increasePointPerFold: status));
   }
 }

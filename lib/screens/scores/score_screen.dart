@@ -225,7 +225,7 @@ class ScoresScreen extends StatelessWidget {
                                         ));
                                       },
                                       child: const Text(
-                                        "Maked",
+                                        "Made",
                                         textAlign: TextAlign.center,
                                       ),
                                     ),

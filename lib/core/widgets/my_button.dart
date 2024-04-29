@@ -17,7 +17,7 @@ class MyButton extends StatelessWidget {
             .textTheme
             .bodyLarge!
             .copyWith(fontSize: size.fontSize),
-        padding: EdgeInsets.all(size.padding),
+        padding: size.padding,
         minimumSize: size.fixedSize,
         alignment: Alignment.center,
       ),
