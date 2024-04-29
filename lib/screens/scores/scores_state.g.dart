@@ -11,6 +11,8 @@ abstract class _$ScoresLoadedStateCWProxy {
 
   ScoresLoadedState round(int round);
 
+  ScoresLoadedState rounds(int rounds);
+
   ScoresLoadedState selectedUser(int selectedUser);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ScoresLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
@@ -22,6 +24,7 @@ abstract class _$ScoresLoadedStateCWProxy {
   ScoresLoadedState call({
     List<PlayerModel>? listOfPlayers,
     int? round,
+    int? rounds,
     int? selectedUser,
   });
 }
@@ -40,6 +43,9 @@ class _$ScoresLoadedStateCWProxyImpl implements _$ScoresLoadedStateCWProxy {
   ScoresLoadedState round(int round) => this(round: round);
 
   @override
+  ScoresLoadedState rounds(int rounds) => this(rounds: rounds);
+
+  @override
   ScoresLoadedState selectedUser(int selectedUser) =>
       this(selectedUser: selectedUser);
 
@@ -54,6 +60,7 @@ class _$ScoresLoadedStateCWProxyImpl implements _$ScoresLoadedStateCWProxy {
   ScoresLoadedState call({
     Object? listOfPlayers = const $CopyWithPlaceholder(),
     Object? round = const $CopyWithPlaceholder(),
+    Object? rounds = const $CopyWithPlaceholder(),
     Object? selectedUser = const $CopyWithPlaceholder(),
   }) {
     return ScoresLoadedState(
@@ -66,6 +73,10 @@ class _$ScoresLoadedStateCWProxyImpl implements _$ScoresLoadedStateCWProxy {
           ? _value.round
           // ignore: cast_nullable_to_non_nullable
           : round as int,
+      rounds: rounds == const $CopyWithPlaceholder() || rounds == null
+          ? _value.rounds
+          // ignore: cast_nullable_to_non_nullable
+          : rounds as int,
       selectedUser:
           selectedUser == const $CopyWithPlaceholder() || selectedUser == null
               ? _value.selectedUser

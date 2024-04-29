@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 enum ButtonSizes { small, medium, big }
 
@@ -16,16 +16,16 @@ extension ButtonSizeEx on ButtonSizes {
     }
   }
 
-  double get padding {
+  EdgeInsets get padding {
     switch (this) {
       case ButtonSizes.small:
-        return 12;
+        return const EdgeInsets.symmetric(horizontal: 24, vertical: 12);
       case ButtonSizes.medium:
-        return 16;
+        return const EdgeInsets.symmetric(horizontal: 32, vertical: 16);
       case ButtonSizes.big:
-        return 24;
+        return const EdgeInsets.symmetric(horizontal: 48, vertical: 24);
       default:
-        return 8;
+        return const EdgeInsets.symmetric(horizontal: 16, vertical: 8);
     }
   }
 

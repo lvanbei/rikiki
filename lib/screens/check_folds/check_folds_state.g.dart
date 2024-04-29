@@ -11,9 +11,13 @@ abstract class _$CheckFoldsLoadedStateCWProxy {
 
   CheckFoldsLoadedState round(int round);
 
+  CheckFoldsLoadedState rounds(int rounds);
+
   CheckFoldsLoadedState turn(int turn);
 
   CheckFoldsLoadedState displayedFold(int displayedFold);
+
+  CheckFoldsLoadedState pointPerFold(int? pointPerFold);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `CheckFoldsLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -24,8 +28,10 @@ abstract class _$CheckFoldsLoadedStateCWProxy {
   CheckFoldsLoadedState call({
     List<PlayerModel>? listOfPlayers,
     int? round,
+    int? rounds,
     int? turn,
     int? displayedFold,
+    int? pointPerFold,
   });
 }
 
@@ -44,11 +50,18 @@ class _$CheckFoldsLoadedStateCWProxyImpl
   CheckFoldsLoadedState round(int round) => this(round: round);
 
   @override
+  CheckFoldsLoadedState rounds(int rounds) => this(rounds: rounds);
+
+  @override
   CheckFoldsLoadedState turn(int turn) => this(turn: turn);
 
   @override
   CheckFoldsLoadedState displayedFold(int displayedFold) =>
       this(displayedFold: displayedFold);
+
+  @override
+  CheckFoldsLoadedState pointPerFold(int? pointPerFold) =>
+      this(pointPerFold: pointPerFold);
 
   @override
 
@@ -61,8 +74,10 @@ class _$CheckFoldsLoadedStateCWProxyImpl
   CheckFoldsLoadedState call({
     Object? listOfPlayers = const $CopyWithPlaceholder(),
     Object? round = const $CopyWithPlaceholder(),
+    Object? rounds = const $CopyWithPlaceholder(),
     Object? turn = const $CopyWithPlaceholder(),
     Object? displayedFold = const $CopyWithPlaceholder(),
+    Object? pointPerFold = const $CopyWithPlaceholder(),
   }) {
     return CheckFoldsLoadedState(
       listOfPlayers:
@@ -74,6 +89,10 @@ class _$CheckFoldsLoadedStateCWProxyImpl
           ? _value.round
           // ignore: cast_nullable_to_non_nullable
           : round as int,
+      rounds: rounds == const $CopyWithPlaceholder() || rounds == null
+          ? _value.rounds
+          // ignore: cast_nullable_to_non_nullable
+          : rounds as int,
       turn: turn == const $CopyWithPlaceholder() || turn == null
           ? _value.turn
           // ignore: cast_nullable_to_non_nullable
@@ -83,6 +102,10 @@ class _$CheckFoldsLoadedStateCWProxyImpl
               ? _value.displayedFold
               // ignore: cast_nullable_to_non_nullable
               : displayedFold as int,
+      pointPerFold: pointPerFold == const $CopyWithPlaceholder()
+          ? _value.pointPerFold
+          // ignore: cast_nullable_to_non_nullable
+          : pointPerFold as int?,
     );
   }
 }

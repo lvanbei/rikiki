@@ -48,12 +48,6 @@ class BaseCubit extends Cubit<BaseState> {
             selectedGameIndex: currentState.selectedGameIndex)));
   }
 
-  Future updateSelectedIndex(int index) async {
-    final currentState = state as BaseLoadedState;
-    currentState.copyWith(selectedGameIndex: index);
-    updateGames();
-  }
-
   Future updatePlayers(List<PlayerModel> players) async {
     final currentState = state as BaseLoadedState;
     currentState.games[currentState.selectedGameIndex].players = players;
@@ -68,9 +62,22 @@ class BaseCubit extends Cubit<BaseState> {
     await updateGames();
   }
 
+  Future updateRounds(int rounds) async {
+    final currentState = state as BaseLoadedState;
+    currentState.games[currentState.selectedGameIndex].rounds = rounds;
+    await updateGames();
+  }
+
   Future updateRound(int round) async {
     final currentState = state as BaseLoadedState;
     currentState.games[currentState.selectedGameIndex].round = round;
+    await updateGames();
+  }
+
+  Future updatePointPerFold(int? pointsPerFold) async {
+    final currentState = state as BaseLoadedState;
+    currentState.games[currentState.selectedGameIndex].pointsPerFold =
+        pointsPerFold;
     await updateGames();
   }
 

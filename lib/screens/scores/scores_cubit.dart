@@ -16,13 +16,13 @@ class ScoresCubit extends Cubit<ScoresState> {
     ];
     final int round =
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
+    final int rounds =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].rounds;
 
     listOfPlayers
         .sort((a, b) => (b.points + b.point).compareTo(a.points + a.point));
     emit(ScoresLoadedState(
-      listOfPlayers: listOfPlayers,
-      round: round + 1,
-    ));
+        listOfPlayers: listOfPlayers, round: round + 1, rounds: rounds));
   }
 
   void sumPoint() {

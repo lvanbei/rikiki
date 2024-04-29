@@ -11,6 +11,8 @@ abstract class _$SetFoldsLoadedStateCWProxy {
 
   SetFoldsLoadedState round(int round);
 
+  SetFoldsLoadedState rounds(int rounds);
+
   SetFoldsLoadedState displayedFold(int displayedFold);
 
   SetFoldsLoadedState turn(int turn);
@@ -24,6 +26,7 @@ abstract class _$SetFoldsLoadedStateCWProxy {
   SetFoldsLoadedState call({
     List<PlayerModel>? listOfPlayers,
     int? round,
+    int? rounds,
     int? displayedFold,
     int? turn,
   });
@@ -43,6 +46,9 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
   SetFoldsLoadedState round(int round) => this(round: round);
 
   @override
+  SetFoldsLoadedState rounds(int rounds) => this(rounds: rounds);
+
+  @override
   SetFoldsLoadedState displayedFold(int displayedFold) =>
       this(displayedFold: displayedFold);
 
@@ -60,6 +66,7 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
   SetFoldsLoadedState call({
     Object? listOfPlayers = const $CopyWithPlaceholder(),
     Object? round = const $CopyWithPlaceholder(),
+    Object? rounds = const $CopyWithPlaceholder(),
     Object? displayedFold = const $CopyWithPlaceholder(),
     Object? turn = const $CopyWithPlaceholder(),
   }) {
@@ -73,6 +80,10 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
           ? _value.round
           // ignore: cast_nullable_to_non_nullable
           : round as int,
+      rounds: rounds == const $CopyWithPlaceholder() || rounds == null
+          ? _value.rounds
+          // ignore: cast_nullable_to_non_nullable
+          : rounds as int,
       displayedFold:
           displayedFold == const $CopyWithPlaceholder() || displayedFold == null
               ? _value.displayedFold

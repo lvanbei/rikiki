@@ -27,13 +27,11 @@ Map<String, dynamic> _$PlayerModelToJson(PlayerModel instance) =>
 
 FoldsModel _$FoldsModelFromJson(Map<String, dynamic> json) => FoldsModel(
       announcedFolds: json['announcedFolds'] as int? ?? 0,
-      round: json['round'] as int? ?? 0,
       makedFolds: json['makedFolds'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$FoldsModelToJson(FoldsModel instance) =>
     <String, dynamic>{
-      'round': instance.round,
       'announcedFolds': instance.announcedFolds,
       'makedFolds': instance.makedFolds,
     };

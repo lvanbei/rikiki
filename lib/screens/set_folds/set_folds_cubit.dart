@@ -16,10 +16,12 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
     final List<PlayerModel> listOfPlayers =
         baseState.games[selectedGameIndex].players;
     final round = baseState.games[selectedGameIndex].round;
+    final rounds = baseState.games[selectedGameIndex].rounds;
 
     emit(SetFoldsLoadedState(
       listOfPlayers: listOfPlayers,
       round: round,
+      rounds: rounds,
       displayedFold: listOfPlayers[0].folds[round].announcedFolds,
     ));
   }
@@ -29,10 +31,8 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
     final currentPlayerFold = currentState.displayedFold;
 
     if (newFold != currentPlayerFold) {
-      final isRoundGreaterThanNine = getRound(
-              playersLen: currentState.listOfPlayers.length,
-              round: currentState.round) >
-          9;
+      final isRoundGreaterThanNine =
+          getRound(rounds: currentState.rounds, round: currentState.round) > 9;
 
       final isPlayerFoldOne = currentPlayerFold == 1;
       int foldValue =

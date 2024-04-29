@@ -16,8 +16,8 @@ class SetFoldsScreen extends StatelessWidget {
       child: BlocBuilder<SetFoldsCubit, SetFoldsState>(
         builder: (context, state) {
           if (state is SetFoldsLoadedState) {
-            final currentRound = getRound(
-                playersLen: state.listOfPlayers.length, round: state.round);
+            final currentRound =
+                getRound(rounds: state.rounds, round: state.round);
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
