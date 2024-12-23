@@ -33,13 +33,18 @@
     <title>R I K I K I</title>
     <link rel="manifest" href="manifest.json" />
 
+    <!-- Google tag (gtag.js) -->
+    <script
+      async=""
+      src="https://www.googletagmanager.com/gtag/js?id=G-TYGTPTPYYF"
+    ></script>
     <script>
-      // The value below is injected by flutter build, do not touch.
-      const serviceWorkerVersion = null;
-    </script>
-    <!-- This script adds the flutter initialization JS code -->
-    <script src="flutter.js" defer=""></script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
+      gtag('config', 'G-TYGTPTPYYF');
+    </script>
     <style id="splash-screen-style">
       html {
         height: 100%
@@ -98,20 +103,6 @@
         right: 0;
       }
     </style>
-
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-TYGTPTPYYF"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-TYGTPTPYYF');
-    </script>
-
     <script id="splash-screen-script">
       function removeSplashFromWeb() {
         document.getElementById("splash")?.remove();
@@ -119,6 +110,10 @@
         document.body.style.background = "transparent";
       }
     </script>
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      name="viewport"
+    />
   </head>
   <body>
     <picture id="splash">
@@ -137,22 +132,6 @@
         alt=""
       />
     </picture>
-
-    <script>
-         window.addEventListener('load', function(ev) {
-        // Download main.dart.js
-        _flutter.loader.loadEntrypoint({
-          serviceWorker: {
-            serviceWorkerUrl: './service-worker.js',
-            serviceWorkerVersion: serviceWorkerVersion,
-          },
-          onEntrypointLoaded: function(engineInitializer) {
-            engineInitializer.initializeEngine().then(function(appRunner) {
-              appRunner.runApp();
-            });
-          }
-        });
-      });
-    </script>
+    <script src="flutter_bootstrap.js" async=""></script>
   </body>
 </html>
