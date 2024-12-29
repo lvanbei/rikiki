@@ -35,7 +35,8 @@ class AddPlayersLoadedState extends AddPlayersState {
 
   bool get playerAlreadyExist {
     final res = listOfPlayers.firstWhereOrNull((PlayerModel element) =>
-            element.name.toLowerCase() == controller.text.toLowerCase()) !=
+            element.name.toLowerCase().trim() ==
+            controller.text.toLowerCase().trim()) !=
         null;
     return res;
   }
