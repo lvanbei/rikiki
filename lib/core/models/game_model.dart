@@ -14,7 +14,7 @@ class GameModel {
   GameModel({
     this.round = 0,
     this.rounds = 0,
-    this.pointsPerFold = 2,
+    this.pointsPerFold,
     required this.creationDate,
     required this.players,
   });

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gif_view/gif_view.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/core.dart';
+import '../base/base_cubit.dart';
 import 'play.dart';
 
 class PlayScreen extends StatelessWidget {
@@ -12,33 +14,41 @@ class PlayScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => PlayCubit()..onWidgetDidInit(),
+      create: (_) => PlayCubit(context.read<BaseCubit>())..onWidgetDidInit(),
       child: BlocBuilder<PlayCubit, PlayState>(
         builder: (context, state) {
           if (state is PlayLoadedState) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Expanded(
-                  child: Center(
-                    child: Text(
-                      "Play !",
-                      textAlign: TextAlign.left,
-                      style:
-                          TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                const Expanded(child: SizedBox.shrink()),
+                GifView.asset(
+                  context
+                      .read<PlayCubit>()
+                      .getRandomGif(isBattle: state.isBattle),
+                  height: 300,
+                  width: 300,
                 ),
+                const Text(
+                  "Play !",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  state.playText,
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                      fontSize: 45, fontWeight: FontWeight.bold),
+                ),
+                const Expanded(child: SizedBox.shrink()),
                 MyButton(
                   title: 'Finished',
-                  size: ButtonSizes.big,
+                  size: ButtonSizes.medium,
                   onPressed: () {
                     Router.neglect(context,
                         () => GoRouter.of(context).go(AppRoutes.checkFolds));
                   },
-                ),
-                const SizedBox(),
+                )
               ],
             );
           }

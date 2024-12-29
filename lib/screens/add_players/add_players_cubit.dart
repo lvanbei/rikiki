@@ -26,31 +26,14 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     final int rounds =
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].rounds;
 
-    final int? pointPerFold = (baseCubit.state as BaseLoadedState)
-        .games[selectedGameIndex]
-        .pointsPerFold;
-
     displayedListOfPlayers.sort((a, b) => a.position.compareTo(b.position));
     emit(AddPlayersLoadedState(
       listOfPlayers: listOfPlayers,
       displayedListOfPlayers: displayedListOfPlayers,
       controller: TextEditingController(),
       round: round,
-      rounds: rounds,
-      pointsPerFold: pointPerFold ?? 2,
-      increasePointPerFold: pointPerFold == null,
+      rounds: (rounds / 2).ceil(),
     ));
-  }
-
-  void updatePointsPerFold({bool isPlus = false, bool longPress = false}) {
-    final currentState = state as AddPlayersLoadedState;
-    final currentPointPerFold = currentState.pointsPerFold;
-    int newPoint = currentPointPerFold;
-    if (isPlus) {
-      newPoint += 1;
-      return emit(currentState.copyWith(pointsPerFold: newPoint));
-    }
-    emit(currentState.copyWith(pointsPerFold: currentPointPerFold - 1));
   }
 
   void onSubmitPlayer() {
@@ -67,10 +50,12 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
       folds: [],
     ));
     currentPlayers.add(currentDisplayedPlayers.last);
-
-    emit(
-        currentState.copyWith(displayedListOfPlayers: currentDisplayedPlayers));
-
+    final rounds = ((52 / currentDisplayedPlayers.length).floor() * 2) - 1;
+    emit(currentState.copyWith(
+      displayedListOfPlayers: currentDisplayedPlayers,
+      rounds: (rounds / 2).ceil(),
+    ));
+    baseCubit.updateRounds(rounds);
     baseCubit.updatePlayers(currentPlayers);
   }
 
@@ -82,8 +67,21 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     currentDisplayedPlayers.removeAt(index);
     currentPlayers.removeWhere((element) => element.name == name);
 
-    emit(
-        currentState.copyWith(displayedListOfPlayers: currentDisplayedPlayers));
+    final rounds = currentState.rounds;
+    int setRounds = rounds;
+    int newRounds = 0;
+    if (currentDisplayedPlayers.isNotEmpty) {
+      newRounds = (52 / currentDisplayedPlayers.length).floor();
+    }
+
+    if (rounds >= newRounds) {
+      setRounds = newRounds;
+    }
+    emit(currentState.copyWith(
+      displayedListOfPlayers: currentDisplayedPlayers,
+      rounds: setRounds,
+    ));
+    baseCubit.updateRounds(rounds);
     baseCubit.updatePlayers(currentPlayers);
   }
 
@@ -104,12 +102,18 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
   void updateFoldList() {
     final currentState = state as AddPlayersLoadedState;
     final currentPlayers = currentState.listOfPlayers;
-    final int newRounds = ((52 / currentPlayers.length).floor() * 2) - 1;
-    final int oldRounds = currentState.rounds;
+
+    final int newRounds = (currentState.rounds * 2) - 1;
+
+    final int selectedGameIndex =
+        (baseCubit.state as BaseLoadedState).selectedGameIndex;
+    final int oldRounds =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].rounds;
+
     final int currentRound = currentState.round;
     int setRounds = newRounds;
 
-    if (oldRounds != 0) {
+    if (oldRounds != 0 && currentState.continueGame) {
       // added a player during the game
       if (newRounds < oldRounds) {
         // current round is above existing new rounds
@@ -125,11 +129,7 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
           // update rounds if currentRound is below newRounds / 2
           currentRound > (oldRounds / 2).floor()) {
         setRounds = oldRounds;
-      } else {
-        setRounds = newRounds;
       }
-    } else {
-      setRounds = newRounds;
     }
 
     baseCubit.updateRounds(setRounds);
@@ -151,12 +151,5 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     }
 
     baseCubit.updatePlayers(currentPlayers);
-    baseCubit.updatePointPerFold(
-        currentState.increasePointPerFold ? null : currentState.pointsPerFold);
-  }
-
-  void updateIncreasePointPerFold(bool status) {
-    final currentState = state as AddPlayersLoadedState;
-    emit(currentState.copyWith(increasePointPerFold: status));
   }
 }

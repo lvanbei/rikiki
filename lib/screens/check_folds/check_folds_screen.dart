@@ -90,6 +90,7 @@ class CheckFoldsScreen extends StatelessWidget {
                       alignment: Alignment.center,
                       child: const Icon(
                         Icons.check,
+                        color: AppColors.white,
                       ),
                     ),
                   ),
@@ -105,6 +106,7 @@ class CheckFoldsScreen extends StatelessWidget {
                       alignment: Alignment.center,
                       child: const Icon(
                         Icons.arrow_back_ios_new_rounded,
+                        color: AppColors.white,
                       ),
                     ),
                   ),

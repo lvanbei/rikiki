@@ -18,10 +18,6 @@ abstract class _$AddPlayersLoadedStateCWProxy {
 
   AddPlayersLoadedState rounds(int rounds);
 
-  AddPlayersLoadedState pointsPerFold(int pointsPerFold);
-
-  AddPlayersLoadedState increasePointPerFold(bool increasePointPerFold);
-
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `AddPlayersLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -34,8 +30,6 @@ abstract class _$AddPlayersLoadedStateCWProxy {
     TextEditingController? controller,
     int? round,
     int? rounds,
-    int? pointsPerFold,
-    bool? increasePointPerFold,
   });
 }
 
@@ -66,14 +60,6 @@ class _$AddPlayersLoadedStateCWProxyImpl
   AddPlayersLoadedState rounds(int rounds) => this(rounds: rounds);
 
   @override
-  AddPlayersLoadedState pointsPerFold(int pointsPerFold) =>
-      this(pointsPerFold: pointsPerFold);
-
-  @override
-  AddPlayersLoadedState increasePointPerFold(bool increasePointPerFold) =>
-      this(increasePointPerFold: increasePointPerFold);
-
-  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `AddPlayersLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -87,8 +73,6 @@ class _$AddPlayersLoadedStateCWProxyImpl
     Object? controller = const $CopyWithPlaceholder(),
     Object? round = const $CopyWithPlaceholder(),
     Object? rounds = const $CopyWithPlaceholder(),
-    Object? pointsPerFold = const $CopyWithPlaceholder(),
-    Object? increasePointPerFold = const $CopyWithPlaceholder(),
   }) {
     return AddPlayersLoadedState(
       listOfPlayers:
@@ -115,17 +99,6 @@ class _$AddPlayersLoadedStateCWProxyImpl
           ? _value.rounds
           // ignore: cast_nullable_to_non_nullable
           : rounds as int,
-      pointsPerFold:
-          pointsPerFold == const $CopyWithPlaceholder() || pointsPerFold == null
-              ? _value.pointsPerFold
-              // ignore: cast_nullable_to_non_nullable
-              : pointsPerFold as int,
-      increasePointPerFold:
-          increasePointPerFold == const $CopyWithPlaceholder() ||
-                  increasePointPerFold == null
-              ? _value.increasePointPerFold
-              // ignore: cast_nullable_to_non_nullable
-              : increasePointPerFold as bool,
     );
   }
 }

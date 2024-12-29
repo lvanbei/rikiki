@@ -86,6 +86,15 @@ class MyApp extends StatelessWidget {
                   ),
                   GoRoute(
                     parentNavigatorKey: _shellNavigatorKey,
+                    name: AppRouteNames.gameSettings,
+                    path: AppRoutes.gameSettings,
+                    pageBuilder: (context, state) => NoTransitionPage(
+                        name: state.fullPath,
+                        key: state.pageKey,
+                        child: const GameSettingsScreen()),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: _shellNavigatorKey,
                     name: AppRouteNames.setFolds,
                     path: AppRoutes.setFolds,
                     pageBuilder: (context, state) => NoTransitionPage(

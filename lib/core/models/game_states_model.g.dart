@@ -11,7 +11,7 @@ GameStatesModel _$GameStatesModelFromJson(Map<String, dynamic> json) =>
       games: (json['games'] as List<dynamic>)
           .map((e) => GameModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      selectedGameIndex: json['selectedGameIndex'] as int?,
+      selectedGameIndex: (json['selectedGameIndex'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$GameStatesModelToJson(GameStatesModel instance) =>
