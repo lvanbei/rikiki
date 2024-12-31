@@ -59,54 +59,36 @@ class AddPlayersScreen extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Scrollbar(
-                      controller: scrollController,
-                      thumbVisibility: true,
-                      child: ReorderableListView(
-                        scrollController: scrollController,
-                        // controller: scrollController,
-                        // itemCount: state.displayedListOfPlayers.length,
-                        onReorder: context
-                            .read<AddPlayersCubit>()
-                            .onReorderListOfPlayers,
-                        // controller: scrollController,
-                        // itemCount: state.displayedListOfPlayers.length,
-                        children: <Widget>[
-                          for (int index = 0;
-                              index < state.displayedListOfPlayers.length;
-                              index += 1)
-                            ListTile(
-                              key: Key('$index'),
-                              title: Text(
-                                  state.displayedListOfPlayers[index].name),
-                              leading: Text('${(index + 1)}.'),
-                              trailing: IconButton(
-                                  onPressed: () {
-                                    context
-                                        .read<AddPlayersCubit>()
-                                        .onDeletePlayer(
-                                            index,
-                                            state.displayedListOfPlayers[index]
-                                                .name);
-                                  },
-                                  icon: const Icon(Icons.delete_forever)),
-                            ),
-                        ],
-                        // itemBuilder: (context, index) =>
-                        //
-                        // ListTile(
-                        //   title: Text(state.displayedListOfPlayers[index].name),
-                        //   leading: Text('${(index + 1)}.'),
-                        //   trailing: IconButton(
-                        //       onPressed: () {
-                        //         context.read<AddPlayersCubit>().onDeletePlayer(
-                        //             index,
-                        //             state.displayedListOfPlayers[index].name);
-                        //       },
-                        //       icon: const Icon(Icons.delete_forever)),
-                        // ),
-                      ),
-                    ),
+                    child: state.continueGame
+                        ? Scrollbar(
+                            controller: scrollController,
+                            thumbVisibility: true,
+                            child: ListView.builder(
+                                controller: scrollController,
+                                itemCount: state.displayedListOfPlayers.length,
+                                itemBuilder: (context, index) => ListTile(
+                                      title: Text(state
+                                          .displayedListOfPlayers[index].name),
+                                      leading: Text('${(index + 1)}.'),
+                                      trailing: IconButton(
+                                          onPressed: () {
+                                            context
+                                                .read<AddPlayersCubit>()
+                                                .onDeletePlayer(
+                                                    index,
+                                                    state
+                                                        .displayedListOfPlayers[
+                                                            index]
+                                                        .name);
+                                          },
+                                          icon:
+                                              const Icon(Icons.delete_forever)),
+                                    )),
+                          )
+                        : MyReordableListView(
+                            displayedListOfPlayers:
+                                state.displayedListOfPlayers,
+                          ),
                   ),
                 ),
                 const Gap(8),
@@ -128,6 +110,76 @@ class AddPlayersScreen extends StatelessWidget {
           }
           return const LoadingScreen();
         },
+      ),
+    );
+  }
+}
+
+class MyReordableListView extends StatefulWidget {
+  const MyReordableListView({
+    super.key,
+    required this.displayedListOfPlayers,
+  });
+
+  final List<PlayerModel> displayedListOfPlayers;
+
+  @override
+  State<MyReordableListView> createState() => _MyReordableListViewState();
+}
+
+class _MyReordableListViewState extends State<MyReordableListView> {
+  List<PlayerModel> items = [];
+  @override
+  void initState() {
+    items = widget.displayedListOfPlayers;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
+    return Scrollbar(
+      controller: scrollController,
+      thumbVisibility: true,
+      child: ReorderableListView(
+        scrollController: scrollController,
+        onReorder: (oldIndex, newIndex) {
+          setState(() {
+            if (oldIndex < newIndex) {
+              newIndex -= 1;
+            }
+            final item = items.removeAt(oldIndex);
+            items.insert(newIndex, item);
+            context.read<AddPlayersCubit>().onReorderListOfPlayers(items);
+          });
+        },
+        children: <Widget>[
+          for (int index = 0;
+              index < widget.displayedListOfPlayers.length;
+              index += 1)
+            ListTile(
+                tileColor: AppColors.white,
+                key: Key('$index'),
+                title: Text(widget.displayedListOfPlayers[index].name),
+                leading: Text('${(index + 1)}.'),
+                trailing: ReorderableDragStartListener(
+                  index: index,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            context.read<AddPlayersCubit>().onDeletePlayer(
+                                index,
+                                widget.displayedListOfPlayers[index].name);
+                          },
+                          icon: const Icon(Icons.delete_forever)),
+                      const Gap(4),
+                      const Icon(Icons.drag_handle),
+                    ],
+                  ),
+                )),
+        ],
       ),
     );
   }

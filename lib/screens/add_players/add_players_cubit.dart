@@ -163,16 +163,12 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     baseCubit.updatePlayers(currentPlayers);
   }
 
-  void onReorderListOfPlayers(int oldIndex, int newIndex) {
-    final currentState = state as AddPlayersLoadedState;
-    final listOfPlayers = currentState.displayedListOfPlayers;
-    if (oldIndex < newIndex) {
-      newIndex -= 1;
+  void onReorderListOfPlayers(List<PlayerModel> players) {
+    int index = 0;
+    for (var player in players) {
+      player.position = index;
+      index++;
     }
-    final item = listOfPlayers.removeAt(oldIndex);
-    listOfPlayers.insert(newIndex, item);
-    print(listOfPlayers[0].name);
-    print(listOfPlayers[1].name);
-    emit(currentState.copyWith(displayedListOfPlayers: listOfPlayers));
+    baseCubit.updatePlayers(players);
   }
 }

@@ -8,7 +8,7 @@ class PlayerModel {
   List<FoldsModel> folds;
   int points;
   int point;
-  final int position;
+  int position;
 
   PlayerModel({
     required this.name,
