@@ -25,6 +25,8 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
     final int rounds =
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].rounds;
+    final String? gameName =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].name;
 
     displayedListOfPlayers.sort((a, b) => a.position.compareTo(b.position));
     emit(AddPlayersLoadedState(
@@ -33,7 +35,15 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
       controller: TextEditingController(),
       round: round,
       rounds: (rounds / 2).ceil(),
+      gameName: gameName,
     ));
+  }
+
+  void onGameNameChange(String value) {
+    final localValue = value.trim();
+    final currentState = state as AddPlayersLoadedState;
+    currentState.gameName = localValue.isEmpty ? null : localValue;
+    baseCubit.updateGameName(localValue.isEmpty ? null : localValue);
   }
 
   void onSubmitPlayer() {
@@ -151,5 +161,18 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
     }
 
     baseCubit.updatePlayers(currentPlayers);
+  }
+
+  void onReorderListOfPlayers(int oldIndex, int newIndex) {
+    final currentState = state as AddPlayersLoadedState;
+    final listOfPlayers = currentState.displayedListOfPlayers;
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    final item = listOfPlayers.removeAt(oldIndex);
+    listOfPlayers.insert(newIndex, item);
+    print(listOfPlayers[0].name);
+    print(listOfPlayers[1].name);
+    emit(currentState.copyWith(displayedListOfPlayers: listOfPlayers));
   }
 }

@@ -42,7 +42,7 @@ class PlayScreen extends StatelessWidget {
                 ),
                 const Expanded(child: SizedBox.shrink()),
                 MyButton(
-                  title: 'Finished',
+                  title: 'Check folds',
                   size: ButtonSizes.medium,
                   onPressed: () {
                     Router.neglect(context,

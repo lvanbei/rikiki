@@ -10,6 +10,7 @@ class GameModel {
   int pointsPerFold;
   bool increasePointPerFold;
   final DateTime creationDate;
+  String? name;
   List<PlayerModel> players;
 
   GameModel({
@@ -19,6 +20,7 @@ class GameModel {
     this.increasePointPerFold = false,
     required this.creationDate,
     required this.players,
+    this.name,
   });
   factory GameModel.fromJson(Map<String, dynamic> json) =>
       _$GameModelFromJson(json);

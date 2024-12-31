@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/core.dart';
@@ -19,6 +20,8 @@ class SelectGameScreen extends StatelessWidget {
           if (state is SelectGameLoadedState) {
             return Column(
               children: [
+                Label(
+                    text: "Previous game${state.games.length > 1 ? "s" : ""}"),
                 Expanded(
                   child: SizedBox(
                     child: ListView.builder(
@@ -30,21 +33,24 @@ class SelectGameScreen extends StatelessWidget {
                             round: state.games[index].round);
                         return ListTile(
                             minVerticalPadding: 16,
-                            title: Text(displayFormat
-                                .format(state.games[index].creationDate)),
+                            title: Text(state.games[index].name ?? "No name"),
                             trailing:
                                 Row(mainAxisSize: MainAxisSize.min, children: [
-                              Text(
-                                  '${state.games[index].players.length} players'),
-                              const SizedBox(
-                                width: 16,
+                              Text(displayFormat
+                                  .format(state.games[index].creationDate)),
+                              const Gap(16),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(currentRound == -1
+                                      ? 'Finished'
+                                      : 'Round : $currentRound'),
+                                  Text(
+                                      '${state.games[index].players.length} players'),
+                                ],
                               ),
-                              Text(currentRound == -1
-                                  ? 'Finished'
-                                  : 'Round : $currentRound'),
-                              const SizedBox(
-                                width: 16,
-                              ),
+                              const Gap(16),
                               IconButton(
                                   onPressed: () {
                                     context

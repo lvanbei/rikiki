@@ -22,10 +22,23 @@ class AddPlayersScreen extends StatelessWidget {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                const Label(
+                  text: "Game name",
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: TextFormField(
+                      initialValue: state.gameName,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                      ),
+                      onChanged:
+                          context.read<AddPlayersCubit>().onGameNameChange),
+                ),
+                const Gap(8),
                 const Label(text: "Add players"),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding: const EdgeInsets.all(8),
                   child: MyTextField(
                     state: state,
                     onSubmit: context.read<AddPlayersCubit>().onSubmitPlayer,
@@ -49,20 +62,49 @@ class AddPlayersScreen extends StatelessWidget {
                     child: Scrollbar(
                       controller: scrollController,
                       thumbVisibility: true,
-                      child: ListView.builder(
-                        controller: scrollController,
-                        itemCount: state.displayedListOfPlayers.length,
-                        itemBuilder: (context, index) => ListTile(
-                          title: Text(state.displayedListOfPlayers[index].name),
-                          leading: Text('${(index + 1)}.'),
-                          trailing: IconButton(
-                              onPressed: () {
-                                context.read<AddPlayersCubit>().onDeletePlayer(
-                                    index,
-                                    state.displayedListOfPlayers[index].name);
-                              },
-                              icon: const Icon(Icons.delete_forever)),
-                        ),
+                      child: ReorderableListView(
+                        scrollController: scrollController,
+                        // controller: scrollController,
+                        // itemCount: state.displayedListOfPlayers.length,
+                        onReorder: context
+                            .read<AddPlayersCubit>()
+                            .onReorderListOfPlayers,
+                        // controller: scrollController,
+                        // itemCount: state.displayedListOfPlayers.length,
+                        children: <Widget>[
+                          for (int index = 0;
+                              index < state.displayedListOfPlayers.length;
+                              index += 1)
+                            ListTile(
+                              key: Key('$index'),
+                              title: Text(
+                                  state.displayedListOfPlayers[index].name),
+                              leading: Text('${(index + 1)}.'),
+                              trailing: IconButton(
+                                  onPressed: () {
+                                    context
+                                        .read<AddPlayersCubit>()
+                                        .onDeletePlayer(
+                                            index,
+                                            state.displayedListOfPlayers[index]
+                                                .name);
+                                  },
+                                  icon: const Icon(Icons.delete_forever)),
+                            ),
+                        ],
+                        // itemBuilder: (context, index) =>
+                        //
+                        // ListTile(
+                        //   title: Text(state.displayedListOfPlayers[index].name),
+                        //   leading: Text('${(index + 1)}.'),
+                        //   trailing: IconButton(
+                        //       onPressed: () {
+                        //         context.read<AddPlayersCubit>().onDeletePlayer(
+                        //             index,
+                        //             state.displayedListOfPlayers[index].name);
+                        //       },
+                        //       icon: const Icon(Icons.delete_forever)),
+                        // ),
                       ),
                     ),
                   ),

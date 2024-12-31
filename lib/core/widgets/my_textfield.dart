@@ -33,12 +33,10 @@ class _MyTextFieldState extends State<MyTextField> {
             child: TextFormField(
               keyboardType: TextInputType.name,
               autocorrect: false,
-              autofocus: true,
               focusNode: _focusNode,
               controller: widget.state.controller,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Add a player',
               ),
               onChanged: (value) => setState(() {}),
               autovalidateMode: AutovalidateMode.onUserInteraction,

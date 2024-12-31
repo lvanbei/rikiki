@@ -15,6 +15,7 @@ GameModel _$GameModelFromJson(Map<String, dynamic> json) => GameModel(
       players: (json['players'] as List<dynamic>)
           .map((e) => PlayerModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$GameModelToJson(GameModel instance) => <String, dynamic>{
@@ -23,5 +24,6 @@ Map<String, dynamic> _$GameModelToJson(GameModel instance) => <String, dynamic>{
       'pointsPerFold': instance.pointsPerFold,
       'increasePointPerFold': instance.increasePointPerFold,
       'creationDate': instance.creationDate.toIso8601String(),
+      'name': instance.name,
       'players': instance.players,
     };

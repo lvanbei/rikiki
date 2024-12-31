@@ -9,6 +9,7 @@ class SelectGameCubit extends Cubit<SelectGameState> {
 
   void onWidgetDidInit() {
     final games = (baseCubit.state as BaseLoadedState).games;
+    // remove empty games
     games.removeWhere((element) => element.players.isEmpty);
     games.sort(
       (a, b) => b.creationDate.compareTo(a.creationDate),
