@@ -17,15 +17,18 @@ class GameSettingsCubit extends Cubit<GameSettingsState> {
     final int rounds =
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].rounds;
 
-    final int? pointPerFold = (baseCubit.state as BaseLoadedState)
+    final int pointPerFold = (baseCubit.state as BaseLoadedState)
         .games[selectedGameIndex]
         .pointsPerFold;
+    final bool increasePointPerFold = (baseCubit.state as BaseLoadedState)
+        .games[selectedGameIndex]
+        .increasePointPerFold;
 
     emit(GameSettingsLoadedState(
       listOfPlayers: listOfPlayers,
       rounds: (rounds / 2).ceil(),
-      pointsPerFold: pointPerFold ?? 2,
-      increasePointPerFold: pointPerFold == null,
+      pointsPerFold: pointPerFold,
+      increasePointPerFold: increasePointPerFold,
       round: round,
     ));
   }
@@ -44,9 +47,17 @@ class GameSettingsCubit extends Cubit<GameSettingsState> {
     int newPoint = currentPointPerFold;
     if (isPlus) {
       newPoint += 1;
+      baseCubit.updatePointPerFold(newPoint);
       return emit(currentState.copyWith(pointsPerFold: newPoint));
     }
     emit(currentState.copyWith(pointsPerFold: currentPointPerFold - 1));
+    baseCubit.updatePointPerFold(newPoint);
+  }
+
+  void updateIncreasePointPerFold(bool status) {
+    final currentState = state as GameSettingsLoadedState;
+    emit(currentState.copyWith(increasePointPerFold: status));
+    baseCubit.updateIncreasePointPerFold(status);
   }
 
   void plusRounds() {
@@ -63,11 +74,5 @@ class GameSettingsCubit extends Cubit<GameSettingsState> {
       rounds: currentState.rounds - 1,
     ));
     baseCubit.updateRounds(((currentState.rounds - 1) * 2) - 1);
-  }
-
-  void updateIncreasePointPerFold(bool status) {
-    final currentState = state as GameSettingsLoadedState;
-    emit(currentState.copyWith(increasePointPerFold: status));
-    baseCubit.updatePointPerFold(status ? null : currentState.pointsPerFold);
   }
 }

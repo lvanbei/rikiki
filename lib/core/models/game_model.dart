@@ -7,14 +7,16 @@ part 'game_model.g.dart';
 class GameModel {
   int round;
   int rounds;
-  int? pointsPerFold;
+  int pointsPerFold;
+  bool increasePointPerFold;
   final DateTime creationDate;
   List<PlayerModel> players;
 
   GameModel({
     this.round = 0,
     this.rounds = 0,
-    this.pointsPerFold,
+    this.pointsPerFold = 2,
+    this.increasePointPerFold = false,
     required this.creationDate,
     required this.players,
   });

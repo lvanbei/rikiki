@@ -74,10 +74,17 @@ class BaseCubit extends Cubit<BaseState> {
     await updateGames();
   }
 
-  Future updatePointPerFold(int? pointsPerFold) async {
+  Future updatePointPerFold(int pointsPerFold) async {
     final currentState = state as BaseLoadedState;
     currentState.games[currentState.selectedGameIndex].pointsPerFold =
         pointsPerFold;
+    await updateGames();
+  }
+
+  Future updateIncreasePointPerFold(bool increasePointPerFold) async {
+    final currentState = state as BaseLoadedState;
+    currentState.games[currentState.selectedGameIndex].increasePointPerFold =
+        increasePointPerFold;
     await updateGames();
   }
 

@@ -17,7 +17,8 @@ class CheckFoldsLoadedState extends CheckFoldsState {
   final int rounds;
   final int turn;
   final int displayedFold;
-  final int? pointPerFold;
+  final int pointPerFold;
+  final bool increasePointPerFold;
 
   CheckFoldsLoadedState({
     required this.listOfPlayers,
@@ -25,7 +26,8 @@ class CheckFoldsLoadedState extends CheckFoldsState {
     required this.rounds,
     this.turn = 0,
     required this.displayedFold,
-    this.pointPerFold,
+    required this.pointPerFold,
+    required this.increasePointPerFold,
   });
 
   int get playerAnnouncedFold =>
@@ -50,14 +52,20 @@ class CheckFoldsLoadedState extends CheckFoldsState {
 
   void _setPlayerPoint([int? index]) {
     final bool isCheck = (playerMakedFold - playerAnnouncedFold) == 0;
+
     if (isCheck) {
       listOfPlayers[index ?? turn].point = 10 +
           (playerMakedFold *
-              (pointPerFold ?? getRound(rounds: rounds, round: round)));
+              (increasePointPerFold
+                  ? getRound(rounds: rounds, round: round)
+                  : pointPerFold));
     } else {
       listOfPlayers[index ?? turn].point =
           ((playerAnnouncedFold - playerMakedFold).abs()) *
-              ((pointPerFold ?? getRound(rounds: rounds, round: round)) * -1);
+              ((increasePointPerFold
+                      ? getRound(rounds: rounds, round: round)
+                      : pointPerFold) *
+                  -1);
     }
   }
 

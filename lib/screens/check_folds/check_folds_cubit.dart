@@ -20,9 +20,12 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
     final int rounds =
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].rounds;
 
-    final int? pointPerFold = (baseCubit.state as BaseLoadedState)
+    final int pointPerFold = (baseCubit.state as BaseLoadedState)
         .games[selectedGameIndex]
         .pointsPerFold;
+    final bool increasePointPerFold = (baseCubit.state as BaseLoadedState)
+        .games[selectedGameIndex]
+        .increasePointPerFold;
     //reset made folds
     for (var player in listOfPlayers) {
       player.folds[round].makedFolds = 0;
@@ -34,6 +37,7 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
       rounds: rounds,
       displayedFold: listOfPlayers[0].folds[round].announcedFolds,
       pointPerFold: pointPerFold,
+      increasePointPerFold:increasePointPerFold,
     ));
   }
 
