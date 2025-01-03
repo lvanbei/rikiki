@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rikiki/core/core.dart';
 
 import '../base/base_cubit.dart';
 import '../base/base_state.dart';
@@ -17,12 +18,14 @@ class PlayCubit extends Cubit<PlayState> {
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].players;
     final int round =
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
+    final int rounds =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].rounds;
     int totalAnnouncedFolds = 0;
     for (final player in listOfPlayers) {
       totalAnnouncedFolds += player.folds[round].announcedFolds;
     }
     emit(PlayLoadedState(
-      foldDelta: (round + 1) - totalAnnouncedFolds,
+      foldDelta: (getRound(rounds: rounds, round: round)) - totalAnnouncedFolds,
     ));
   }
 
