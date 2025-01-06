@@ -93,6 +93,7 @@ class GameSettingsScreen extends StatelessWidget {
               MyButton(
                 title: state.continueGame ? 'Continue' : 'Start',
                 onPressed: () {
+                  context.read<GameSettingsCubit>().updatePlayerFoldList();
                   Router.neglect(context,
                       () => GoRouter.of(context).go(AppRoutes.setFolds));
                 },

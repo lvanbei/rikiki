@@ -59,6 +59,7 @@ class CheckFoldsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+                // ToDo : bug when allowed number is above 9
                 NumericKeyboard(
                   mainAxisAlignment: MediaQuery.of(context).size.width > 672
                       ? MainAxisAlignment.center

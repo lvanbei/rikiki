@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/core.dart';
@@ -25,8 +26,8 @@ class ScoresScreen extends StatelessWidget {
                       rounds: state.rounds,
                       round: state.round) ==
                   0;
+              final ScrollController scrollController = ScrollController();
               return Column(
-                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Row(
@@ -116,138 +117,144 @@ class ScoresScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 64,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              constraints: const BoxConstraints(maxHeight: 36),
-                              onPressed: () {
-                                context
-                                    .read<ScoresCubit>()
-                                    .updatePlayer(isLeft: false);
-                              },
-                              icon: const Icon(
-                                Icons.arrow_back_ios_new_rounded,
-                                size: 16,
-                              )),
-                          const SizedBox(
-                            width: 16,
-                          ),
-                          SizedBox(
-                            width: 100,
-                            child: Text(
-                              state.listOfPlayers[state.selectedUser].name,
-                              textAlign: TextAlign.center,
+                  const Gap(32),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                                constraints:
+                                    const BoxConstraints(maxHeight: 36),
+                                onPressed: () {
+                                  context
+                                      .read<ScoresCubit>()
+                                      .updatePlayer(isLeft: false);
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_back_ios_new_rounded,
+                                  size: 16,
+                                )),
+                            const SizedBox(
+                              width: 16,
+                            ),
+                            SizedBox(
+                              width: 100,
+                              child: Text(
+                                state.listOfPlayers[state.selectedUser].name,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle()
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 16,
+                            ),
+                            IconButton(
+                                constraints:
+                                    const BoxConstraints(maxHeight: 36),
+                                onPressed: () {
+                                  context.read<ScoresCubit>().updatePlayer();
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_forward_ios_outlined,
+                                  size: 16,
+                                )),
+                          ],
+                        ),
+                        verticalSpacing(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Points : ',
+                            ),
+                            Text(
+                              state.points.toString(),
                               style: const TextStyle()
                                   .copyWith(fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                        verticalSpacing(),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              width: _widthHeader,
+                            ),
+                            SizedBox(
+                                width: _width,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: InkWell(
+                                        onDoubleTap: () {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            backgroundColor: AppColors.black,
+                                            content: SafeArea(
+                                                child: Center(
+                                              child: Text(
+                                                  'Total : ${state.announcedFoldTotal} folds'),
+                                            )),
+                                          ));
+                                        },
+                                        child: const Text(
+                                          "Announced",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: InkWell(
+                                        onDoubleTap: () {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            backgroundColor: AppColors.black,
+                                            content: SafeArea(
+                                                child: Center(
+                                              child: Text(
+                                                  'Total : ${state.makedFoldTotal} folds'),
+                                            )),
+                                          ));
+                                        },
+                                        child: const Text(
+                                          "Made",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          ],
+                        ),
+                        verticalSpacing(),
+                        Expanded(
+                          child: SizedBox(
+                            width: 200,
+                            child: Scrollbar(
+                              controller: scrollController,
+                              thumbVisibility: true,
+                              child: ListView(
+                                controller: scrollController,
+                                children: folds(state),
+                              ),
                             ),
                           ),
-                          const SizedBox(
-                            width: 16,
-                          ),
-                          IconButton(
-                              constraints: const BoxConstraints(maxHeight: 36),
-                              onPressed: () {
-                                context.read<ScoresCubit>().updatePlayer();
-                              },
-                              icon: const Icon(
-                                Icons.arrow_forward_ios_outlined,
-                                size: 16,
-                              )),
-                        ],
-                      ),
-                      verticalSpacing(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Points : ',
-                          ),
-                          Text(
-                            state.points.toString(),
-                            style: const TextStyle()
-                                .copyWith(fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                      verticalSpacing(),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(
-                            width: _widthHeader,
-                          ),
-                          SizedBox(
-                              width: _width,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: InkWell(
-                                      onDoubleTap: () {
-                                        ScaffoldMessenger.of(context)
-                                            .hideCurrentSnackBar();
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                          backgroundColor: AppColors.black,
-                                          content: SafeArea(
-                                              child: Center(
-                                            child: Text(
-                                                'Total : ${state.announcedFoldTotal} folds'),
-                                          )),
-                                        ));
-                                      },
-                                      child: const Text(
-                                        "Announced",
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: InkWell(
-                                      onDoubleTap: () {
-                                        ScaffoldMessenger.of(context)
-                                            .hideCurrentSnackBar();
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                          backgroundColor: AppColors.black,
-                                          content: SafeArea(
-                                              child: Center(
-                                            child: Text(
-                                                'Total : ${state.makedFoldTotal} folds'),
-                                          )),
-                                        ));
-                                      },
-                                      child: const Text(
-                                        "Made",
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              )),
-                        ],
-                      ),
-                      verticalSpacing(),
-                      SizedBox(
-                        //to adapt hide button below !
-                        height: MediaQuery.of(context).size.height > 1000
-                            ? 500
-                            : 150,
-                        child: SingleChildScrollView(
-                          child: Column(children: folds(state)),
                         ),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
                   if (!popupMode) ...[
-                    const Expanded(child: SizedBox()),
+                    const Gap(16),
                     MyButton(
                       title: !isFinish
                           ? 'Round ${getRound(rounds: state.rounds, round: state.round)}'
@@ -289,6 +296,7 @@ class ScoresScreen extends StatelessWidget {
     for (FoldsModel fold in state.listOfPlayers[state.selectedUser].folds) {
       if (index == state.round) break;
       result.add(Row(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

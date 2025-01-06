@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../core/core.dart';
 import '../base/base.dart';
 import 'game_settings_state.dart';
 
@@ -23,7 +24,6 @@ class GameSettingsCubit extends Cubit<GameSettingsState> {
     final bool increasePointPerFold = (baseCubit.state as BaseLoadedState)
         .games[selectedGameIndex]
         .increasePointPerFold;
-
     emit(GameSettingsLoadedState(
       listOfPlayers: listOfPlayers,
       rounds: (rounds / 2).ceil(),
@@ -74,5 +74,28 @@ class GameSettingsCubit extends Cubit<GameSettingsState> {
       rounds: currentState.rounds - 1,
     ));
     baseCubit.updateRounds(((currentState.rounds - 1) * 2) - 1);
+  }
+
+  void updatePlayerFoldList() {
+    final currentState = state as GameSettingsLoadedState;
+    final currentPlayers = currentState.listOfPlayers;
+
+    for (var player in currentPlayers) {
+      player.point = 0;
+      player.folds = List.generate((currentState.rounds * 2) - 1, (int index) {
+        if (player.folds.isNotEmpty &&
+            index < player.folds.length &&
+            player.folds[index].announcedFolds != 0 &&
+            player.folds[index].makedFolds != 0) {
+          return FoldsModel(
+            announcedFolds: player.folds[index].announcedFolds,
+            makedFolds: player.folds[index].makedFolds,
+          );
+        }
+        return FoldsModel();
+      });
+    }
+
+    baseCubit.updatePlayers(currentPlayers);
   }
 }

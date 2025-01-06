@@ -111,7 +111,6 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
 
   void updateFoldList() {
     final currentState = state as AddPlayersLoadedState;
-    final currentPlayers = currentState.listOfPlayers;
 
     final int newRounds = (currentState.rounds * 2) - 1;
 
@@ -119,6 +118,8 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
         (baseCubit.state as BaseLoadedState).selectedGameIndex;
     final int oldRounds =
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].rounds;
+    final listOfPlayers =
+        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].players;
 
     final int currentRound = currentState.round;
     int setRounds = newRounds;
@@ -144,7 +145,7 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
 
     baseCubit.updateRounds(setRounds);
 
-    for (var player in currentPlayers) {
+    for (var player in listOfPlayers) {
       player.point = 0;
       player.folds = List.generate(setRounds, (int index) {
         if (player.folds.isNotEmpty &&
@@ -160,7 +161,7 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
       });
     }
 
-    baseCubit.updatePlayers(currentPlayers);
+    baseCubit.updatePlayers(listOfPlayers);
   }
 
   void onReorderListOfPlayers(List<PlayerModel> players) {

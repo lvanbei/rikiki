@@ -150,8 +150,8 @@ class _MyReordableListViewState extends State<MyReordableListView> {
             }
             final item = items.removeAt(oldIndex);
             items.insert(newIndex, item);
+            context.read<AddPlayersCubit>().onReorderListOfPlayers(items);
           });
-          context.read<AddPlayersCubit>().onReorderListOfPlayers(items);
         },
         children: <Widget>[
           for (int index = 0;
