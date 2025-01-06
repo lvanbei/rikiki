@@ -10,7 +10,6 @@ import 'play.dart';
 class PlayScreen extends StatelessWidget {
   const PlayScreen({super.key});
 
-  //remove bloc?
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -28,6 +27,7 @@ class PlayScreen extends StatelessWidget {
                       .getRandomGif(isBattle: state.isBattle),
                   height: 300,
                   width: 300,
+                  progress: const LoadingScreen(),
                 ),
                 const Text(
                   "Play !",

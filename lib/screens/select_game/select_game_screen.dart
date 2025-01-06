@@ -21,6 +21,8 @@ class SelectGameScreen extends StatelessWidget {
             return Column(
               children: [
                 Label(
+                    padding:
+                        const EdgeInsets.only(left: 8, right: 8, bottom: 8),
                     text: "Previous game${state.games.length > 1 ? "s" : ""}"),
                 Expanded(
                   child: SizedBox(

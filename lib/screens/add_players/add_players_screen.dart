@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/core.dart';
 import '../base/base.dart';
 import 'add_players.dart';
+import 'widgets/widgets.dart';
 
 class AddPlayersScreen extends StatelessWidget {
   const AddPlayersScreen({super.key});
@@ -22,24 +23,9 @@ class AddPlayersScreen extends StatelessWidget {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Label(
-                  text: "Game name",
-                ),
                 Padding(
                   padding: const EdgeInsets.all(8),
-                  child: TextFormField(
-                      initialValue: state.gameName,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                      ),
-                      onChanged:
-                          context.read<AddPlayersCubit>().onGameNameChange),
-                ),
-                const Gap(8),
-                const Label(text: "Add players"),
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: MyTextField(
+                  child: InputSection(
                     state: state,
                     onSubmit: context.read<AddPlayersCubit>().onSubmitPlayer,
                     validator:
