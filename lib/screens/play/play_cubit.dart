@@ -26,6 +26,7 @@ class PlayCubit extends Cubit<PlayState> {
     }
     emit(PlayLoadedState(
       foldDelta: (getRound(rounds: rounds, round: round)) - totalAnnouncedFolds,
+      firstPlayerName: listOfPlayers.first.name,
     ));
   }
 

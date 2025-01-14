@@ -13,8 +13,9 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
   void onWidgetDidInit() {
     final int selectedGameIndex =
         (baseCubit.state as BaseLoadedState).selectedGameIndex;
-    final List<PlayerModel> listOfPlayers =
-        (baseCubit.state as BaseLoadedState).games[selectedGameIndex].players;
+    final List<PlayerModel> listOfPlayers = [
+      ...(baseCubit.state as BaseLoadedState).games[selectedGameIndex].players
+    ];
     final int round =
         (baseCubit.state as BaseLoadedState).games[selectedGameIndex].round;
     final int rounds =
@@ -37,7 +38,11 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
       rounds: rounds,
       displayedFold: listOfPlayers[0].folds[round].announcedFolds,
       pointPerFold: pointPerFold,
-      increasePointPerFold:increasePointPerFold,
+      increasePointPerFold: increasePointPerFold,
+      totalCheckedFolds: listOfPlayers.fold(
+          0,
+          (previousValue, element) =>
+              previousValue + element.folds[round].makedFolds),
     ));
   }
 
@@ -70,6 +75,7 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
 
     // round +1
     if (currentState.isLastPlayer) {
+      baseCubit.updatePlayers(currentState.listOfPlayers);
       Router.neglect(context, () => GoRouter.of(context).go(AppRoutes.scores));
       return;
     }

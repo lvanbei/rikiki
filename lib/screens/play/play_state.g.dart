@@ -9,6 +9,8 @@ part of 'play_state.dart';
 abstract class _$PlayLoadedStateCWProxy {
   PlayLoadedState foldDelta(int foldDelta);
 
+  PlayLoadedState firstPlayerName(String firstPlayerName);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `PlayLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -17,6 +19,7 @@ abstract class _$PlayLoadedStateCWProxy {
   /// ````
   PlayLoadedState call({
     int? foldDelta,
+    String? firstPlayerName,
   });
 }
 
@@ -30,6 +33,10 @@ class _$PlayLoadedStateCWProxyImpl implements _$PlayLoadedStateCWProxy {
   PlayLoadedState foldDelta(int foldDelta) => this(foldDelta: foldDelta);
 
   @override
+  PlayLoadedState firstPlayerName(String firstPlayerName) =>
+      this(firstPlayerName: firstPlayerName);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `PlayLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -39,12 +46,18 @@ class _$PlayLoadedStateCWProxyImpl implements _$PlayLoadedStateCWProxy {
   /// ````
   PlayLoadedState call({
     Object? foldDelta = const $CopyWithPlaceholder(),
+    Object? firstPlayerName = const $CopyWithPlaceholder(),
   }) {
     return PlayLoadedState(
       foldDelta: foldDelta == const $CopyWithPlaceholder() || foldDelta == null
           ? _value.foldDelta
           // ignore: cast_nullable_to_non_nullable
           : foldDelta as int,
+      firstPlayerName: firstPlayerName == const $CopyWithPlaceholder() ||
+              firstPlayerName == null
+          ? _value.firstPlayerName
+          // ignore: cast_nullable_to_non_nullable
+          : firstPlayerName as String,
     );
   }
 }

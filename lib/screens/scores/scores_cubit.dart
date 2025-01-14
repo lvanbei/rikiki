@@ -28,7 +28,7 @@ class ScoresCubit extends Cubit<ScoresState> {
     ));
   }
 
-  void sumPoint() {
+  void _sumPoint() {
     final currentState = state as ScoresLoadedState;
     for (var player in currentState.listOfPlayers) {
       player.points += player.point;
@@ -37,7 +37,7 @@ class ScoresCubit extends Cubit<ScoresState> {
   }
 
   void nextRound() async {
-    sumPoint();
+    _sumPoint();
     final currentState = state as ScoresLoadedState;
     await baseCubit.shiftPlayers();
     await baseCubit.updateRound(currentState.round);

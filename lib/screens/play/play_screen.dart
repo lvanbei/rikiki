@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:gif_view/gif_view.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,27 +21,39 @@ class PlayScreen extends StatelessWidget {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Expanded(child: SizedBox.shrink()),
-                GifView.asset(
-                  context
-                      .read<PlayCubit>()
-                      .getRandomGif(isBattle: state.isBattle),
-                  height: 300,
-                  width: 300,
-                  progress: const LoadingScreen(),
-                ),
+                const Spacer(),
                 const Text(
                   "Play !",
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  state.playText,
+                  '${state.firstPlayerName}\'s turn',
                   textAlign: TextAlign.left,
                   style: const TextStyle(
                       fontSize: 45, fontWeight: FontWeight.bold),
                 ),
-                const Expanded(child: SizedBox.shrink()),
+                const Gap(16),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    GifView.asset(
+                      context
+                          .read<PlayCubit>()
+                          .getRandomGif(isBattle: state.isBattle),
+                      height: 300,
+                      width: 300,
+                      progress: const LoadingScreen(),
+                    ),
+                    Text(
+                      state.playText,
+                      textAlign: TextAlign.left,
+                      style: const TextStyle(
+                          fontSize: 26, fontStyle: FontStyle.italic),
+                    ),
+                  ],
+                ),
+                const Spacer(),
                 MyButton(
                   title: 'Check folds',
                   size: ButtonSizes.medium,

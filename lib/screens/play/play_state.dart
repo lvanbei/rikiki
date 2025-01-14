@@ -11,7 +11,11 @@ class PlayInitialState extends PlayState {}
 @CopyWith()
 class PlayLoadedState extends PlayState {
   final int foldDelta;
-  const PlayLoadedState({required this.foldDelta});
+  final String firstPlayerName;
+  const PlayLoadedState({
+    required this.foldDelta,
+    required this.firstPlayerName,
+  });
 
   bool get isBattle => foldDelta <= 0;
   String get playText => isBattle
