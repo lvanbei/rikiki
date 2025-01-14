@@ -56,6 +56,7 @@ class BaseScreen extends StatelessWidget {
                               context: context,
                               builder: (context) => const AlertDialog(
                                 content: ScoresScreen(popupMode: true),
+                                backgroundColor: AppColors.white,
                               ),
                             );
                           },
