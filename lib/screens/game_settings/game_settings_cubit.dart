@@ -85,13 +85,14 @@ class GameSettingsCubit extends Cubit<GameSettingsState> {
       player.folds = List.generate((currentState.rounds * 2) - 1, (int index) {
         if (player.folds.isNotEmpty &&
             index < player.folds.length &&
-            player.folds[index].announcedFolds != 0 &&
-            player.folds[index].makedFolds != 0) {
+            (player.folds[index].announcedFolds != 0 ||
+                player.folds[index].makedFolds != 0)) {
           return FoldsModel(
             announcedFolds: player.folds[index].announcedFolds,
             makedFolds: player.folds[index].makedFolds,
           );
         }
+        print("empty fold");
         return FoldsModel();
       });
     }
