@@ -29,7 +29,7 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
         .increasePointPerFold;
     //reset made folds
     for (var player in listOfPlayers) {
-      player.folds[round].makedFolds = 0;
+      player.folds[round].madeFolds = 0;
     }
 
     emit(CheckFoldsLoadedState(

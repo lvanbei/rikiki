@@ -328,7 +328,7 @@ class ScoresScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    fold.makedFolds.toString(),
+                    fold.madeFolds.toString(),
                     textAlign: TextAlign.center,
                   ),
                 )

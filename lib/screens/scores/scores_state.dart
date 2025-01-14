@@ -33,5 +33,5 @@ class ScoresLoadedState extends ScoresState {
 
   int get makedFoldTotal => listOfPlayers[selectedUser]
       .folds
-      .fold(0, (previousValue, element) => previousValue + element.makedFolds);
+      .fold(0, (previousValue, element) => previousValue + element.madeFolds);
 }

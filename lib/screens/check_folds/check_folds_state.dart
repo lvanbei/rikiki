@@ -35,18 +35,18 @@ class CheckFoldsLoadedState extends CheckFoldsState {
 
   bool get isLastPlayer => turn == listOfPlayers.length - 1;
 
-  int get playerMakedFold => listOfPlayers[turn].folds[round].makedFolds;
+  int get playerMakedFold => listOfPlayers[turn].folds[round].madeFolds;
 
   int get totalCheckedFolds => listOfPlayers.fold(
       0,
       (previousValue, element) =>
-          previousValue + element.folds[round].makedFolds);
+          previousValue + element.folds[round].madeFolds);
 
   int getPlayerFoldWithIndex(int index) =>
       listOfPlayers[index].folds[round].announcedFolds;
 
   void setPlayerFold(int fold, [int? index]) {
-    listOfPlayers[index ?? turn].folds[round].makedFolds = fold;
+    listOfPlayers[index ?? turn].folds[round].madeFolds = fold;
     _setPlayerPoint(index);
   }
 

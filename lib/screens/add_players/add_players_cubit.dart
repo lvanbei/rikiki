@@ -151,10 +151,10 @@ class AddPlayersCubit extends Cubit<AddPlayersState> {
         if (player.folds.isNotEmpty &&
             index < player.folds.length &&
             (player.folds[index].announcedFolds != 0 ||
-                player.folds[index].makedFolds != 0)) {
+                player.folds[index].madeFolds != 0)) {
           return FoldsModel(
             announcedFolds: player.folds[index].announcedFolds,
-            makedFolds: player.folds[index].makedFolds,
+            madeFolds: player.folds[index].madeFolds,
           );
         }
         return FoldsModel();

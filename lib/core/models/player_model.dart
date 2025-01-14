@@ -27,11 +27,11 @@ class PlayerModel {
 @JsonSerializable()
 class FoldsModel {
   int announcedFolds;
-  int makedFolds;
+  int madeFolds;
 
   FoldsModel({
     this.announcedFolds = 0,
-    this.makedFolds = 0,
+    this.madeFolds = 0,
   });
 
   factory FoldsModel.fromJson(Map<String, dynamic> json) =>
