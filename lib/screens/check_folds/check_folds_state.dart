@@ -19,7 +19,6 @@ class CheckFoldsLoadedState extends CheckFoldsState {
   final int displayedFold;
   final int pointPerFold;
   final bool increasePointPerFold;
-  final int totalCheckedFolds;
 
   CheckFoldsLoadedState({
     required this.listOfPlayers,
@@ -29,7 +28,6 @@ class CheckFoldsLoadedState extends CheckFoldsState {
     required this.displayedFold,
     required this.pointPerFold,
     required this.increasePointPerFold,
-    required this.totalCheckedFolds,
   });
 
   int get playerAnnouncedFold =>
@@ -38,6 +36,11 @@ class CheckFoldsLoadedState extends CheckFoldsState {
   bool get isLastPlayer => turn == listOfPlayers.length - 1;
 
   int get playerMakedFold => listOfPlayers[turn].folds[round].makedFolds;
+
+  int get totalCheckedFolds => listOfPlayers.fold(
+      0,
+      (previousValue, element) =>
+          previousValue + element.folds[round].makedFolds);
 
   int getPlayerFoldWithIndex(int index) =>
       listOfPlayers[index].folds[round].announcedFolds;

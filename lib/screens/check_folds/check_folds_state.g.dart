@@ -21,8 +21,6 @@ abstract class _$CheckFoldsLoadedStateCWProxy {
 
   CheckFoldsLoadedState increasePointPerFold(bool increasePointPerFold);
 
-  CheckFoldsLoadedState totalCheckedFolds(int totalCheckedFolds);
-
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `CheckFoldsLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -37,7 +35,6 @@ abstract class _$CheckFoldsLoadedStateCWProxy {
     int? displayedFold,
     int? pointPerFold,
     bool? increasePointPerFold,
-    int? totalCheckedFolds,
   });
 }
 
@@ -74,10 +71,6 @@ class _$CheckFoldsLoadedStateCWProxyImpl
       this(increasePointPerFold: increasePointPerFold);
 
   @override
-  CheckFoldsLoadedState totalCheckedFolds(int totalCheckedFolds) =>
-      this(totalCheckedFolds: totalCheckedFolds);
-
-  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `CheckFoldsLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -93,7 +86,6 @@ class _$CheckFoldsLoadedStateCWProxyImpl
     Object? displayedFold = const $CopyWithPlaceholder(),
     Object? pointPerFold = const $CopyWithPlaceholder(),
     Object? increasePointPerFold = const $CopyWithPlaceholder(),
-    Object? totalCheckedFolds = const $CopyWithPlaceholder(),
   }) {
     return CheckFoldsLoadedState(
       listOfPlayers:
@@ -129,11 +121,6 @@ class _$CheckFoldsLoadedStateCWProxyImpl
               ? _value.increasePointPerFold
               // ignore: cast_nullable_to_non_nullable
               : increasePointPerFold as bool,
-      totalCheckedFolds: totalCheckedFolds == const $CopyWithPlaceholder() ||
-              totalCheckedFolds == null
-          ? _value.totalCheckedFolds
-          // ignore: cast_nullable_to_non_nullable
-          : totalCheckedFolds as int,
     );
   }
 }

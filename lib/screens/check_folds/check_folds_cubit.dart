@@ -39,10 +39,6 @@ class CheckFoldsCubit extends Cubit<CheckFoldsState> {
       displayedFold: listOfPlayers[0].folds[round].announcedFolds,
       pointPerFold: pointPerFold,
       increasePointPerFold: increasePointPerFold,
-      totalCheckedFolds: listOfPlayers.fold(
-          0,
-          (previousValue, element) =>
-              previousValue + element.folds[round].makedFolds),
     ));
   }
 
