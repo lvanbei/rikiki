@@ -82,6 +82,7 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
     if (currentState.turn > 0) {
       //reset player fold
       currentState.setPlayerFold(0);
+      currentState.announcedFoldTotal[currentState.turn] = 0;
       emit(currentState.copyWith(
         turn: currentState.turn - 1,
         displayedFold:
