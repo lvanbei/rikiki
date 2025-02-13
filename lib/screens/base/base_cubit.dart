@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:gif_view/gif_view.dart';
+import 'package:rikiki/core/constants/gif_names.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/core.dart';
@@ -17,6 +20,7 @@ class BaseCubit extends Cubit<BaseState> {
     final game = prefs.getString("games");
     final GameStatesModel parsedGame = _parseGame(game, prefs);
     final metaString = await rootBundle.loadString('assets/meta.json');
+    await _prefFetchGifs();
     emit(BaseLoadedState(
       meta: MetaModel.fromJson(jsonDecode(metaString)),
       prefs: prefs,
@@ -25,6 +29,15 @@ class BaseCubit extends Cubit<BaseState> {
           parsedGame.selectedGameIndex ?? parsedGame.games.length - 1,
     ));
     FlutterNativeSplash.remove();
+  }
+
+  Future<void> _prefFetchGifs() async {
+    for (String battleGif in battleGifList) {
+      await GifView.preFetchImage(AssetImage("assets/gifs/$battleGif.gif"));
+    }
+    for (String lessGif in lessGifList) {
+      await GifView.preFetchImage(AssetImage("assets/gifs/$lessGif.gif"));
+    }
   }
 
   GameStatesModel _parseGame(String? game, SharedPreferences prefs) {

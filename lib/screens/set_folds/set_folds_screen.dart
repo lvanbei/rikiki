@@ -18,12 +18,21 @@ class SetFoldsScreen extends StatelessWidget {
           if (state is SetFoldsLoadedState) {
             final currentRound =
                 getRound(rounds: state.rounds, round: state.round);
+            final totalAnnouncedFold = state.totalAnnouncedFold;
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Round $currentRound',
-                    style: const TextStyle(
-                        fontSize: 45, fontWeight: FontWeight.bold)),
+                Column(
+                  children: [
+                    Text('Round $currentRound',
+                        style: const TextStyle(
+                            fontSize: 45, fontWeight: FontWeight.bold)),
+                    Text(
+                        '$totalAnnouncedFold fold${totalAnnouncedFold > 1 ? 's' : ''} announced',
+                        style: const TextStyle(
+                            fontSize: 21, fontWeight: FontWeight.bold)),
+                  ],
+                ),
                 Center(
                   child: SizedBox(
                     height: 70,

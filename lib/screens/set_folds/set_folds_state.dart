@@ -18,6 +18,7 @@ class SetFoldsLoadedState extends SetFoldsState {
   final int rounds;
   final int displayedFold;
   final int turn;
+  final List<int> announcedFoldTotal;
 
   SetFoldsLoadedState({
     required this.listOfPlayers,
@@ -25,6 +26,7 @@ class SetFoldsLoadedState extends SetFoldsState {
     required this.rounds,
     required this.displayedFold,
     this.turn = 0,
+    this.announcedFoldTotal = const [],
   });
 
   int get maxFold => getRound(rounds: rounds, round: round);
@@ -58,4 +60,7 @@ class SetFoldsLoadedState extends SetFoldsState {
   bool isLastPlayerFoldAllowed(int fold) {
     return !(fold == maxFold - foldTotal);
   }
+
+  int get totalAnnouncedFold => announcedFoldTotal.fold(
+      0, (previousValue, element) => previousValue + element);
 }

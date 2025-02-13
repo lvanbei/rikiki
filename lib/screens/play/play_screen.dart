@@ -43,7 +43,7 @@ class PlayScreen extends StatelessWidget {
                           .getRandomGif(isBattle: state.isBattle),
                       height: 300,
                       width: 300,
-                      progress: const LoadingScreen(),
+                      progressBuilder: (context) => const LoadingScreen(),
                     ),
                     Text(
                       state.playText,

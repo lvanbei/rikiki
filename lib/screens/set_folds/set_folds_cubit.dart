@@ -23,7 +23,8 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
       listOfPlayers: listOfPlayers,
       round: round,
       rounds: rounds,
-      displayedFold: listOfPlayers[0].folds[round].announcedFolds,
+      displayedFold: listOfPlayers.first.folds[round].announcedFolds,
+      announcedFoldTotal: _getTotalAnnouncedFolds(listOfPlayers, round),
     ));
   }
 
@@ -38,6 +39,8 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
       final isPlayerFoldOne = currentPlayerFold == 1;
       int foldValue =
           isRoundGreaterThanNine && isPlayerFoldOne ? 10 + newFold : newFold;
+
+      currentState.announcedFoldTotal[currentState.turn] = foldValue;
 
       emit(currentState.copyWith(displayedFold: foldValue));
     }
@@ -85,5 +88,14 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
             currentState.getPlayerFoldWithIndex(currentState.turn - 1),
       ));
     }
+  }
+
+  List<int> _getTotalAnnouncedFolds(
+      List<PlayerModel> listOfPlayers, int round) {
+    List<int> folds = [];
+    for (PlayerModel player in listOfPlayers) {
+      folds.add(player.folds[round].announcedFolds);
+    }
+    return folds;
   }
 }

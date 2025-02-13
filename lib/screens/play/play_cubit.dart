@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rikiki/core/core.dart';
 
+import '../../core/constants/gif_names.dart';
 import '../base/base_cubit.dart';
 import '../base/base_state.dart';
 import 'play.dart';
@@ -31,20 +32,6 @@ class PlayCubit extends Cubit<PlayState> {
   }
 
   String getRandomGif({bool isBattle = true}) {
-    final List<String> battleGifList = [
-      "battle-1",
-      "battle-2",
-      "battle-3",
-      "battle-4",
-      "battle-5",
-    ];
-    final List<String> lessGifList = [
-      "less-1",
-      "less-2",
-      "less-3",
-      "less-4",
-      "less-5",
-    ];
     final randomGif = Random().nextInt(battleGifList.length);
     if (isBattle) {
       return "assets/gifs/${battleGifList[randomGif]}.gif";

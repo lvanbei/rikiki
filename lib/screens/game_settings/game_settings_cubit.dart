@@ -92,7 +92,6 @@ class GameSettingsCubit extends Cubit<GameSettingsState> {
             madeFolds: player.folds[index].madeFolds,
           );
         }
-        print("empty fold");
         return FoldsModel();
       });
     }

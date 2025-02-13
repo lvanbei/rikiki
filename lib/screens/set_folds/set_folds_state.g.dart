@@ -17,6 +17,8 @@ abstract class _$SetFoldsLoadedStateCWProxy {
 
   SetFoldsLoadedState turn(int turn);
 
+  SetFoldsLoadedState announcedFoldTotal(List<int> announcedFoldTotal);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SetFoldsLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -29,6 +31,7 @@ abstract class _$SetFoldsLoadedStateCWProxy {
     int? rounds,
     int? displayedFold,
     int? turn,
+    List<int>? announcedFoldTotal,
   });
 }
 
@@ -56,6 +59,10 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
   SetFoldsLoadedState turn(int turn) => this(turn: turn);
 
   @override
+  SetFoldsLoadedState announcedFoldTotal(List<int> announcedFoldTotal) =>
+      this(announcedFoldTotal: announcedFoldTotal);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SetFoldsLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -69,6 +76,7 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
     Object? rounds = const $CopyWithPlaceholder(),
     Object? displayedFold = const $CopyWithPlaceholder(),
     Object? turn = const $CopyWithPlaceholder(),
+    Object? announcedFoldTotal = const $CopyWithPlaceholder(),
   }) {
     return SetFoldsLoadedState(
       listOfPlayers:
@@ -93,6 +101,11 @@ class _$SetFoldsLoadedStateCWProxyImpl implements _$SetFoldsLoadedStateCWProxy {
           ? _value.turn
           // ignore: cast_nullable_to_non_nullable
           : turn as int,
+      announcedFoldTotal: announcedFoldTotal == const $CopyWithPlaceholder() ||
+              announcedFoldTotal == null
+          ? _value.announcedFoldTotal
+          // ignore: cast_nullable_to_non_nullable
+          : announcedFoldTotal as List<int>,
     );
   }
 }
