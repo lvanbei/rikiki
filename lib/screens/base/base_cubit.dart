@@ -20,7 +20,7 @@ class BaseCubit extends Cubit<BaseState> {
     final game = prefs.getString("games");
     final GameStatesModel parsedGame = _parseGame(game, prefs);
     final metaString = await rootBundle.loadString('assets/meta.json');
-    await _prefFetchGifs();
+    _prefFetchGifs();
     emit(BaseLoadedState(
       meta: MetaModel.fromJson(jsonDecode(metaString)),
       prefs: prefs,
