@@ -56,6 +56,7 @@ class SetFoldsCubit extends Cubit<SetFoldsState> {
       if (nextTurn == currentState.listOfPlayers.length - 1 &&
           !currentState.isLastPlayerFoldAllowed(0)) {
         currentState.setPlayerWithIndexFold(0, nextTurn);
+        currentState.announcedFoldTotal[nextTurn] = 0;
         emit(
           currentState.copyWith(
             turn: nextTurn,
